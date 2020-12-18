@@ -3,90 +3,131 @@
 //
 
 #include "Item.h"
+#include <iostream>
+using namespace std;
 
-const string &Item::getId() const {
-    return id;
+string Item::getId() const {
+	return id;
 }
 
-void Item::setId(const string &id) {
-    Item::id = id;
+void Item::setId(const string id) {
+	this -> id = id;
 }
 
-const string &Item::getTitle() const {
-    return title;
+string Item::getTitle() const {
+	return title;
 }
 
-void Item::setTitle(const string &title) {
-    Item::title = title;
+void Item::setTitle(const string title) {
+	this->title = title;
 }
 
-const string &Item::getRentalType() const {
-    return rentalType;
+string Item::getRentalType() const {
+	return rentalType;
 }
 
-void Item::setRentalType(const string &rentalType) {
-    Item::rentalType = rentalType;
+void Item::setRentalType(const string rentalType) {
+	this->rentalType = rentalType;
 }
 
-const string &Item::getLoanType() const {
-    return loanType;
+string Item::getLoanType() const {
+	return loanType;
 }
 
-void Item::setLoanType(const string &loanType) {
-    Item::loanType = loanType;
+void Item::setLoanType(const string loanType) {
+	this->loanType = loanType;
 }
 
 int Item::getNumberOfCopies() const {
-    return numberOfCopies;
+	return numberOfCopies;
 }
 
 void Item::setNumberOfCopies(int numberOfCopies) {
-    Item::numberOfCopies = numberOfCopies;
+	this->numberOfCopies = numberOfCopies;
 }
 
 double Item::getRentalFee() const {
-    return rentalFee;
+	return rentalFee;
 }
 
 void Item::setRentalFee(double rentalFee) {
-    Item::rentalFee = rentalFee;
+	this->rentalFee = rentalFee;
 }
 
 bool Item::isRentalStatus() const {
-    return rentalStatus;
+	return rentalStatus;
 }
 
 void Item::setRentalStatus(bool rentalStatus) {
-    Item::rentalStatus = rentalStatus;
+	this->rentalStatus = rentalStatus;
+}
+
+string Item::getGenre() {
+	return genre;
+}
+
+void Item::setGenre(string genre) {
+	this->genre = genre;
 }
 
 Item::Item() {
-    this -> id = "";
-    this -> title = "";
-    this -> rentalType = "";
-    this -> loanType = "";
+	this->id = "";
+	this->title = "";
+	this->rentalType = "";
+	this->loanType = "";
 }
 
-Item::Item(string id, string title, string rentalType, string loanType, int numberOfCopies,double rentalFee) {
-    this -> id = id;
-    this -> title = title;
-    this -> rentalType = rentalType;
-    this -> loanType = loanType;
-    this -> numberOfCopies = numberOfCopies;
-    this -> rentalFee = rentalFee;
+Item::Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee, string genre) {
+	this->id = id;
+	this->title = title;
+	this->rentalType = rentalType;
+	this->loanType = loanType;
+	this->numberOfCopies = numberOfCopies;
+	this->rentalFee = rentalFee;
+	this->genre = genre;
+}
+
+Item::Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee) {
+	this->id = id;
+	this->title = title;
+	this->rentalType = rentalType;
+	this->loanType = loanType;
+	this->numberOfCopies = numberOfCopies;
+	this->rentalFee = rentalFee;
+}
+
+Item::Item(Item &i) {
+	this->id = i.id;
+	this->title = i.title;
+	this->rentalType = i.rentalType;
+	this->loanType = i.loanType;
+	this->numberOfCopies = i.numberOfCopies;
+	this->rentalFee = i.rentalFee;
+	this->genre = i.genre;
 }
 
 // return true if can be rented or false if cannot be rented
 bool Item::renting() {
-    if (numberOfCopies > 0) {
-        numberOfCopies--;
-        return true;
-    } else {
-        return false;
-    }
+	if (numberOfCopies > 0) {
+		numberOfCopies--;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Item::returning() {
-    numberOfCopies++;
-    return true;
+	numberOfCopies++;
+	return true;
+}
+
+void Item::printDetail() {
+	// If gen
+	if (rentalType != "Game") {
+		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->genre << endl;
+	}
+	else {
+		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << endl;
+	}
 }
