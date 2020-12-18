@@ -3,8 +3,6 @@
 // Created by Hung Nguyen on 26/04/19.
 //
 
-#ifndef COSC2082_ASSIGNMENT_2_ITEM_H
-#define COSC2082_ASSIGNMENT_2_ITEM_H
 #include "string"
 
 using namespace std;
@@ -17,7 +15,7 @@ private:
 	string loanType;
 	int numberOfCopies;
 	double rentalFee;
-	bool rentalStatus;
+	string rentalStatus;
 	string genre;
 	string getGenre();
 	void setGenre(string genre);
@@ -46,9 +44,9 @@ public:
 
 	void setRentalFee(double rentalFee);
 
-	bool isRentalStatus() const;
+	string getRentalStatus() const;
 
-	void setRentalStatus(bool rentalStatus);
+	void setRentalStatus(string rentalStatus);
 
 	Item();
 	Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee, string genre);
@@ -60,6 +58,3 @@ public:
 	bool returning();
 	virtual void printDetail();
 };
-
-
-#endif //COSC2082_ASSIGNMENT_2_ITEM_H

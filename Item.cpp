@@ -54,11 +54,11 @@ void Item::setRentalFee(double rentalFee) {
 	this->rentalFee = rentalFee;
 }
 
-bool Item::isRentalStatus() const {
+string Item::getRentalStatus() const {
 	return rentalStatus;
 }
 
-void Item::setRentalStatus(bool rentalStatus) {
+void Item::setRentalStatus(string rentalStatus) {
 	this->rentalStatus = rentalStatus;
 }
 
@@ -85,6 +85,7 @@ Item::Item(string id, string title, string rentalType, string loanType, int numb
 	this->numberOfCopies = numberOfCopies;
 	this->rentalFee = rentalFee;
 	this->genre = genre;
+	this->rentalStatus = "available";
 }
 
 Item::Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee) {
@@ -94,6 +95,8 @@ Item::Item(string id, string title, string rentalType, string loanType, int numb
 	this->loanType = loanType;
 	this->numberOfCopies = numberOfCopies;
 	this->rentalFee = rentalFee;
+	this->rentalStatus = "available";
+
 }
 
 Item::Item(Item &i) {
@@ -110,6 +113,9 @@ Item::Item(Item &i) {
 bool Item::renting() {
 	if (numberOfCopies > 0) {
 		numberOfCopies--;
+		if (numberOfCopies == 0) {
+			this->setRentalStatus("borrowed");
+		}
 		return true;
 	}
 	else {
@@ -124,10 +130,5 @@ bool Item::returning() {
 
 void Item::printDetail() {
 	// If gen
-	if (rentalType != "Game") {
-		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->genre << endl;
-	}
-	else {
-		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << endl;
-	}
+		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->genre << " - " << this->rentalStatus <<endl;	
 }
