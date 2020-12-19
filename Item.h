@@ -16,9 +16,6 @@ private:
 	int numberOfCopies;
 	double rentalFee;
 	string rentalStatus;
-	string genre;
-	string getGenre();
-	void setGenre(string genre);
 public:
 	string getId() const;
 
@@ -49,12 +46,19 @@ public:
 	void setRentalStatus(string rentalStatus);
 
 	Item();
-	Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee, string genre);
 
-	// Overloaded function for Video Game type
 	Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee);
+
 	Item(Item &i);
+
 	bool renting();
+
 	bool returning();
+
+	bool increaseStock(int num);
+
+	bool checkStockAndSetRentalStatus();
+	//Function to check numberOfCopies and set its availibility
+
 	virtual void printDetail();
 };

@@ -1,7 +1,7 @@
 //
 // Created by Hung Nguyen on 26/04/19.
 //
-
+#include "stdafx.h"
 #include "Item.h"
 #include <iostream>
 using namespace std;
@@ -62,30 +62,11 @@ void Item::setRentalStatus(string rentalStatus) {
 	this->rentalStatus = rentalStatus;
 }
 
-string Item::getGenre() {
-	return genre;
-}
-
-void Item::setGenre(string genre) {
-	this->genre = genre;
-}
-
 Item::Item() {
 	this->id = "";
 	this->title = "";
 	this->rentalType = "";
 	this->loanType = "";
-}
-
-Item::Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee, string genre) {
-	this->id = id;
-	this->title = title;
-	this->rentalType = rentalType;
-	this->loanType = loanType;
-	this->numberOfCopies = numberOfCopies;
-	this->rentalFee = rentalFee;
-	this->genre = genre;
-	this->rentalStatus = "available";
 }
 
 Item::Item(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee) {
@@ -96,7 +77,6 @@ Item::Item(string id, string title, string rentalType, string loanType, int numb
 	this->numberOfCopies = numberOfCopies;
 	this->rentalFee = rentalFee;
 	this->rentalStatus = "available";
-
 }
 
 Item::Item(Item &i) {
@@ -106,16 +86,13 @@ Item::Item(Item &i) {
 	this->loanType = i.loanType;
 	this->numberOfCopies = i.numberOfCopies;
 	this->rentalFee = i.rentalFee;
-	this->genre = i.genre;
 }
 
 // return true if can be rented or false if cannot be rented
 bool Item::renting() {
 	if (numberOfCopies > 0) {
 		numberOfCopies--;
-		if (numberOfCopies == 0) {
-			this->setRentalStatus("borrowed");
-		}
+		checkStockAndSetRentalStatus();
 		return true;
 	}
 	else {
@@ -125,10 +102,27 @@ bool Item::renting() {
 
 bool Item::returning() {
 	numberOfCopies++;
+	checkStockAndSetRentalStatus();
 	return true;
 }
 
+bool Item::increaseStock(int num) {
+	numberOfCopies += num;
+	checkStockAndSetRentalStatus();
+	return true;
+}
+
+bool Item::checkStockAndSetRentalStatus() {
+	if (numberOfCopies > 0) {
+		this->setRentalStatus("Available");
+		return true;
+	}
+	else {
+		this->setRentalStatus("Borrowed");
+		return false;
+	}
+}
+
 void Item::printDetail() {
-	// If gen
-		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->genre << " - " << this->rentalStatus <<endl;	
+		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->rentalStatus <<endl;	
 }
