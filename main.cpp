@@ -1,19 +1,23 @@
+// main.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
 #include <iostream>
-#include "Item.h"
 #include <fstream>
+#include "Game.h"
+#include "Item.h"
+#include "Record.h"
+#include "DVD.h"
+#include "Menu.h"
 
 using namespace std;
 
-int main() {
 
-    Item i1("I101-2001","Something","Record","2-day",1,1.45);
-
-    i1.renting();
-    i1.renting();
-
-    cout << i1.getNumberOfCopies() << endl;
-    cout << i1.renting() << endl;
-
+int main()
+{	
+	Item i("i101 - 2012", "halo", "Game", "2 - days", 2, 2.225);
+	mainMenu(i);
 
     return 0;
 }
+
