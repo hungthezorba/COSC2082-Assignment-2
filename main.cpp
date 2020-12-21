@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Item.h"
+#include "Customers.hpp"
 #include <fstream>
 
 using namespace std;
@@ -13,6 +14,8 @@ int main() {
 
     cout << i1.getNumberOfCopies() << endl;
     cout << i1.renting() << endl;
+
+    cout << "testing" << endl;
 
 
     return 0;
