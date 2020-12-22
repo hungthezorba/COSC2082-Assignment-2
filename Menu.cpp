@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "Menu.h"
 #include <iostream>
-#include "string"
+#include <string>
+#include "ValidateItemInput.h"
+
+using namespace std;
 
 void mainMenu(Item item) {
 	string input;
@@ -62,17 +65,18 @@ void mainMenu(Item item) {
 
 // Item Menu Implementation
 
+
 void itemMenu(Item item) {
 
 	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
-	cout << "---------------------------* Item Menu *---------------------------" << endl;
-	cout << "| 1. Add a new item                                               |" << endl;
-	cout << "| 2. Delete an item                                               |" << endl;
-	cout << "| 3. Update an item                                               |" << endl;
-	cout << "| 4. Add more item to stock                                       |" << endl;
-	cout << "| 5. Back                                                         |" << endl;
-	cout << "| Exit.                                                           |" << endl;
-	cout << "-------------------------------------------------------------------" << endl;
+	cout << "----------------------------* Item Menu *---------------------------" << endl;
+	cout << "| 1. Add a new item                                                |" << endl;
+	cout << "| 2. Delete an item                                                |" << endl;
+	cout << "| 3. Update an item                                                |" << endl;
+	cout << "| 4. Add more item to stock                                        |" << endl;
+	cout << "| 5. Back                                                          |" << endl;
+	cout << "| Exit.                                                            |" << endl;
+	cout << "--------------------------------------------------------------------" << endl;
 	cout << "Choose an option: ";
 	string input;
 	cin >> input;
@@ -86,43 +90,64 @@ void itemMenu(Item item) {
 		// While loop is implemented to validate user's input before moving to next field.
 		while (true) {
 			cout << "1. Enter item ID: ";
-			// Not implement validate yet.
+			// Implemented validation. Still need further testing
 			cin >> inputArray[0];
-			break;
+			if (inputArray[0] == "exit")
+				exit(0);
+			if (validateItemInput(inputArray[0],1))
+				break;
 		}
 		while (true) {
 			cout << "2. Enter item's title: ";
-			// Not implement validate yet.
-			cin >> inputArray[1];
-			break;
+			// Implemented validation. Still need further testing
+			// Reference: https://www.xspdf.com/resolution/50767455.html
+			cin.ignore();
+			// Title can contains spaces so need to use getline in this case
+			getline(cin,inputArray[1]);
+			if (inputArray[1] == "exit")
+				exit(0);
+			if (validateItemInput(inputArray[1],2))
+				break;
 		}
 
 		while (true) {
 			cout << "3. Enter item's type: ";
-			// Not implement validate yet.
+			// Implemented validation. Still need further testing
 			cin >> inputArray[2];
-			break;
+			if (inputArray[2] == "exit")
+				exit(0);
+			if (validateItemInput(inputArray[2],3))
+				break;
 		}
 
 		while (true) {
 			cout << "4. Enter item's loan type: ";
-			// Not implement validate yet.
+			// Implemented validation. Still need further testing
 			cin >> inputArray[3];
-			break;
+			if (inputArray[3] == "exit")
+				exit(0);
+			if (validateItemInput(inputArray[3], 4))
+				break;
 		}
 
 		while (true) {
 			cout << "5. Enter item's number of copies: ";
-			// Not implement validate yet.
+			// Implemented validation. Still need further testing
 			cin >> inputArray[4];
-			break;
+			if (inputArray[4] == "exit")
+				exit(0);
+			if (validateItemInput(inputArray[4], 5))
+				break;
 		}
 
 		while (true) {
 			cout << "6. Enter item's rental fee: ";
-			// Not implement validate yet.
+			// Implemented validation. Still need further testing
 			cin >> inputArray[5];
-			break;
+			if (inputArray[5] == "exit")
+				exit(0);
+			if (validateItemInput(inputArray[5], 6))
+				break;
 		}
 
 		while (true) {
@@ -133,17 +158,28 @@ void itemMenu(Item item) {
 			}
 			else if (inputArray[2] == "DVD") {
 				cout << "7. Enter item's genre: ";
-				// Not implement validate yet.
+				// Implemented validation. Still need further testing
 				cin >> inputArray[6];
-				DVD d(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
-				break;
+				if (inputArray[6] == "exit")
+					exit(0);
+				if (validateItemInput(inputArray[6], 7)) {
+					DVD d(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
+					d.printDetail();
+					break;
+				}
 			}
 			else {
 				cout << "7. Enter item's genre: ";
 				cin >> inputArray[6];
-				// Not implement validate yet.
-				Record r(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
-				break;
+				// Implemented validation. Still need further testing
+				if (inputArray[6] == "exit")
+					exit(0);
+				if (validateItemInput(inputArray[6], 7)) {
+					Record r(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
+					r.printDetail();
+					break;
+				}
+					
 			}
 		}
 		itemMenu(item);
