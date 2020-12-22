@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Record.h"
 #include <iostream>
 using namespace std;

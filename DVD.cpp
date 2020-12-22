@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "DVD.h"
 #include <iostream>
 using namespace std;

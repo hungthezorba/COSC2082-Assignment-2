@@ -1,7 +1,6 @@
 //
 // Created by Hung Nguyen on 26/04/19.
 //
-#include "stdafx.h"
 #include "Item.h"
 #include <iostream>
 using namespace std;
