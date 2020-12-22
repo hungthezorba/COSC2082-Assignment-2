@@ -154,6 +154,7 @@ void itemMenu(Item &item) {
 			if (inputArray[2] == "Game") {
 				Game g(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]));
 				g.printDetail();
+				delete[] inputArray; // free the heap after used
 				break;
 			}
 			else if (inputArray[2] == "DVD") {
@@ -165,6 +166,7 @@ void itemMenu(Item &item) {
 				if (validateItemInput(inputArray[6], 7)) {
 					DVD d(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 					d.printDetail();
+					delete[] inputArray; // free the heap after used
 					break;
 				}
 			}
@@ -177,20 +179,179 @@ void itemMenu(Item &item) {
 				if (validateItemInput(inputArray[6], 7)) {
 					Record r(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 					r.printDetail();
+					delete[] inputArray; // free the heap after used
 					break;
 				}
 					
 			}
 		}
+		// Insert item into linked list here
+
+		// Back to item menu
 		itemMenu(item);
 	}
-	// Dummy option. Implement later
+	// Implemented flow. Later will implement action.
 	else if (input == "2") {
-		cout << "Option 2" << endl;
+		cout << "---------------------* Delete Item *---------------------" << endl;
+		// Consider show all item in the stock here
+		
+		// Check ID format
+		while (true) {
+			cout << "PROMPT: Enter item's ID want to delete: ";
+			cin >> input;
+			if (input == "back") {
+				itemMenu(item);
+				break;
+			}
+			else
+				if (validateItemInput(input,1))
+					break;
+		}
+		// Find item through the list here
+		//
+		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+		//
+		// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+		cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: "; 
+		cin >> input;
+		if (input == "yes")
+			cout << "SUCCESS: Item has been deleted." << endl;
+		else
+			cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
+		
+		itemMenu(item);
 	}
-	// Dummy option. Implement later
 	else if (input == "3") {
 		cout << "Option 3" << endl;
+		cout << "---------------------* Update Item *---------------------" << endl;
+		// Consider show all item in the stock here
+
+		// Check ID format
+		while (true) {
+			cout << "PROMPT: Enter item's ID want to update: ";
+			cin >> input;
+			if (input == "back") {
+				itemMenu(item);
+				break;
+			}
+			else
+				if (validateItemInput(input, 1))
+					break;
+		}
+		// Find item through the list here
+		//
+		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+		//
+		while (true) {
+			cout << "----------------------* Update Item *----------------------" << endl;
+			cout << "Item ID: " << item.getId() << endl;
+			cout << "1. Item title: " << item.getTitle() << endl;
+			cout << "2. Item type: " << item.getRentalType() << endl;
+			cout << "3. Item loan's type: " << item.getLoanType() << endl;
+			cout << "4. Item number of copies: " << item.getNumberOfCopies() << endl;
+			cout << "5. Item rental fee: " << item.getRentalFee() << endl;
+			if (item.getGenre() != "") {
+				cout << "6. Item genre: " << item.getGenre() << endl;
+			}
+			cout << "Select an option: ";
+			cin >> input;
+
+			if (input == "1") {
+				while (true) {
+					cout << "Enter item's title: ";
+					cin.ignore();
+					// Title can contains spaces so need to use getline in this case
+					getline(cin, input);
+					if (input == "exit")
+						exit(0);
+					if (validateItemInput(input, 2)) {
+						item.setTitle(input);
+						break;
+					}
+				}
+			}
+			else if (input == "2") {
+				while (true) {
+					cout << "Enter item's type: ";
+					cin >> input;
+					if (input == "exit")
+						exit(0);
+					if (validateItemInput(input, 3)) {
+						item.setRentalType(input);
+						break;
+					}
+				}
+			}
+			else if (input == "3") {
+				while (true) {
+					cout << "Enter item's loan type: ";
+					cin >> input;
+					if (input == "exit")
+						exit(0);
+					if (validateItemInput(input, 4)) {
+						item.setLoanType(input);
+						break;
+					}
+				}
+			}
+			else if (input == "4") {
+				while (true) {
+					cout << "Enter item's number of copies: ";
+					cin >> input;
+					if (input == "exit")
+						exit(0);
+					if (validateItemInput(input, 5)) {
+						item.setNumberOfCopies(stoi(input));
+						break;
+					}
+				}
+			}
+			else if (input == "5") {
+				while (true) {
+					cout << "Enter item's rental fee: ";
+					cin >> input;
+					if (input == "exit")
+						exit(0);
+					if (validateItemInput(input, 6)) {
+						item.setRentalFee(stod(input));
+						break;
+					}
+				}
+			}
+			else if (input == "6") {
+				while (true) {
+					cout << "Enter item's genre: ";
+					cin >> input;
+					if (input == "exit")
+						exit(0);
+					if (validateItemInput(input, 7)) {
+						item.setGenre(input);
+						break;
+					}
+				}
+			}
+			else if (input == "exit") {
+				exit(0);
+			}
+			else {
+				cout << "ERROR: Invalid input. Please enter again." << endl;
+			}
+			cout << "PROMPT: Continue to update ? (y/n): ";
+			cin >> input;
+			if (input == "exit") {
+				exit(0);
+			} 
+			else if (input == "y") {
+				cout << "------------------------------------------------" << endl;
+				// Continue to update
+			}
+			else {
+				cout << "------------------------------------------------" << endl;
+				// Break out the update loop
+				break;
+			}
+		}
+		itemMenu(item);
 	}
 	// Dummy option. Implement later
 	else if (input == "4") {
@@ -205,9 +366,6 @@ void itemMenu(Item &item) {
 		exit(0);
 	}
 	else {
-		cout << &item << endl;
-		item.printDetail();
-		item.setId("I199-2012");
 		cout << "Prompt: Invalid input" << endl;
 		itemMenu(item);
 	}

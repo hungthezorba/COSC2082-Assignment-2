@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {	
-	Item i("i101 - 2012", "halo", "Game", "2 - days", 2, 2.225);
+	DVD i("i101 - 2012", "halo", "Game", "2 - days", 2, 2.225, "Horrow");
 	mainMenu(i);
 
     return 0;
