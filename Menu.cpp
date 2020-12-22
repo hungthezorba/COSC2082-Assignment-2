@@ -63,7 +63,7 @@ void mainMenu(Item &item) {
 }
 
 // Item Menu Implementation
-
+// Considering move Item Menu to separated file since there will be lots of menu
 
 void itemMenu(Item &item) {
 
@@ -254,6 +254,11 @@ void itemMenu(Item &item) {
 			}
 			cout << "Select an option: ";
 			cin >> input;
+
+			if (input == "back") {
+				itemMenu(item);
+				break;
+			}
 
 			if (input == "1") {
 				while (true) {
