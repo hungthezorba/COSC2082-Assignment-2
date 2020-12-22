@@ -61,4 +61,6 @@ public:
 	//Function to check numberOfCopies and set its availibility
 
 	virtual void printDetail();
+	virtual string getGenre();
+	virtual void setGenre(string genre);
 };

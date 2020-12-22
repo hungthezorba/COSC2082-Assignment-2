@@ -10,7 +10,7 @@ string Item::getId() const {
 	return id;
 }
 
-void Item::setId(const string id) {
+void Item::setId(string id) {
 	this -> id = id;
 }
 
@@ -18,7 +18,7 @@ string Item::getTitle() const {
 	return title;
 }
 
-void Item::setTitle(const string title) {
+void Item::setTitle(string title) {
 	this->title = title;
 }
 
@@ -26,7 +26,7 @@ string Item::getRentalType() const {
 	return rentalType;
 }
 
-void Item::setRentalType(const string rentalType) {
+void Item::setRentalType(string rentalType) {
 	this->rentalType = rentalType;
 }
 
@@ -34,7 +34,7 @@ string Item::getLoanType() const {
 	return loanType;
 }
 
-void Item::setLoanType(const string loanType) {
+void Item::setLoanType(string loanType) {
 	this->loanType = loanType;
 }
 
@@ -126,3 +126,8 @@ bool Item::checkStockAndSetRentalStatus() {
 void Item::printDetail() {
 		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->rentalStatus <<endl;	
 }
+
+string Item::getGenre() {
+	return "";
+}
+void Item::setGenre(string genre) {}
