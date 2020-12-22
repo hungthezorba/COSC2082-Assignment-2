@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void mainMenu(Item item) {
+void mainMenu(Item &item) {
 	string input;
 	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 	cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
@@ -66,7 +66,7 @@ void mainMenu(Item item) {
 // Item Menu Implementation
 
 
-void itemMenu(Item item) {
+void itemMenu(Item &item) {
 
 	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
 	cout << "----------------------------* Item Menu *---------------------------" << endl;
@@ -205,6 +205,9 @@ void itemMenu(Item item) {
 		exit(0);
 	}
 	else {
+		cout << &item << endl;
+		item.printDetail();
+		item.setId("I199-2012");
 		cout << "Prompt: Invalid input" << endl;
 		itemMenu(item);
 	}
