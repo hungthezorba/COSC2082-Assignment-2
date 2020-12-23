@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void mainMenu(Item &item) {
+void mainMenu(Item *item) {
 	string input;
 	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 	cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
@@ -65,7 +65,7 @@ void mainMenu(Item &item) {
 // Item Menu Implementation
 // Considering move Item Menu to separated file since there will be lots of menu
 
-void itemMenu(Item &item) {
+void itemMenu(Item *item) {
 
 	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
 	cout << "----------------------------* Item Menu *---------------------------" << endl;
@@ -243,14 +243,15 @@ void itemMenu(Item &item) {
 		//
 		while (true) {
 			cout << "----------------------* Update Item *----------------------" << endl;
-			cout << "Item ID: " << item.getId() << endl;
-			cout << "1. Item title: " << item.getTitle() << endl;
-			cout << "2. Item type: " << item.getRentalType() << endl;
-			cout << "3. Item loan's type: " << item.getLoanType() << endl;
-			cout << "4. Item number of copies: " << item.getNumberOfCopies() << endl;
-			cout << "5. Item rental fee: " << item.getRentalFee() << endl;
-			if (item.getGenre() != "") {
-				cout << "6. Item genre: " << item.getGenre() << endl;
+			cout << "original: " << &item << endl;
+			cout << "Item ID: " << item -> getId() << endl;
+			cout << "1. Item title: " << item->getTitle() << endl;
+			cout << "2. Item type: " << item->getRentalType() << endl;
+			cout << "3. Item loan's type: " << item->getLoanType() << endl;
+			cout << "4. Item number of copies: " << item->getNumberOfCopies() << endl;
+			cout << "5. Item rental fee: " << item->getRentalFee() << endl;
+			if (item->getRentalType() != "Game") {
+				cout << "6. Item genre: " << item->getGenre() << endl;
 			}
 			cout << "Select an option: ";
 			cin >> input;
@@ -269,7 +270,7 @@ void itemMenu(Item &item) {
 					if (input == "exit")
 						exit(0);
 					if (validateItemInput(input, 2)) {
-						item.setTitle(input);
+						item->setTitle(input);
 						break;
 					}
 				}
@@ -281,7 +282,7 @@ void itemMenu(Item &item) {
 					if (input == "exit")
 						exit(0);
 					if (validateItemInput(input, 3)) {
-						item.setRentalType(input);
+						item->setRentalType(input);
 						break;
 					}
 				}
@@ -293,7 +294,7 @@ void itemMenu(Item &item) {
 					if (input == "exit")
 						exit(0);
 					if (validateItemInput(input, 4)) {
-						item.setLoanType(input);
+						item->setLoanType(input);
 						break;
 					}
 				}
@@ -305,7 +306,7 @@ void itemMenu(Item &item) {
 					if (input == "exit")
 						exit(0);
 					if (validateItemInput(input, 5)) {
-						item.setNumberOfCopies(stoi(input));
+						item->setNumberOfCopies(stoi(input));
 						break;
 					}
 				}
@@ -317,19 +318,20 @@ void itemMenu(Item &item) {
 					if (input == "exit")
 						exit(0);
 					if (validateItemInput(input, 6)) {
-						item.setRentalFee(stod(input));
+						item->setRentalFee(stod(input));
 						break;
 					}
 				}
 			}
-			else if (input == "6") {
+			else if (input == "6" && (item->getRentalType() == "DVD" || item->getRentalType() == "Record")) {
 				while (true) {
 					cout << "Enter item's genre: ";
 					cin >> input;
 					if (input == "exit")
 						exit(0);
 					if (validateItemInput(input, 7)) {
-						item.setGenre(input);
+						item->setGenre(input);
+						item->printDetail();
 						break;
 					}
 				}
@@ -355,6 +357,7 @@ void itemMenu(Item &item) {
 				break;
 			}
 		}
+		item->printDetail();
 		itemMenu(item);
 	}
 	// Dummy option. Implement later

@@ -8,6 +8,7 @@ private:
 public:
 	DVD();
 	DVD(string id, string title, string rentalType, string loanType, int numberOfCopies, double rentalFee, string genre);
+	DVD(DVD &d);
 	string getGenre();
 	void setGenre(string genre);
 	void printDetail();

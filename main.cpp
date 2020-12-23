@@ -14,7 +14,8 @@ using namespace std;
 
 int main()
 {	
-	DVD i("i101 - 2012", "halo", "Game", "2 - days", 2, 2.225, "Horrow");
+	Game *i = new Game("i101 - 2012", "halo", "Game", "2 - days", 2, 2.225);
+
 	mainMenu(i);
 
     return 0;

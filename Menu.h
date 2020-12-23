@@ -4,5 +4,5 @@
 #include "Record.h"
 #include "DVD.h"
 
-void mainMenu(Item &item);
-void itemMenu(Item &item);
+void mainMenu(Item *item);
+void itemMenu(Item *item);
