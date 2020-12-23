@@ -8,32 +8,48 @@
 #include "Record.h"
 #include "DVD.h"
 #include "Menu.h"
+#include "ItemElement.h"
 
 using namespace std;
 
 
 int main()
-{	
+{
+    Item i1("I101-2001","something","record","2-day",1,1.45);
+    Item i2("I102-2002","somethingelse","recordlabel","2-day",1,2.45);
+    Item i3("I103-2003","anything","record","2-day",2,1.55);
+    Item i4("I104-2005","something","record","2-day",1,1.45);
+    Item i5("I105-2007","manything","record","3-day",1,3.45);
 
-	/*DO NOT UNCOMMENT THIS IF YOU DONT KNOW WHAT IS THIS*/
+    ItemElement *last;
+    ItemElement *temp;
+    ItemElement *head;
+    last = new ItemElement;
+    temp = new ItemElement;
+    head = new ItemElement;
 
-	//Game i1("I001-2020", "halo", "Game", "2-days", 5, 5.5);
-	//DVD i2("I002-2020", "halo", "DVD", "2-days", 5, 5.5,"horror");
-	//Record i3("I003-2020", "halo", "Record", "2-days", 5, 5.5,"action");
-	//Game i4("I004-2020", "halo", "Game", "2-days", 5, 5.5);
-	//Record i5("I005-2020", "halo", "Record", "2-days", 5, 5.5,"comedy");
+    CreateLinkedList(head,temp,last,i1);
 
-	//Item **i = (Item**)malloc(sizeof(Item*) * 6);
-	//i[0] = &i1;
-	//i[1] = &i2;
-	//i[2] = &i3;
-	//i[3] = &i4;
-	//i[4] = &i5;
+//    cout <<head->data.getTitle();
+    AddElement(last,temp,i2);
+    AddElement(last,temp,i3);
+    AddElement(last,temp,i4);
+    AddElement(last,temp,i5);
 
-	//cout << sizeof(i) << endl;
-	//mainMenu(i);
+//    cout<<last->data.getId();
+    ItemElement*getInfo;
+    getInfo = head;
+//    cout <<getInfo->data.getTitle()<<endl;
+//    cout <<&i2<<endl;
+//    cout <<&head->next->data<<endl;
+//    cout<<temp<<endl;
+//    cout<<last<<endl;
+    for (int i =0;i<5;i++){
+        cout<<i<<endl;
+        cout <<getInfo->data.getTitle()<<endl;
+        getInfo = getInfo->next;
 
-	cout << "hello world" << endl;
+    }
 
     return 0;
 }
