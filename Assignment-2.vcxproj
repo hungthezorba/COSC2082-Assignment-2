@@ -103,6 +103,7 @@
     <ClCompile Include="DVD.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemMenu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Record.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="DVD.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Record.h" />
     <ClInclude Include="ValidateItemInput.h" />
