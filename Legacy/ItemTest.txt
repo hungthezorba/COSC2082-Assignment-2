@@ -1,0 +1,33 @@
+// main.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "Game.h"
+#include "Item.h"
+#include "Record.h"
+#include "DVD.h"
+#include "Menu.h"
+
+using namespace std;
+
+int main()
+{	
+	int arraySize = 5;
+	Game g("i101-2012", "halo", "Game", "2-days", 2, 2.225);
+	DVD d("i212-2012", "halo", "DVD", "2-days", 3, 2.225, "Comedy");
+	Record r("I212-2012", "Halo", "Record", "2-days", 2, 2.225, "Horror");
+
+	g.printDetail();
+	// renting a video game;
+	cout << "Customer want to rent a video game" << endl;
+	g.renting();
+	cout << "After renting..." << endl;
+	g.printDetail();
+
+	d.printDetail();
+	r.printDetail();
+	
+    return 0;
+}
+

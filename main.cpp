@@ -1,19 +1,40 @@
+// main.cpp : Defines the entry point for the console application.
+//
+
 #include <iostream>
-#include "Item.h"
 #include <fstream>
+#include "Game.h"
+#include "Item.h"
+#include "Record.h"
+#include "DVD.h"
+#include "Menu.h"
 
 using namespace std;
 
-int main() {
 
-    Item i1("I101-2001","Something","Record","2-day",1,1.45);
+int main()
+{	
 
-    i1.renting();
-    i1.renting();
+	/*DO NOT UNCOMMENT THIS IF YOU DONT KNOW WHAT IS THIS*/
 
-    cout << i1.getNumberOfCopies() << endl;
-    cout << i1.renting() << endl;
+	//Game i1("I001-2020", "halo", "Game", "2-days", 5, 5.5);
+	//DVD i2("I002-2020", "halo", "DVD", "2-days", 5, 5.5,"horror");
+	//Record i3("I003-2020", "halo", "Record", "2-days", 5, 5.5,"action");
+	//Game i4("I004-2020", "halo", "Game", "2-days", 5, 5.5);
+	//Record i5("I005-2020", "halo", "Record", "2-days", 5, 5.5,"comedy");
 
+	//Item **i = (Item**)malloc(sizeof(Item*) * 6);
+	//i[0] = &i1;
+	//i[1] = &i2;
+	//i[2] = &i3;
+	//i[3] = &i4;
+	//i[4] = &i5;
+
+	//cout << sizeof(i) << endl;
+	//mainMenu(i);
+
+	cout << "hello world" << endl;
 
     return 0;
 }
+
