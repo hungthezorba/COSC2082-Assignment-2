@@ -17,25 +17,23 @@ LinkedItem :: LinkedItem(){
 // Add item to linked list
 void LinkedItem::addItem(Item *newItem) {
     ItemElement* newPtr = new ItemElement;
-    newPtr->next = NULL;
     newPtr->data = newItem;
-
+	newPtr->next = NULL;
     if(Head == NULL){
         Head = newPtr;
-        temp = Head;
-        last = Head;
-    }else{
-        while(temp->next!=NULL){
+    }
+	else{
+		temp = Head;
+        while(temp->next != NULL){
             temp = temp->next;
         }
-        temp->next=newPtr;
-        last= newPtr;
+        temp->next = newPtr;
     }
 }
 
 
 // Print all item
-void LinkedItem :: printItem(){
+void LinkedItem::printItem(){
     temp = Head;
     while(temp!=NULL){
 		// Print first then move to jnext
@@ -63,25 +61,23 @@ ItemElement *LinkedItem::searchItem(string id){
 // Delete item by ID
 void LinkedItem::deleteItem(string id) {
 	// Considering to refactor this function because there is a repeat part in find by id.
-    ItemElement *delPtr = NULL;
     temp = Head;
-    track = Head;
-    string thisId = id;
-    while(temp!=NULL && temp->data->getId()!=thisId){
-        track = temp;
+    track = temp;
+    while(temp!=NULL){
+		// Rewrite
+		if (temp->data->getId() == id) {
+			// Found match id
+			if (temp != Head) {
+				track->next = temp->next; // behind item now will point to front item of the deleted item
+				temp->next = NULL; // deleted item will be remove the next
+			}
+			else {
+				Head = temp->next;
+			}
+		}
+        track = temp; // track will keep the behind item of the current item in case found item to delete.
         temp = temp->next;
     }
-    if(temp == NULL){
-		// No need to print message in this function. Message will be carried out by menu.
-        delete delPtr;
-    }
-    else {
-        delPtr = temp;
-        temp=temp->next;
-        track->next=temp;
-        delete delPtr;
-		// No need to print message in this function. Message will be carried out by menu.
-	}
 
 }
 
