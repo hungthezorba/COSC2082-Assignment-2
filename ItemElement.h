@@ -11,6 +11,4 @@ public:
     Item data;
     ItemElement * next;
 };
-void AddElement(ItemElement *&last,ItemElement*&temp,Item newItem);
-void CreateLinkedList(ItemElement *&first,ItemElement *&temp,ItemElement*&last,Item firstItem);
 #endif //ASSIGNMENT2_ITEMELEMENT_H
