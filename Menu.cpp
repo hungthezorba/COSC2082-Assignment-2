@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void mainMenu(LinkedItem itemList) {
+void mainMenu(LinkedItem &itemList) {
 	string input;
 	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 	cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
