@@ -9,6 +9,6 @@
 struct ItemElement{
 public:
     Item *data;
-    ItemElement * next;
+    ItemElement *next;
 };
 #endif //ASSIGNMENT2_ITEMELEMENT_H
