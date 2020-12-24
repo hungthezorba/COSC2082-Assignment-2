@@ -8,32 +8,30 @@
 #include "Record.h"
 #include "DVD.h"
 #include "Menu.h"
+#include "LinkedItem.h"
+#include "ItemElement.h"
 
 using namespace std;
 
 
 int main()
-{	
+{
 
-	/*DO NOT UNCOMMENT THIS IF YOU DONT KNOW WHAT IS THIS*/
+	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
+	LinkedItem itemList;
+	Game *i1 = new Game("I202-2012", "Halos", "Game", "2-days", 5, 5.5);
+	DVD *i2 = new DVD("I202-2015", "Halos", "Game", "2-days", 5, 5.5,"action");
+	DVD *i3 = new DVD("I202-2016", "dadq", "DVD", "2-days", 5, 5.5, "action");
 
-	//Game i1("I001-2020", "halo", "Game", "2-days", 5, 5.5);
-	//DVD i2("I002-2020", "halo", "DVD", "2-days", 5, 5.5,"horror");
-	//Record i3("I003-2020", "halo", "Record", "2-days", 5, 5.5,"action");
-	//Game i4("I004-2020", "halo", "Game", "2-days", 5, 5.5);
-	//Record i5("I005-2020", "halo", "Record", "2-days", 5, 5.5,"comedy");
 
-	//Item **i = (Item**)malloc(sizeof(Item*) * 6);
-	//i[0] = &i1;
-	//i[1] = &i2;
-	//i[2] = &i3;
-	//i[3] = &i4;
-	//i[4] = &i5;
+	itemList.addItem(i1);
+	itemList.addItem(i2);
+	itemList.addItem(i3);
 
-	//cout << sizeof(i) << endl;
-	//mainMenu(i);
+	itemList.printItem();
 
-	cout << "hello world" << endl;
+	mainMenu(itemList);
+
 
     return 0;
 }

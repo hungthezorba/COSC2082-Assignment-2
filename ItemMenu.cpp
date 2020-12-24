@@ -4,9 +4,10 @@
 #include "ValidateItemInput.h"
 #include "Menu.h"
 #include <string>
+#include "LinkedItem.h"
 using namespace std;
 
-void itemMenu(Item **itemList) {
+void itemMenu(LinkedItem &itemList) {
 
 	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
 	cout << "----------------------------* Item Menu *---------------------------" << endl;
@@ -28,7 +29,7 @@ void itemMenu(Item **itemList) {
 		// Create a new item
 		Item *newItem = itemCreateMenu();
 		// Insert item into linked list here
-		itemList[5] = newItem;
+		itemList.addItem(newItem);
 		// Back to item menu
 		itemMenu(itemList);
 	}
@@ -45,17 +46,25 @@ void itemMenu(Item **itemList) {
 				break;
 		}
 		// Find item through the list here
-		//
+		ItemElement *foundItem = itemList.searchItem(input);
+		if ( foundItem != NULL) {
+			foundItem->data->printDetail();
+			cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+			cin >> input;
+			if (input == "yes") {
+				itemList.deleteItem(foundItem->data->getId());
+				cout << "SUCCESS: Item has been deleted." << endl;
+				itemList.printItem();
+			}
+			else
+				cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
+		}
+		else {
+			cout << "ERROR: Item not found. Return to item menu." << endl;
+		}
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
 		// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-		cin >> input;
-		if (input == "yes")
-			cout << "SUCCESS: Item has been deleted." << endl;
-		else
-			cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
-
 		itemMenu(itemList);
 	}
 	else if (input == "3") {
@@ -77,12 +86,12 @@ void itemMenu(Item **itemList) {
 		}
 		// Find item through the list here
 
-		Item *item = itemList[0]; // *DUMMY FOUND ITEM*
+		ItemElement *item = itemList.searchItem(input);
 		
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
 		while (true) {
-			item = itemUpdateMenu(item);
+			itemUpdateMenu(item);
 			cout << "PROMPT: Continue to update ? (y/n): ";
 			cin >> input;
 			if (input == "exit") {
@@ -98,8 +107,7 @@ void itemMenu(Item **itemList) {
 				break;
 			}
 		}
-		itemList[0] = item;
-		cout << typeid(itemList[0]).name() << endl;
+		
 		itemMenu(itemList);
 	}
 	// Dummy option. Implement later
@@ -108,12 +116,12 @@ void itemMenu(Item **itemList) {
 	}
 	// Dummy option. Implement later
 	else if (input == "5") {
-		for (int i = 0; i < 6; i++) {
-			itemList[i] -> printDetail();
-		}
+		cout << "------------------List of items----------------" << endl;
+		itemList.printItem();
+		itemMenu(itemList);
 	}
 	else if (input == "6") {
-		mainMenu(itemList);
+		//mainMenu(itemList);
 	}
 	// Close program.
 	else if (input == "exit") {
@@ -125,6 +133,7 @@ void itemMenu(Item **itemList) {
 	}
 }
 
+// Create item
 Item* itemCreateMenu() {
 	string *inputArray = new string[7];
 
@@ -193,7 +202,7 @@ Item* itemCreateMenu() {
 
 	while (true) {
 		if (inputArray[2] == "Game") {
-			Item *newItem = new Game(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]));
+			Game *newItem = new Game(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]));
 			newItem->printDetail();
 			delete[] inputArray; // free the heap after used
 			return newItem;
@@ -206,7 +215,7 @@ Item* itemCreateMenu() {
 			if (inputArray[6] == "exit")
 				exit(0);
 			if (validateItemInput(inputArray[6], 7)) {
-				Item *newItem = new DVD(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
+				DVD *newItem = new DVD(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				newItem->printDetail();
 				delete[] inputArray; // free the heap after used
 				return newItem;
@@ -220,7 +229,7 @@ Item* itemCreateMenu() {
 			if (inputArray[6] == "exit")
 				exit(0);
 			if (validateItemInput(inputArray[6], 7)) {
-				Item *newItem = new Record(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
+				Record *newItem = new Record(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				newItem->printDetail();
 				delete[] inputArray; // free the heap after used
 				return newItem;
@@ -232,18 +241,18 @@ Item* itemCreateMenu() {
 }
 
 
-Item *itemUpdateMenu(Item *item) {
+void itemUpdateMenu(ItemElement *item) {
 	string input;
 	cout << "----------------------* Update Item *----------------------" << endl;
 	cout << "original: " << &item << endl;
-	cout << "Item ID: " << item->getId() << endl;
-	cout << "1. Item title: " << item->getTitle() << endl;
-	cout << "2. Item type: " << item->getRentalType() << endl;
-	cout << "3. Item loan's type: " << item->getLoanType() << endl;
-	cout << "4. Item number of copies: " << item->getNumberOfCopies() << endl;
-	cout << "5. Item rental fee: " << item->getRentalFee() << endl;
-	if (item->getRentalType() != "Game") {
-		cout << "6. Item genre: " << item->getGenre() << endl;
+	cout << "Item ID: " << item->data->getId() << endl;
+	cout << "1. Item title: " << item->data->getTitle() << endl;
+	cout << "2. Item type: " << item->data->getRentalType() << endl;
+	cout << "3. Item loan's type: " << item->data->getLoanType() << endl;
+	cout << "4. Item number of copies: " << item->data->getNumberOfCopies() << endl;
+	cout << "5. Item rental fee: " << item->data->getRentalFee() << endl;
+	if (item->data->getRentalType() != "Game") {
+		cout << "6. Item genre: " << item->data->getGenre() << endl;
 	}
 	cout << "Select an option: ";
 	cin >> input;
@@ -257,7 +266,7 @@ Item *itemUpdateMenu(Item *item) {
 			if (input == "exit")
 				exit(0);
 			if (validateItemInput(input, 2)) {
-				item->setTitle(input);
+				item->data->setTitle(input);
 				break;
 			}
 		}
@@ -269,18 +278,18 @@ Item *itemUpdateMenu(Item *item) {
 			if (input == "exit")
 				exit(0);
 			if (validateItemInput(input, 3)) {
-				item->setRentalType(input);
-				if (item->getRentalType() == "DVD") {
-					item = new DVD(item->getId(), item->getTitle(), item->getRentalType(), item->getLoanType(), item->getNumberOfCopies(), item->getRentalFee(), "NaN");
-					item->printDetail();
+				item->data->setRentalType(input);
+				if (item->data->getRentalType() == "DVD") {
+					item->data = new DVD(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
+					item->data->printDetail();
 				}
-				else if (item->getRentalType() == "Record") {
-					item = new Record(item->getId(), item->getTitle(), item->getRentalType(), item->getLoanType(), item->getNumberOfCopies(), item->getRentalFee(), "NaN");
-					item->printDetail();
+				else if (item->data->getRentalType() == "Record") {
+					item->data = new Record(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
+					item->data->printDetail();
 				}
 				else {
-					item = new Game(item->getId(), item->getTitle(), item->getRentalType(), item->getLoanType(), item->getNumberOfCopies(), item->getRentalFee());
-					item->printDetail();
+					item->data = new Game(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee());
+					item->data->printDetail();
 				}
 				break;
 			}
@@ -293,7 +302,7 @@ Item *itemUpdateMenu(Item *item) {
 			if (input == "exit")
 				exit(0);
 			if (validateItemInput(input, 4)) {
-				item->setLoanType(input);
+				item->data->setLoanType(input);
 				break;
 			}
 		}
@@ -305,7 +314,7 @@ Item *itemUpdateMenu(Item *item) {
 			if (input == "exit")
 				exit(0);
 			if (validateItemInput(input, 5)) {
-				item->setNumberOfCopies(stoi(input));
+				item->data->setNumberOfCopies(stoi(input));
 				break;
 			}
 		}
@@ -317,20 +326,20 @@ Item *itemUpdateMenu(Item *item) {
 			if (input == "exit")
 				exit(0);
 			if (validateItemInput(input, 6)) {
-				item->setRentalFee(stod(input));
+				item->data->setRentalFee(stod(input));
 				break;
 			}
 		}
 	}
-	else if (input == "6" && (item->getRentalType() == "DVD" || item->getRentalType() == "Record")) {
+	else if (input == "6" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
 		while (true) {
 			cout << "Enter item's genre: ";
 			cin >> input;
 			if (input == "exit")
 				exit(0);
 			if (validateItemInput(input, 7)) {
-				item->setGenre(input);
-				item->printDetail();
+				item->data->setGenre(input);
+				item->data->printDetail();
 				break;
 			}
 		}
@@ -341,5 +350,5 @@ Item *itemUpdateMenu(Item *item) {
 	else {
 		cout << "ERROR: Invalid input. Please enter again." << endl;
 	}
-	return item;
+	return;
 }
