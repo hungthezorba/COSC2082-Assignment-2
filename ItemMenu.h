@@ -7,7 +7,7 @@
 #include "ItemElement.h"
 
 
-void itemMenu(LinkedItem itemList);
+void itemMenu(LinkedItem &itemList);
 Item* itemCreateMenu();
 Item* itemDeleteMenu(Item *item);
 void itemUpdateMenu(ItemElement *item);

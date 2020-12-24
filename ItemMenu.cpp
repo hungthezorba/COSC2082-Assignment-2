@@ -7,7 +7,7 @@
 #include "LinkedItem.h"
 using namespace std;
 
-void itemMenu(LinkedItem itemList) {
+void itemMenu(LinkedItem &itemList) {
 
 	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
 	cout << "----------------------------* Item Menu *---------------------------" << endl;
@@ -46,17 +46,25 @@ void itemMenu(LinkedItem itemList) {
 				break;
 		}
 		// Find item through the list here
-		//
+		ItemElement *foundItem = itemList.searchItem(input);
+		if ( foundItem != NULL) {
+			foundItem->data->printDetail();
+			cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+			cin >> input;
+			if (input == "yes") {
+				itemList.deleteItem(foundItem->data->getId());
+				cout << "SUCCESS: Item has been deleted." << endl;
+				itemList.printItem();
+			}
+			else
+				cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
+		}
+		else {
+			cout << "ERROR: Item not found. Return to item menu." << endl;
+		}
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
 		// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-		cin >> input;
-		if (input == "yes")
-			cout << "SUCCESS: Item has been deleted." << endl;
-		else
-			cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
-
 		itemMenu(itemList);
 	}
 	else if (input == "3") {
@@ -113,7 +121,7 @@ void itemMenu(LinkedItem itemList) {
 		itemMenu(itemList);
 	}
 	else if (input == "6") {
-		mainMenu(itemList);
+		//mainMenu(itemList);
 	}
 	// Close program.
 	else if (input == "exit") {
