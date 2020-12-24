@@ -28,8 +28,6 @@ int main()
 	itemList.addItem(i2);
 	itemList.addItem(i3);
 
-	itemList.printItem();
-
 	mainMenu(itemList);
 
 
