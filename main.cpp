@@ -16,7 +16,20 @@ using namespace std;
 
 int main()
 {
-	// Clean up everything for main menu
+	LinkedItem itemList;
+	mainMenu(itemList);
+
+	// BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
+	//LinkedItem itemList;
+	//Game *i1 = new Game("I202-2012", "Halos", "Game", "2-days", 5, 5.5);
+	//DVD *i2 = new DVD("I202-2012", "Halos", "Game", "2-days", 5, 5.5,"action");
+
+	//itemList.addItem(i1);
+	//itemList.addItem(i2);
+	//itemList.printItem();
+
+	//itemList.printItem();
+
     return 0;
 }
 

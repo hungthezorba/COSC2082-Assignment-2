@@ -15,7 +15,7 @@ LinkedItem :: LinkedItem(){
 }
 
 // Add item to linked list
-void LinkedItem::AddItem(Item newItem) {
+void LinkedItem::addItem(Item *newItem) {
     ItemElement* newPtr = new ItemElement;
     newPtr->next = NULL;
     newPtr->data = newItem;
@@ -35,21 +35,21 @@ void LinkedItem::AddItem(Item newItem) {
 
 
 // Print all item
-void LinkedItem :: PrintItem(){
+void LinkedItem :: printItem(){
     temp = Head;
     while(temp!=NULL){
 		// Print first then move to jnext
-		cout << temp->data.getTitle() << endl;
+		temp->data->printDetail();
 		temp = temp->next;
     }
 };
 
 // Search item by ID
-ItemElement *LinkedItem :: search(string id){
+ItemElement *LinkedItem::searchItem(string id){
 	
     temp = Head;
     track = Head;
-    while(temp!=NULL && temp->data.getId()!=id){
+    while(temp!=NULL && temp->data->getId()!=id){
         track = temp;
         temp = temp->next;
     }
@@ -61,13 +61,13 @@ ItemElement *LinkedItem :: search(string id){
 };
 
 // Delete item by ID
-void LinkedItem::DeleteItem(string id) {
+void LinkedItem::deleteItem(string id) {
 	// Considering to refactor this function because there is a repeat part in find by id.
     ItemElement *delPtr = NULL;
     temp = Head;
     track = Head;
     string thisId = id;
-    while(temp!=NULL && temp->data.getId()!=thisId){
+    while(temp!=NULL && temp->data->getId()!=thisId){
         track = temp;
         temp = temp->next;
     }

@@ -3,10 +3,11 @@
 #include <string>
 #include "ValidateItemInput.h"
 #include "ItemMenu.h"
+#include "LinkedItem.h"
 
 using namespace std;
 
-void mainMenu(Item **itemList) {
+void mainMenu(LinkedItem itemList) {
 	string input;
 	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 	cout << "| 1. Add a new item, update or delete an existing item             |" << endl;

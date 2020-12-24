@@ -3,8 +3,11 @@
 #include "Game.h"
 #include "Record.h"
 #include "DVD.h"
+#include "LinkedItem.h"
+#include "ItemElement.h"
 
-void itemMenu(Item **itemList);
+
+void itemMenu(LinkedItem itemList);
 Item* itemCreateMenu();
 Item* itemDeleteMenu(Item *item);
-Item* itemUpdateMenu(Item *item);
+void itemUpdateMenu(ItemElement *item);

@@ -8,7 +8,7 @@
 
 struct ItemElement{
 public:
-    Item data;
+    Item *data;
     ItemElement * next;
 };
 #endif //ASSIGNMENT2_ITEMELEMENT_H

@@ -3,5 +3,6 @@
 #include "Game.h"
 #include "Record.h"
 #include "DVD.h"
+#include "LinkedItem.h"
 
-void mainMenu(Item **itemList);
+void mainMenu(LinkedItem itemList);

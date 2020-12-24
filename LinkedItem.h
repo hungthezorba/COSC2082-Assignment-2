@@ -15,10 +15,10 @@ private:
     ItemElement *track;
 public:
     LinkedItem();
-    void AddItem(Item newItem);
-    void DeleteItem(string id);
-    ItemElement*search(string id);
-    void PrintItem();
+    void addItem(Item *newItem);
+    void deleteItem(string id);
+    ItemElement*searchItem(string id);
+    void printItem();
 
 
 };
