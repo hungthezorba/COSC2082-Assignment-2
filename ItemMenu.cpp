@@ -24,7 +24,6 @@ void itemMenu(LinkedItem &itemList) {
 	cin >> input;
 
 	// Menu 1, Item 1
-	// Cautions: This menu cannot exit by typing 'exit' yet.
 	if (input == "1") {
 		// Create a new item
 		Item *newItem = itemCreateMenu();
@@ -33,7 +32,6 @@ void itemMenu(LinkedItem &itemList) {
 		// Back to item menu
 		itemMenu(itemList);
 	}
-	// Implemented flow. Later will implement action.
 	else if (input == "2") {
 		cout << "---------------------* Delete Item *---------------------" << endl;
 		// Consider show all item in the stock here
@@ -68,7 +66,6 @@ void itemMenu(LinkedItem &itemList) {
 		itemMenu(itemList);
 	}
 	else if (input == "3") {
-		cout << "Option 3" << endl;
 		cout << "---------------------* Update Item *---------------------" << endl;
 		// Consider show all item in the stock here
 
@@ -90,22 +87,29 @@ void itemMenu(LinkedItem &itemList) {
 		
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
-		while (true) {
-			itemUpdateMenu(item);
-			cout << "PROMPT: Continue to update ? (y/n): ";
-			cin >> input;
-			if (input == "exit") {
-				exit(0);
+		if (item != NULL) {
+			while (true) {
+				// Call update function
+				itemUpdateMenu(item);
+				cout << "PROMPT: Continue to update ? (y/n): ";
+				cin >> input;
+				if (input == "exit") {
+					exit(0);
+				}
+				else if (input == "y") {
+					cout << "------------------------------------------------" << endl;
+					// Continue to update
+				}
+				else {
+					cout << "------------------------------------------------" << endl;
+					// Break out the update loop
+					break;
+				}
 			}
-			else if (input == "y") {
-				cout << "------------------------------------------------" << endl;
-				// Continue to update
-			}
-			else {
-				cout << "------------------------------------------------" << endl;
-				// Break out the update loop
-				break;
-			}
+		}
+		else {
+			// Will implement input id again
+			cout << "Item not found. Return to item menu." << endl;
 		}
 		
 		itemMenu(itemList);
@@ -113,6 +117,41 @@ void itemMenu(LinkedItem &itemList) {
 	// Dummy option. Implement later
 	else if (input == "4") {
 		cout << "Option 4" << endl;
+		cout << "---------------------* Add more stock *---------------------" << endl;
+		// Consider show all item in the stock here
+
+		// Check ID format
+		while (true) {
+			cout << "PROMPT: Enter item's ID want to update: ";
+			cin >> input;
+			if (input == "back") {
+				itemMenu(itemList);
+				break;
+			}
+			else
+				if (validateItemInput(input, 1))
+					break;
+		}
+		// Find item through the list here
+
+		ItemElement *item = itemList.searchItem(input);
+		if (item != NULL) {
+			while (true) {
+				cout << "PROMPT: Enter number of stock arrived:  ";
+				cin >> input;
+				if (input == "back") {
+					itemMenu(itemList);
+					break;
+				}
+				else {
+					if (validateItemInput(input, 5)) {
+						item->data->increaseStock(stoi(input));
+						break;
+					}
+				}
+			}
+		}
+		itemMenu(itemList);
 	}
 	// Dummy option. Implement later
 	else if (input == "5") {
@@ -121,7 +160,7 @@ void itemMenu(LinkedItem &itemList) {
 		itemMenu(itemList);
 	}
 	else if (input == "6") {
-		//mainMenu(itemList);
+		mainMenu(itemList);
 	}
 	// Close program.
 	else if (input == "exit") {
@@ -240,7 +279,7 @@ Item* itemCreateMenu() {
 	}
 }
 
-
+// Update item
 void itemUpdateMenu(ItemElement *item) {
 	string input;
 	cout << "----------------------* Update Item *----------------------" << endl;
