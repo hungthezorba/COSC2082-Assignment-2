@@ -1,8 +1,5 @@
-// COSC2082 - Assignment 2 - Quan Bui
+#pragma once
 
-#ifndef COSC2082_ASSIGNMENT_2_CUSTOMER_H
-#define COSC2082_ASSIGNMENT_2_CUSTOMER_H
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -13,20 +10,21 @@ class Customer {
     string name;
     string address;
     string phoneNumber;
-    // Implement Linked List
+    // rentalList not implemented
     string rentalList;
 
   public:
     // Constructor
-    Customer(string id, string name, string address, string phone);
+    Customer();
+    Customer(string id, string name, string address, string phoneNumber);
 
-    // Destructor
-    ~Customer();
+    /* Destructor
+    ~Customer(); */
 
     // Methods
     string getId() const;
 
-    void setId(const string &id);
+    void setId(const string id);
 
     string getName() const;
 
@@ -34,13 +32,13 @@ class Customer {
 
     string getAddress() const;
 
-    void setAddress(const address);
+    void setAddress(const string address);
 
     string getPhoneNumber() const;
 
     void setPhoneNumber(const string phoneNumber);
 
+    // Print Customer details
+    virtual void details();
+
 };
-
-
-#endif
