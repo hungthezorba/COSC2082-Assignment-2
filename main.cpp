@@ -1,19 +1,36 @@
+// main.cpp : Defines the entry point for the console application.
+//
+
 #include <iostream>
-#include "Item.h"
-#include "Customers.hpp"
 #include <fstream>
+#include "Game.h"
+#include "Item.h"
+#include "Record.h"
+#include "DVD.h"
+#include "Menu.h"
+#include "LinkedItem.h"
+#include "ItemElement.h"
 
 using namespace std;
 
-int main() {
 
-    Item i1("I101-2001","Something","Record","2-day",1,1.45);
+int main()
+{
 
-    i1.renting();
-    i1.renting();
+	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
+	LinkedItem itemList;
+	Game *i1 = new Game("I202-2012", "Halos", "Game", "2-days", 5, 5.5);
+	DVD *i2 = new DVD("I202-2015", "Halos", "Game", "2-days", 5, 5.5,"action");
+	DVD *i3 = new DVD("I202-2016", "dadq", "DVD", "2-days", 5, 5.5, "action");
 
-    cout << i1.getNumberOfCopies() << endl;
-    cout << i1.renting() << endl;
+
+	itemList.addItem(i1);
+	itemList.addItem(i2);
+	itemList.addItem(i3);
+
+	itemList.printItem();
+
+	mainMenu(itemList);
 
     return 0;
 }

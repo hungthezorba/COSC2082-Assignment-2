@@ -1,0 +1,47 @@
+fstream infile;
+	infile.open("items.txt");
+	string dataline;
+
+	if (infile.fail()) {
+		cout << "Cannot onpen file" << endl;
+		return 0;
+	}
+
+	Item *itemList = new Item[6];
+	int itemCount = 0;
+
+	while (getline(infile, dataline)) {
+		int count = 0;
+		string *inputArray = new string[7]; //Magic number 7
+		string info = "";
+		dataline+="\n";
+		for (int i = 0; i < dataline.length(); i++) {
+			if (dataline[i] != ',' && dataline[i] != '\n' ) {
+				info += dataline[i];
+			}
+			else {
+				inputArray[count] = info;
+				cout << inputArray[count] << endl;
+				info = "";
+				count++;
+			}
+		}
+
+		if (inputArray[2] == "Game") {
+			Game item(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]));
+			itemList[itemCount] = item;
+			item.printDetail();
+		}
+		else if (inputArray[2] == "DVD") {
+			DVD item(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
+			itemList[itemCount] = item;
+			item.printDetail();
+		}
+		else {
+			Record item(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
+			itemList[itemCount] = item;
+			item.printDetail();
+		}
+		itemCount++;
+		delete [] inputArray;
+	}
