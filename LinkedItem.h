@@ -10,18 +10,20 @@
 class LinkedItem{
 private:
     ItemElement *Head;
-    ItemElement *temp;
     ItemElement *last;
     ItemElement *track;
+	ItemElement *current;
 public:
     LinkedItem();
+	// Copy constructor
+	LinkedItem(const LinkedItem &v);
     void addItem(Item *newItem);
     void deleteItem(string id);
     ItemElement*searchItemByID(string id);
 	ItemElement*searchItemByTitle(string title);
     void printItem();
 	void printOutOfStockItem();
-
+	void sortedByID();
 
 };
 

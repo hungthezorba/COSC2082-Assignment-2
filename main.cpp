@@ -30,9 +30,9 @@ int main()
 
 	itemList.addItem(i1);
 	itemList.addItem(i2);
-	itemList.addItem(i3);
-	itemList.addItem(i4);
 	itemList.addItem(i5);
+	itemList.addItem(i4);
+	itemList.addItem(i3);
 	itemList.addItem(i6);
 
 	mainMenu(itemList);

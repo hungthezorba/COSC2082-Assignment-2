@@ -40,7 +40,27 @@ void mainMenu(LinkedItem &itemList) {
 		cout << "Option 5" << endl;
 	}
 	else if (input == "6") {
-		cout << "Option 6" << endl;
+		cout << "---------------* Display all items *---------------" << endl;
+		cout << "| 1. by ID                                        |" << endl;
+		cout << "| 2. by Title                                     |" << endl;
+		cout << "---------------------------------------------------" << endl;
+		cout << "PROMPT: Choose an option: ";
+		cin >> input;
+		if (input == "1") {
+			LinkedItem tempItemList(itemList);
+			tempItemList.sortedByID();
+			tempItemList.printItem();
+		}
+		else if (input == "2") {
+			cout << "Sort by title here " << endl;
+		}
+		else if (input == "exit") {
+			exit(0);
+		}
+		else {
+			cout << "ERROR: Invalid input." << endl;
+		}
+		mainMenu(itemList);
 	}
 	else if (input == "7") {
 		cout << "Option 7" << endl;
