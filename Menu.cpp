@@ -41,8 +41,8 @@ void mainMenu(LinkedItem &itemList) {
 	}
 	else if (input == "6") {
 		cout << "---------------* Display all items *---------------" << endl;
-		cout << "| 1. by ID                                        |" << endl;
-		cout << "| 2. by Title                                     |" << endl;
+		cout << "| 1. sorted by ID                                 |" << endl;
+		cout << "| 2. sorted by Title                              |" << endl;
 		cout << "---------------------------------------------------" << endl;
 		cout << "PROMPT: Choose an option: ";
 		cin >> input;
@@ -52,7 +52,9 @@ void mainMenu(LinkedItem &itemList) {
 			tempItemList.printItem();
 		}
 		else if (input == "2") {
-			cout << "Sort by title here " << endl;
+			LinkedItem tempItemList(itemList);
+			tempItemList.sortedByTitle();
+			tempItemList.printItem();
 		}
 		else if (input == "exit") {
 			exit(0);

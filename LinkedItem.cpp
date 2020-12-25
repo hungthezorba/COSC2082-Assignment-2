@@ -14,6 +14,38 @@ LinkedItem :: LinkedItem(){
 	current = NULL;
 }
 
+//Copy Constructor
+// References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
+LinkedItem::LinkedItem(const LinkedItem &l)
+{
+	ItemElement * p1 = 0;//current
+	ItemElement * p2 = 0;//next
+
+	if (l.Head == 0)
+		Head = 0;
+
+	else
+	{
+		Head = new ItemElement;
+		Head->next = l.Head->next;
+		Head->data = l.Head->data;
+
+		p1 = Head;
+		p2 = l.Head->next;
+	}
+
+	while (p2)
+	{
+		p1->next = new ItemElement;
+		p1 = p1->next;
+		p1->data = p2->data;
+
+		p2 = p2->next;
+	}
+	p1->next = 0;
+}
+
+
 // Add item to linked list
 void LinkedItem::addItem(Item *newItem) {
     ItemElement* newPtr = new ItemElement;
@@ -109,6 +141,7 @@ void LinkedItem::deleteItem(string id) {
 
 }
 
+// Sorted by id. Directly affect on linked list so need to create a deep copy linked list.
 void LinkedItem::sortedByID() {
 	// The function enhance on this program
 	// References: https://www.javatpoint.com/program-to-sort-the-elements-of-the-singly-linked-list
@@ -137,35 +170,31 @@ void LinkedItem::sortedByID() {
 	
 }
 
+// Sorted by title. Directly affect on linked list so need to create a deep copy linked list.
+void LinkedItem::sortedByTitle() {
+	current = Head;
+	track = NULL;
 
-//Copy Constructor
-// References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
-LinkedItem::LinkedItem(const LinkedItem &l)
-{
-	ItemElement * p1 = 0;//current
-	ItemElement * p2 = 0;//next
+	if (Head == NULL)
+		return;
+	else {
+		while (current != NULL) {
+			track = current->next;
+			while (track != NULL) {
+				if (current->data->getTitle() > track->data->getTitle()) {
+					Item *temp = current->data;
+					current->data = track->data;
+					track->data = temp;
+				}
 
-	if (l.Head == 0)
-		Head = 0;
+				track = track->next;
+			}
 
-	else
-	{
-		Head = new ItemElement;
-		Head->next = l.Head->next;
-		Head->data = l.Head->data;
+			current = current->next;
+		}
 
-		p1 = Head;
-		p2 = l.Head->next;
 	}
 
-	while (p2)
-	{
-		p1->next = new ItemElement;
-		p1 = p1->next;
-		p1->data = p2->data;
-
-		p2 = p2->next;
-	}
-	p1->next = 0;
 }
+
 

@@ -24,6 +24,8 @@ public:
     void printItem();
 	void printOutOfStockItem();
 	void sortedByID();
+	void sortedByTitle();
+
 
 };
 
