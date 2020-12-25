@@ -15,8 +15,5 @@ int main() {
     cout << i1.getNumberOfCopies() << endl;
     cout << i1.renting() << endl;
 
-    cout << "testing" << endl;
-
-
     return 0;
 }
