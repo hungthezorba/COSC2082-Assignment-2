@@ -44,7 +44,7 @@ void itemMenu(LinkedItem &itemList) {
 				break;
 		}
 		// Find item through the list here
-		ItemElement *foundItem = itemList.searchItem(input);
+		ItemElement *foundItem = itemList.searchItemByID(input);
 		if ( foundItem != NULL) {
 			foundItem->data->printDetail();
 			cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
@@ -83,7 +83,7 @@ void itemMenu(LinkedItem &itemList) {
 		}
 		// Find item through the list here
 
-		ItemElement *item = itemList.searchItem(input);
+		ItemElement *item = itemList.searchItemByID(input);
 		
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
@@ -134,7 +134,7 @@ void itemMenu(LinkedItem &itemList) {
 		}
 		// Find item through the list here
 
-		ItemElement *item = itemList.searchItem(input);
+		ItemElement *item = itemList.searchItemByID(input);
 		if (item != NULL) {
 			while (true) {
 				cout << "PROMPT: Enter number of stock arrived:  ";

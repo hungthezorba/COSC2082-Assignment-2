@@ -55,7 +55,7 @@ void LinkedItem::printOutOfStockItem() {
 }
 
 // Search item by ID
-ItemElement *LinkedItem::searchItem(string id){
+ItemElement *LinkedItem::searchItemByID(string id){
 	
     temp = Head;
     track = Head;

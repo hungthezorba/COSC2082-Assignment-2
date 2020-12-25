@@ -17,7 +17,7 @@ public:
     LinkedItem();
     void addItem(Item *newItem);
     void deleteItem(string id);
-    ItemElement*searchItem(string id);
+    ItemElement*searchItemByID(string id);
     void printItem();
 	void printOutOfStockItem();
 
