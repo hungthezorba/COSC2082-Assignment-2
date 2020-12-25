@@ -70,6 +70,22 @@ ItemElement *LinkedItem::searchItemByID(string id){
     return temp;
 };
 
+ItemElement *LinkedItem::searchItemByTitle(string title) {
+	temp = Head;
+	track = Head;
+	while (temp != NULL && temp->data->getTitle() != title) {
+		track = temp;
+		temp = temp->next;
+	}
+	if (temp == NULL) {
+		// No need to print message in this function. Message will be carried out by menu.
+		return NULL;
+	}
+	return temp;
+
+};
+
+
 // Delete item by ID
 void LinkedItem::deleteItem(string id) {
 	// Considering to refactor this function because there is a repeat part in find by id.

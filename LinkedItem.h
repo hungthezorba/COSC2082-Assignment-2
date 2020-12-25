@@ -18,6 +18,7 @@ public:
     void addItem(Item *newItem);
     void deleteItem(string id);
     ItemElement*searchItemByID(string id);
+	ItemElement*searchItemByTitle(string title);
     void printItem();
 	void printOutOfStockItem();
 

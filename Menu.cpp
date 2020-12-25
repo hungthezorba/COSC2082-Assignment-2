@@ -19,7 +19,6 @@ void mainMenu(LinkedItem &itemList) {
 	cout << "| 7. Display out-of-stock items                                    |" << endl;
 	cout << "| 8. Display all customers                                         |" << endl;
 	cout << "| 9. Display group of customers                                    |" << endl;
-	cout << "| 10. Search items or customers                                    |" << endl;
 	cout << "| Exit.                                                            |" << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 	cout << "Select an option: ";
@@ -54,9 +53,6 @@ void mainMenu(LinkedItem &itemList) {
 	}
 	else if (input == "9") {
 		cout << "Option 9" << endl;
-	}
-	else if (input == "10") {
-		cout << "Option 10" << endl;
 	}
 	else if (input == "exit") {
 		exit(0);
