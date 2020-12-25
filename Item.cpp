@@ -43,6 +43,8 @@ int Item::getNumberOfCopies() const {
 
 void Item::setNumberOfCopies(int numberOfCopies) {
 	this->numberOfCopies = numberOfCopies;
+	checkStockAndSetRentalStatus();
+
 }
 
 double Item::getRentalFee() const {
@@ -85,6 +87,8 @@ Item::Item(Item &i) {
 	this->loanType = i.loanType;
 	this->numberOfCopies = i.numberOfCopies;
 	this->rentalFee = i.rentalFee;
+	checkStockAndSetRentalStatus();
+
 }
 
 // return true if can be rented or false if cannot be rented
