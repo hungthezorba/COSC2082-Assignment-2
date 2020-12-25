@@ -13,8 +13,7 @@ class Customer {
     string name;
     string address;
     string phone;
-    // List of rentals
-    string guestRentals[2];
+    // Implement Linked List
     string rentals;
 
   public:
