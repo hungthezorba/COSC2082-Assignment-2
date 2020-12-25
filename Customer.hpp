@@ -12,9 +12,9 @@ class Customer {
     string id;
     string name;
     string address;
-    string phone;
+    string phoneNumber;
     // Implement Linked List
-    string rentals;
+    string rentalList;
 
   public:
     // Constructor
@@ -24,8 +24,22 @@ class Customer {
     ~Customer();
 
     // Methods
-    const string getId();
+    string getId() const;
+
     void setId(const string &id);
+
+    string getName() const;
+
+    void setName(const string name);
+
+    string getAddress() const;
+
+    void setAddress(const address);
+
+    string getPhoneNumber() const;
+
+    void setPhoneNumber(const string phoneNumber);
+
 };
 
 
