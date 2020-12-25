@@ -10,16 +10,16 @@ using namespace std;
 void itemMenu(LinkedItem &itemList) {
 
 	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
-	cout << "----------------------------* Item Menu *---------------------------" << endl;
-	cout << "| 1. Add a new item                                                |" << endl;
-	cout << "| 2. Delete an item                                                |" << endl;
-	cout << "| 3. Update an item                                                |" << endl;
-	cout << "| 4. Increase item's stock                                         |" << endl;
-	cout << "| 5. Show all item in stock                                        |" << endl;
-	cout << "| 6. Search an item                                                |" << endl;
-	cout << "| 7. Back                                                          |" << endl;
-	cout << "| Exit.                                                            |" << endl;
-	cout << "--------------------------------------------------------------------" << endl;
+	cout << "-----------------------* Item Menu *----------------------" << endl;
+	cout << "| 1. Add a new item                                      |" << endl;
+	cout << "| 2. Delete an item                                      |" << endl;
+	cout << "| 3. Update an item                                      |" << endl;
+	cout << "| 4. Increase item's stock                               |" << endl;
+	cout << "| 5. Show all item in stock                              |" << endl;
+	cout << "| 6. Search an item                                      |" << endl;
+	cout << "| 7. Back                                                |" << endl;
+	cout << "| Exit.                                                  |" << endl;
+	cout << "----------------------------------------------------------" << endl;
 	cout << "Choose an option: ";
 	string input;
 	cin >> input;
@@ -154,68 +154,91 @@ void itemMenu(LinkedItem &itemList) {
 		}
 		itemMenu(itemList);
 	}
-	// Dummy option. Implement later
 	else if (input == "5") {
 		cout << "------------------* List of items *----------------" << endl;
 		itemList.printItem();
 		itemMenu(itemList);
 	}
 	else if (input == "6") {
-		cout << "-----------------* Search an item *-----------------" << endl;
-		cout << endl;
-		cout << "PROMPT: Do you want to search an item by ID or Title ?" << endl;
-		cout << "1. By item ID" << endl;
-		cout << "2. By item title" << endl;
-		cout << "PROMPT: Enter option: ";
-		cin >> input;
-		if (input == "1") {
-			while (true) {
-				cout << "PROMPT: Enter item's ID want to search: ";
-				cin >> input;
-				if (input == "back") {
-					itemMenu(itemList);
-					break;
+
+		while (true) {
+			cout << "--------------------* Search an item *--------------------" << endl;
+			cout << "|1. By ID                                                |" << endl;
+			cout << "|2. By title                                             |" << endl;
+			cout << "----------------------------------------------------------" << endl;
+			cout << "PROMPT: Enter an option: ";
+			cin >> input;
+			if (input == "1") {
+				while (true) {
+					cout << "PROMPT: Enter item's ID want to search: ";
+					cin >> input;
+					if (input == "back") {
+						itemMenu(itemList);
+						break;
+					}
+					else {
+						if (validateItemInput(input, 1))
+							break;
+					}
+				}
+				// Find item through the list here
+
+				ItemElement *item = itemList.searchItemByID(input);
+				if (item != NULL) {
+					item->data->printDetail();
 				}
 				else {
-					if (validateItemInput(input, 1))
-						break;
+					cout << "PROMPT: Cannot found the item with specified ID." << endl;
 				}
 			}
-			// Find item through the list here
+			else if (input == "2") {
+				while (true) {
+					cout << "PROMPT: Enter item's title want to search: ";
+					cin.ignore();
+					getline(cin, input);
+					if (input == "back") {
+						itemMenu(itemList);
+						break;
+					}
+					else {
+						if (validateItemInput(input, 2))
+							break;
+					}
+				}
+				// Find item through the list here
 
-			ItemElement *item = itemList.searchItemByID(input);
-			if (item != NULL) {
-				item->data->printDetail();
-			}
-			else {
-				cout << "PROMPT: Cannot found the item with specified ID." << endl;
-			}
-		}
-		else if (input == "2") {
-			while (true) {
-				cout << "PROMPT: Enter item's title want to search: ";
-				cin.ignore();
-				getline(cin, input);
-				if (input == "back") {
-					itemMenu(itemList);
-					break;
+				ItemElement *items = itemList.searchItemByTitle(input);
+				if (items != NULL) {
+					items->data->printDetail();
 				}
 				else {
-					if (validateItemInput(input, 2))
-						break;
+					cout << "PROMPT: Cannot found the item with specified title." << endl;
 				}
 			}
-			// Find item through the list here
-
-			ItemElement *items = itemList.searchItemByTitle(input);
-			if (items != NULL) {
-				items->data->printDetail();
+			else if (input == "exit") {
+				exit(0);
 			}
 			else {
-				cout << "PROMPT: Cannot found the item with specified title." << endl;
+				cout << "ERROR: Invalid input." << endl;
+				itemMenu(itemList);
+			}
+			cout << "PROMPT: Continue to search ? (y/n): ";
+			cin >> input;
+			if (input == "exit") {
+				exit(0);
+			}
+			else if (input == "y") {
+				cout << endl; // Add space
+				// Continue to update
+			}
+			else {
+				cout << "----------------------------------------------------------" << endl;
+				cout << endl; // Add space
+				// Break out the update loop
+				break;
 			}
 		}
-
+		
 		itemMenu(itemList);
 
 	}
@@ -227,7 +250,7 @@ void itemMenu(LinkedItem &itemList) {
 		exit(0);
 	}
 	else {
-		cout << "Prompt: Invalid input" << endl;
+		cout << "ERROR: Invalid input" << endl;
 		itemMenu(itemList);
 	}
 }
