@@ -19,6 +19,7 @@ public:
     void deleteItem(string id);
     ItemElement*searchItem(string id);
     void printItem();
+	void printOutOfStockItem();
 
 
 };

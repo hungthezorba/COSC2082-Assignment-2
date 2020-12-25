@@ -45,6 +45,9 @@ void mainMenu(LinkedItem &itemList) {
 	}
 	else if (input == "7") {
 		cout << "Option 7" << endl;
+		// Display out of stock
+		itemList.printOutOfStockItem();
+		mainMenu(itemList);
 	}
 	else if (input == "8") {
 		cout << "Option 8" << endl;

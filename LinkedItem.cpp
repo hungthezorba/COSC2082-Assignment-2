@@ -32,7 +32,7 @@ void LinkedItem::addItem(Item *newItem) {
 }
 
 
-// Print all item
+// Print all items
 void LinkedItem::printItem(){
     temp = Head;
     while(temp!=NULL){
@@ -41,6 +41,18 @@ void LinkedItem::printItem(){
 		temp = temp->next;
     }
 };
+
+// Print all out of stock items
+void LinkedItem::printOutOfStockItem() {
+	temp = Head;
+	while (temp != NULL) {
+		// Print first then move to jnext
+		if (temp->data->getNumberOfCopies() == 0) {
+			temp->data->printDetail();
+		}
+		temp = temp->next;
+	}
+}
 
 // Search item by ID
 ItemElement *LinkedItem::searchItem(string id){
