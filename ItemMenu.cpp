@@ -27,9 +27,33 @@ void itemMenu(LinkedItem &itemList) {
 	// Menu 1, Item 1
 	if (input == "1") {
 		// Create a new item
+		cout << "--------------------* Add a new item *--------------------" << endl;
 		Item *newItem = itemCreateMenu();
+		cout << "----------------------------------------------------------" << endl;
 		// Insert item into linked list here
-		itemList.addItem(newItem);
+		cout << "--------------------* Add a new item *--------------------" << endl;
+		cout << "| Item " << newItem->getId() << endl;
+		cout << "| 1. Title: " << newItem->getTitle() << endl;
+		cout << "| 2. Type: " << newItem->getRentalType() << endl;
+		cout << "| 3. Loan's type: " << newItem->getLoanType() << endl;
+		cout << "| 4. Number of copies: " << newItem->getNumberOfCopies() << endl;
+		cout << "| 5. Rental fee: " << newItem->getRentalFee() << endl;
+		if (newItem->getGenre() != "") {
+			cout << "| 6. Genre: " << newItem->getGenre() << endl;
+		}
+		cout << "----------------------------------------------------------" << endl;
+
+		cout << "PROPMP: Item will be added to database. Type 'yes' to confirm: ";
+		cin >> input;
+		if (input == "yes") {
+			itemList.addItem(newItem);
+			cout << "SUCCESS: Item added." << endl;
+		}
+		else {
+			cout << "SUCCESS: No item added." << endl;
+		}
+		cout << "----------------------------------------------------------" << endl;
+		cout << endl; // space
 		// Back to item menu
 		itemMenu(itemList);
 	}
@@ -325,7 +349,6 @@ Item* itemCreateMenu() {
 	while (true) {
 		if (inputArray[2] == "Game") {
 			Game *newItem = new Game(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]));
-			newItem->printDetail();
 			delete[] inputArray; // free the heap after used
 			return newItem;
 			break;
@@ -338,7 +361,6 @@ Item* itemCreateMenu() {
 				exit(0);
 			if (validateItemInput(inputArray[6], 7)) {
 				DVD *newItem = new DVD(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
-				newItem->printDetail();
 				delete[] inputArray; // free the heap after used
 				return newItem;
 				break;
@@ -352,7 +374,6 @@ Item* itemCreateMenu() {
 				exit(0);
 			if (validateItemInput(inputArray[6], 7)) {
 				Record *newItem = new Record(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
-				newItem->printDetail();
 				delete[] inputArray; // free the heap after used
 				return newItem;
 				break;
