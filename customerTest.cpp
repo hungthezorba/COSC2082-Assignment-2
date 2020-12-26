@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Customer.hpp"
+#include "Customer.h"
 #include "Customer.cpp"
 
 using namespace std;
