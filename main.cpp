@@ -10,6 +10,9 @@
 #include "Menu.h"
 #include "LinkedItem.h"
 #include "ItemElement.h"
+#include "Customer.h"
+#include "CustomerNode.h"
+#include "LinkedCustomer.h"
 
 using namespace std;
 
@@ -17,7 +20,7 @@ using namespace std;
 int main()
 {
 
-	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
+//	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
 	LinkedItem itemList;
 	Game *i1 = new Game("I202-2012", "Halos", "Game", "2-days", 5, 5.5);
 	DVD *i2 = new DVD("I202-2015", "Halos", "Game", "2-days", 5, 5.5,"action");
@@ -31,6 +34,19 @@ int main()
 	itemList.printItem();
 
 	mainMenu(itemList);
+//    Customer customer1("123", "Quan", "Vietnam", "0123456789");
+//    Customer customer2("124", "Tuan", "Vietnam", "0123456789");
+//    Customer customer3("125", "Huan", "Vietnam", "0123456789");
+//    Customer customer4("126", "Nhuan", "Vietnam", "0123456789");
+//    LinkedCustomer thisList;
+//    thisList.addCustomer(&customer1);
+//    thisList.addCustomer(&customer2);
+//    thisList.addCustomer(&customer3);
+//    thisList.addCustomer(&customer4);
+//
+//    CustomerNode *ThisNode;
+//    ThisNode = thisList.searchCustomer("126");
+//    cout<<ThisNode->data->getName();
 
     return 0;
 }
