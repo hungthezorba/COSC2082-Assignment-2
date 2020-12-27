@@ -116,35 +116,6 @@ bool validateGenre(string input) {
 	return true;
 }
 
-// Implement Item Validation
-bool validateItemInput(string input, int option) {
-	if (input == "exit") {
-		exit(0);
-		return true;
-	}
-	switch (option) {
-	case 1:
-		return (validateItemID(input));
-		break;
-	case 2:
-		return (validateTitle(input));
-		break;
-	case 3:
-		return (validateRentalType(input));
-		break;
-	case 4:
-		return (validateLoanType(input));
-		break;
-	case 5:
-		return (validateNumberOfCopies(input));
-		break;
-	case 6:
-		return (validateRentalFee(input));
-		break;
-	case 7:
-		return (validateGenre(input));
-		break;
-	}
-}
+
 
 

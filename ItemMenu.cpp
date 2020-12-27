@@ -65,7 +65,7 @@ void itemMenu(LinkedItem &itemList) {
 		while (true) {
 			cout << "PROMPT: Enter item's ID want to delete: ";
 			cin >> input;
-			if (validateItemInput(input, 1))
+			if (validateItemID(input))
 				break;
 		}
 		// Find item through the list here
@@ -103,7 +103,7 @@ void itemMenu(LinkedItem &itemList) {
 				break;
 			}
 			else
-				if (validateItemInput(input, 1))
+				if (validateItemID(input))
 					break;
 		}
 		// Find item through the list here
@@ -154,7 +154,7 @@ void itemMenu(LinkedItem &itemList) {
 				break;
 			}
 			else
-				if (validateItemInput(input, 1))
+				if (validateItemID(input))
 					break;
 		}
 		// Find item through the list here
@@ -169,7 +169,7 @@ void itemMenu(LinkedItem &itemList) {
 					break;
 				}
 				else {
-					if (validateItemInput(input, 5)) {
+					if (validateNumberOfCopies(input)) {
 						item->data->increaseStock(stoi(input));
 						break;
 					}
@@ -201,7 +201,7 @@ void itemMenu(LinkedItem &itemList) {
 						break;
 					}
 					else {
-						if (validateItemInput(input, 1))
+						if (validateItemID(input))
 							break;
 					}
 				}
@@ -225,7 +225,7 @@ void itemMenu(LinkedItem &itemList) {
 						break;
 					}
 					else {
-						if (validateItemInput(input, 2))
+						if (validateTitle(input))
 							break;
 					}
 				}
@@ -290,7 +290,7 @@ Item* itemCreateMenu() {
 		cin >> inputArray[0];
 		if (inputArray[0] == "Exit")
 			closeProgram();
-		if (validateItemInput(inputArray[0], 1))
+		if (validateItemID(inputArray[0]))
 			break;
 	}
 	while (true) {
@@ -302,7 +302,7 @@ Item* itemCreateMenu() {
 		getline(cin, inputArray[1]);
 		if (inputArray[1] == "Exit")
 			closeProgram();
-		if (validateItemInput(inputArray[1], 2))
+		if (validateTitle(inputArray[1]))
 			break;
 	}
 
@@ -312,7 +312,7 @@ Item* itemCreateMenu() {
 		cin >> inputArray[2];
 		if (inputArray[2] == "Exit")
 			closeProgram();
-		if (validateItemInput(inputArray[2], 3))
+		if (validateRentalType(inputArray[2]))
 			break;
 	}
 
@@ -322,7 +322,7 @@ Item* itemCreateMenu() {
 		cin >> inputArray[3];
 		if (inputArray[3] == "Exit")
 			closeProgram();
-		if (validateItemInput(inputArray[3], 4))
+		if (validateLoanType(inputArray[3]))
 			break;
 	}
 
@@ -332,7 +332,7 @@ Item* itemCreateMenu() {
 		cin >> inputArray[4];
 		if (inputArray[4] == "Exit")
 			closeProgram();
-		if (validateItemInput(inputArray[4], 5))
+		if (validateNumberOfCopies(inputArray[4]))
 			break;
 	}
 
@@ -342,7 +342,7 @@ Item* itemCreateMenu() {
 		cin >> inputArray[5];
 		if (inputArray[5] == "Exit")
 			closeProgram();
-		if (validateItemInput(inputArray[5], 6))
+		if (validateRentalFee(inputArray[5]))
 			break;
 	}
 
@@ -359,7 +359,7 @@ Item* itemCreateMenu() {
 			cin >> inputArray[6];
 			if (inputArray[6] == "Exit")
 				closeProgram();
-			if (validateItemInput(inputArray[6], 7)) {
+			if (validateGenre(inputArray[6])) {
 				DVD *newItem = new DVD(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				delete[] inputArray; // free the heap after used
 				return newItem;
@@ -372,7 +372,7 @@ Item* itemCreateMenu() {
 			// Implemented validation. Still need further testing
 			if (inputArray[6] == "Exit")
 				closeProgram();
-			if (validateItemInput(inputArray[6], 7)) {
+			if (validateGenre(inputArray[6])) {
 				Record *newItem = new Record(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				delete[] inputArray; // free the heap after used
 				return newItem;
@@ -408,7 +408,7 @@ void itemUpdateMenu(ItemElement *item) {
 			getline(cin, input);
 			if (input == "Exit")
 				closeProgram();
-			if (validateItemInput(input, 2)) {
+			if (validateTitle(input)) {
 				item->data->setTitle(input);
 				break;
 			}
@@ -420,7 +420,7 @@ void itemUpdateMenu(ItemElement *item) {
 			cin >> input;
 			if (input == "Exit")
 				closeProgram();
-			if (validateItemInput(input, 3)) {
+			if (validateRentalType(input)) {
 				item->data->setRentalType(input);
 				if (item->data->getRentalType() == "DVD") {
 					item->data = new DVD(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
@@ -444,7 +444,7 @@ void itemUpdateMenu(ItemElement *item) {
 			cin >> input;
 			if (input == "Exit")
 				closeProgram();
-			if (validateItemInput(input, 4)) {
+			if (validateLoanType(input)) {
 				item->data->setLoanType(input);
 				break;
 			}
@@ -456,7 +456,7 @@ void itemUpdateMenu(ItemElement *item) {
 			cin >> input;
 			if (input == "Exit")
 				closeProgram();
-			if (validateItemInput(input, 5)) {
+			if (validateNumberOfCopies(input)) {
 				item->data->setNumberOfCopies(stoi(input));
 				break;
 			}
@@ -468,7 +468,7 @@ void itemUpdateMenu(ItemElement *item) {
 			cin >> input;
 			if (input == "Exit")
 				closeProgram();
-			if (validateItemInput(input, 6)) {
+			if (validateRentalFee(input)) {
 				item->data->setRentalFee(stod(input));
 				break;
 			}
@@ -480,7 +480,7 @@ void itemUpdateMenu(ItemElement *item) {
 			cin >> input;
 			if (input == "Exit")
 				closeProgram();
-			if (validateItemInput(input, 7)) {
+			if (validateGenre(input)) {
 				item->data->setGenre(input);
 				item->data->printDetail();
 				break;

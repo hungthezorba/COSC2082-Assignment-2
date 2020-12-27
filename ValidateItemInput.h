@@ -4,7 +4,6 @@
 
 using namespace std;
 
-bool validateItemInput(string input, int option);
 
 bool validateItemID(string input);
 

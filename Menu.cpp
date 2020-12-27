@@ -56,8 +56,8 @@ void mainMenu(LinkedItem &itemList) {
 			tempItemList.sortedByTitle();
 			tempItemList.printItem();
 		}
-		else if (input == "exit") {
-			exit(0);
+		else if (input == "Exit") {
+			closeProgram();
 		}
 		else {
 			cout << "ERROR: Invalid input." << endl;
@@ -76,8 +76,8 @@ void mainMenu(LinkedItem &itemList) {
 	else if (input == "9") {
 		cout << "Option 9" << endl;
 	}
-	else if (input == "exit") {
-		exit(0);
+	else if (input == "Exit") {
+		closeProgram();
 	}
 	else {
 		cout << "Prompt: Invalid input" << endl;
