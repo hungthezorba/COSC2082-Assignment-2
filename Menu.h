@@ -6,3 +6,4 @@
 #include "LinkedItem.h"
 
 void mainMenu(LinkedItem &itemList);
+void closeProgram();

@@ -85,5 +85,14 @@ void mainMenu(LinkedItem &itemList) {
 	}
 }
 
-// Item Menu Implementation
-// Considering move Item Menu to separated file since there will be lots of menu
+void closeMenu() {
+
+	cout << "- - - - - - - - Group Information - - - - - - - -" << endl;
+	cout << "ASSIGNMENT 2 GROUP 18" << endl;
+	cout << "s3804690, s3804690@rmit.edu.vn, Hung, Nguyen" << endl;
+	cout << "s3804687, s3804687@rmit.edu.vn, Dat, Ngo" << endl;
+	cout << "s3536647, s3536647@rmit.edu.vn, Quan, Bui" << endl;
+	cout << "s3777230, s3777230@rmit.edu.vn, Huy, Bui" << endl;
+
+	exit(0);
+}
