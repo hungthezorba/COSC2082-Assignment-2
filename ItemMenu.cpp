@@ -9,7 +9,7 @@ using namespace std;
 
 void itemMenu(LinkedItem &itemList) {
 
-	// Dear reader: At the moment, only Menu 1 can exit by typing 'exit'. 
+	// Dear reader: At the moment, only Menu 1 can Exit by typing 'Exit'. 
 	cout << "-----------------------* Item Menu *----------------------" << endl;
 	cout << "| 1. Add a new item                                      |" << endl;
 	cout << "| 2. Delete an item                                      |" << endl;
@@ -118,8 +118,8 @@ void itemMenu(LinkedItem &itemList) {
 				itemUpdateMenu(item);
 				cout << "PROMPT: Continue to update ? (y/n): ";
 				cin >> input;
-				if (input == "exit") {
-					exit(0);
+				if (input == "Exit") {
+					closeProgram();
 				}
 				else if (input == "y") {
 					cout << "------------------------------------------------" << endl;
@@ -239,8 +239,8 @@ void itemMenu(LinkedItem &itemList) {
 					cout << "PROMPT: Cannot found the item with specified title." << endl;
 				}
 			}
-			else if (input == "exit") {
-				exit(0);
+			else if (input == "Exit") {
+				closeProgram();
 			}
 			else {
 				cout << "ERROR: Invalid input." << endl;
@@ -248,8 +248,8 @@ void itemMenu(LinkedItem &itemList) {
 			}
 			cout << "PROMPT: Continue to search ? (y/n): ";
 			cin >> input;
-			if (input == "exit") {
-				exit(0);
+			if (input == "Exit") {
+				closeProgram();
 			}
 			else if (input == "y") {
 				cout << endl; // Add space
@@ -270,8 +270,8 @@ void itemMenu(LinkedItem &itemList) {
 		mainMenu(itemList);
 	}
 	// Close program.
-	else if (input == "exit") {
-		exit(0);
+	else if (input == "Exit") {
+		closeProgram();
 	}
 	else {
 		cout << "ERROR: Invalid input" << endl;
@@ -288,8 +288,8 @@ Item* itemCreateMenu() {
 		cout << "1. Enter item ID: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[0];
-		if (inputArray[0] == "exit")
-			exit(0);
+		if (inputArray[0] == "Exit")
+			closeProgram();
 		if (validateItemInput(inputArray[0], 1))
 			break;
 	}
@@ -300,8 +300,8 @@ Item* itemCreateMenu() {
 		cin.ignore();
 		// Title can contains spaces so need to use getline in this case
 		getline(cin, inputArray[1]);
-		if (inputArray[1] == "exit")
-			exit(0);
+		if (inputArray[1] == "Exit")
+			closeProgram();
 		if (validateItemInput(inputArray[1], 2))
 			break;
 	}
@@ -310,8 +310,8 @@ Item* itemCreateMenu() {
 		cout << "3. Enter item's type: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[2];
-		if (inputArray[2] == "exit")
-			exit(0);
+		if (inputArray[2] == "Exit")
+			closeProgram();
 		if (validateItemInput(inputArray[2], 3))
 			break;
 	}
@@ -320,8 +320,8 @@ Item* itemCreateMenu() {
 		cout << "4. Enter item's loan type: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
-		if (inputArray[3] == "exit")
-			exit(0);
+		if (inputArray[3] == "Exit")
+			closeProgram();
 		if (validateItemInput(inputArray[3], 4))
 			break;
 	}
@@ -330,8 +330,8 @@ Item* itemCreateMenu() {
 		cout << "5. Enter item's number of copies: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[4];
-		if (inputArray[4] == "exit")
-			exit(0);
+		if (inputArray[4] == "Exit")
+			closeProgram();
 		if (validateItemInput(inputArray[4], 5))
 			break;
 	}
@@ -340,8 +340,8 @@ Item* itemCreateMenu() {
 		cout << "6. Enter item's rental fee: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[5];
-		if (inputArray[5] == "exit")
-			exit(0);
+		if (inputArray[5] == "Exit")
+			closeProgram();
 		if (validateItemInput(inputArray[5], 6))
 			break;
 	}
@@ -357,8 +357,8 @@ Item* itemCreateMenu() {
 			cout << "7. Enter item's genre: ";
 			// Implemented validation. Still need further testing
 			cin >> inputArray[6];
-			if (inputArray[6] == "exit")
-				exit(0);
+			if (inputArray[6] == "Exit")
+				closeProgram();
 			if (validateItemInput(inputArray[6], 7)) {
 				DVD *newItem = new DVD(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				delete[] inputArray; // free the heap after used
@@ -370,8 +370,8 @@ Item* itemCreateMenu() {
 			cout << "7. Enter item's genre: ";
 			cin >> inputArray[6];
 			// Implemented validation. Still need further testing
-			if (inputArray[6] == "exit")
-				exit(0);
+			if (inputArray[6] == "Exit")
+				closeProgram();
 			if (validateItemInput(inputArray[6], 7)) {
 				Record *newItem = new Record(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				delete[] inputArray; // free the heap after used
@@ -406,8 +406,8 @@ void itemUpdateMenu(ItemElement *item) {
 			cin.ignore();
 			// Title can contains spaces so need to use getline in this case
 			getline(cin, input);
-			if (input == "exit")
-				exit(0);
+			if (input == "Exit")
+				closeProgram();
 			if (validateItemInput(input, 2)) {
 				item->data->setTitle(input);
 				break;
@@ -418,8 +418,8 @@ void itemUpdateMenu(ItemElement *item) {
 		while (true) {
 			cout << "Enter item's type: ";
 			cin >> input;
-			if (input == "exit")
-				exit(0);
+			if (input == "Exit")
+				closeProgram();
 			if (validateItemInput(input, 3)) {
 				item->data->setRentalType(input);
 				if (item->data->getRentalType() == "DVD") {
@@ -442,8 +442,8 @@ void itemUpdateMenu(ItemElement *item) {
 		while (true) {
 			cout << "Enter item's loan type: ";
 			cin >> input;
-			if (input == "exit")
-				exit(0);
+			if (input == "Exit")
+				closeProgram();
 			if (validateItemInput(input, 4)) {
 				item->data->setLoanType(input);
 				break;
@@ -454,8 +454,8 @@ void itemUpdateMenu(ItemElement *item) {
 		while (true) {
 			cout << "Enter item's number of copies: ";
 			cin >> input;
-			if (input == "exit")
-				exit(0);
+			if (input == "Exit")
+				closeProgram();
 			if (validateItemInput(input, 5)) {
 				item->data->setNumberOfCopies(stoi(input));
 				break;
@@ -466,8 +466,8 @@ void itemUpdateMenu(ItemElement *item) {
 		while (true) {
 			cout << "Enter item's rental fee: ";
 			cin >> input;
-			if (input == "exit")
-				exit(0);
+			if (input == "Exit")
+				closeProgram();
 			if (validateItemInput(input, 6)) {
 				item->data->setRentalFee(stod(input));
 				break;
@@ -478,8 +478,8 @@ void itemUpdateMenu(ItemElement *item) {
 		while (true) {
 			cout << "Enter item's genre: ";
 			cin >> input;
-			if (input == "exit")
-				exit(0);
+			if (input == "Exit")
+				closeProgram();
 			if (validateItemInput(input, 7)) {
 				item->data->setGenre(input);
 				item->data->printDetail();
@@ -487,8 +487,8 @@ void itemUpdateMenu(ItemElement *item) {
 			}
 		}
 	}
-	else if (input == "exit") {
-		exit(0);
+	else if (input == "Exit") {
+		closeProgram();
 	}
 	else {
 		cout << "ERROR: Invalid input. Please enter again." << endl;
