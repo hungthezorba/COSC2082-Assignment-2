@@ -22,8 +22,6 @@ int main()
 	LinkedItem itemList;
 
 	ItemData(itemList);
-	itemList.printItem();
-
 	mainMenu(itemList);
 
 

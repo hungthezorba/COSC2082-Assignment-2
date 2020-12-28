@@ -21,7 +21,7 @@ void ItemData(LinkedItem &itemList) {
                 temp3item = 0;
                 string listtemp[10];
                 string delimiter = ",";
-                size_t pos = 0;
+                int pos = 0;
                 string token;
                 int temp = 0;
                 while ((pos = sitem.find(delimiter)) != string::npos) {
