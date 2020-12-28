@@ -2,11 +2,13 @@
 #include<fstream>
 #include <string>
 #include "ItemData.h"
+#include "Game.h"
+#include "DVD.h"
+#include "Record.h"
 
 using namespace std;
 
-int ItemData() {
-    Items listItem[100];
+void ItemData(LinkedItem &itemList) {
     string sitem;
     int temp3item = 0;
     ifstream itemfile("items.txt");
@@ -29,40 +31,21 @@ int ItemData() {
                     temp++;
                 }
                 listtemp[temp] = sitem;
-                listItem[temp2].id = listtemp[0];
-                listItem[temp2].title = listtemp[1];
-                listItem[temp2].rentalType = listtemp[2];
-                listItem[temp2].loanType = listtemp[3];
-                listItem[temp2].numOfStock = listtemp[4];
-                listItem[temp2].rentalFee = listtemp[5];
-                listItem[temp2].genres = listtemp[6];
-                if(listItem[temp2].genres == ""){
-                    listItem[temp2].genres = "NAN";
-                }
+				if (listtemp[2] == "Game") {
+					Game *i = new Game(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]));
+					itemList.addItem(i);
+				}
+				else if (listtemp[2] == "DVD") {
+					DVD *i = new DVD(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
+					itemList.addItem(i);
+				}
+				else {
+					Record *i = new Record(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
+					itemList.addItem(i);
+				}
                 temp2++;
             }
-
-
         }
         itemfile.close();
     }
-    int input;
-    cout << "Enter item number: ";
-    cin >> input;
-    int itemNum = input;
-    string itemList[100];
-
-    itemList[0] = listItem[itemNum].id;
-    itemList[1] = listItem[itemNum].title;
-    itemList[2] = listItem[itemNum].rentalFee;
-    itemList[3] = listItem[itemNum].loanType;
-    itemList[4] = listItem[itemNum].numOfStock;
-    itemList[5] = listItem[itemNum].rentalFee;
-    itemList[6] = listItem[itemNum].genres;
-
-    for (int i = 0; i < 7 ; i++) {
-        cout << itemList[i] << endl;
-    }
-
-
 }
