@@ -134,52 +134,90 @@ void itemMenu(LinkedItem &itemList) {
 		itemMenu(itemList);
 	}
 	else if (input == "3") {
-		cout << "---------------------* Update Item *---------------------" << endl;
-		// Consider show all item in the stock here
-
 		// Check ID format
-		while (true) {
-			cout << "PROMPT: Enter item's ID want to update: ";
-			cin >> input;
-			if (input == "back") {
-				itemMenu(itemList);
-				break;
-			}
-			else
-				if (validateItemID(input))
-					break;
-		}
-		// Find item through the list here
 
-		ItemElement *item = itemList.searchItemByID(input);
-		
-		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//
-		if (item != NULL) {
-			while (true) {
-				// Call update function
-				itemUpdateMenu(item);
-				cout << "PROMPT: Continue to update ? (y/n): ";
-				cin >> input;
-				if (input == "Exit") {
-					closeProgram();
-				}
-				else if (input == "y") {
-					cout << "------------------------------------------------" << endl;
-					// Continue to update
-				}
-				else {
-					cout << "------------------------------------------------" << endl;
-					// Break out the update loop
-					break;
-				}
-			}
-		}
-		else {
-			// Will implement input id again
-			cout << "Item not found. Return to item menu." << endl;
-		}
-		
+		while (true) {
+            cout << "---------------------* Update Item *---------------------" << endl;
+            cout << "|1. By ID                                                |" << endl;
+            cout << "|2. By title                                             |" << endl;
+            cout << "|3. Back                                                 |" << endl;
+            cout << "----------------------------------------------------------" << endl;
+            cout << "PROMPT: Enter an option: ";
+            cin >> input;
+
+            if (input == "1") {
+                while (true) {
+                    cout << "PROMPT: Enter item's ID want to update: ";
+                    cin >> input;
+                    if (validateItemID(input))
+                        break;
+                }
+                // Find item through the list here
+                ItemElement *item = itemList.searchItemByID(input);
+                // If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+                //
+                if (item != NULL) {
+                    while (true) {
+                        // Call update function
+                        itemUpdateMenu(item);
+                        item->data->printDetail();
+                        cout << "PROMPT: Continue to update ? (y/n): ";
+                        cin >> input;
+
+                        if (input == "y") {
+                            // Continue to update
+                        }
+                        else {
+                            // Break out the update loop
+                            break;
+                        }
+                    }
+                }
+                else {
+                    // Will implement input id again
+                    cout << "ERROR: Item not found." << endl;
+                }
+		    }
+            else if (input == "2") {
+                while (true) {
+                    cout << "PROMPT: Enter item's title want to update: ";
+                    cin >> input;
+                    if (validateTitle(input))
+                        break;
+                }
+                // Find item through the list here
+                ItemElement *item = itemList.searchItemByTitle(input);
+                // If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+                //
+                if (item != NULL) {
+                    while (true) {
+                        // Call update function
+                        itemUpdateMenu(item);
+                        item->data->printDetail();
+                        cout << "PROMPT: Continue to update ? (y/n): ";
+                        cin >> input;
+
+                        if (input == "y") {
+                            // Continue to update
+                        }
+                        else {
+                            // Break out the update loop
+                            break;
+                        }
+                    }
+                }
+                else {
+                    // Will implement input id again
+                    cout << "ERROR: Item not found." << endl;
+                }
+            }
+            else if (input == "3") {
+                break;
+            }
+            else {
+                cout << "ERROR: Invalid Input. Please enter again." << endl;
+            }
+}
 		itemMenu(itemList);
 	}
 	// Dummy option. Implement later
@@ -430,7 +468,6 @@ Item* itemCreateMenu() {
 void itemUpdateMenu(ItemElement *item) {
 	string input;
 	cout << "----------------------* Update Item *----------------------" << endl;
-	cout << "original: " << &item << endl;
 	cout << "Item ID: " << item->data->getId() << endl;
 	cout << "1. Item title: " << item->data->getTitle() << endl;
 	cout << "2. Item type: " << item->data->getRentalType() << endl;
@@ -467,15 +504,12 @@ void itemUpdateMenu(ItemElement *item) {
 				item->data->setRentalType(input);
 				if (item->data->getRentalType() == "DVD") {
 					item->data = new DVD(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
-					item->data->printDetail();
 				}
 				else if (item->data->getRentalType() == "Record") {
 					item->data = new Record(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
-					item->data->printDetail();
 				}
 				else {
 					item->data = new Game(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee());
-					item->data->printDetail();
 				}
 				break;
 			}
@@ -525,7 +559,6 @@ void itemUpdateMenu(ItemElement *item) {
 				closeProgram();
 			if (validateGenre(input)) {
 				item->data->setGenre(input);
-				item->data->printDetail();
 				break;
 			}
 		}
