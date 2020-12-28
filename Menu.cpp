@@ -4,6 +4,7 @@
 #include "ValidateItemInput.h"
 #include "ItemMenu.h"
 #include "LinkedItem.h"
+#include <fstream>
 
 using namespace std;
 
@@ -56,9 +57,6 @@ void mainMenu(LinkedItem &itemList) {
 			tempItemList.sortedByTitle();
 			tempItemList.printItem();
 		}
-		else if (input == "Exit") {
-			closeProgram();
-		}
 		else {
 			cout << "ERROR: Invalid input." << endl;
 		}
@@ -77,7 +75,7 @@ void mainMenu(LinkedItem &itemList) {
 		cout << "Option 9" << endl;
 	}
 	else if (input == "Exit") {
-		closeProgram();
+		closeProgram(itemList);
 	}
 	else {
 		cout << "Prompt: Invalid input" << endl;
@@ -85,7 +83,35 @@ void mainMenu(LinkedItem &itemList) {
 	}
 }
 
-void closeProgram() {
+void closeProgram(LinkedItem &itemList) {
+	// Save file 
+	ofstream itemFile;
+	fstream customerFile;
+
+	itemFile.open("items.txt");
+	if (itemFile.fail()) {
+		cout << "Could not open file" << endl;
+		return;
+	}
+
+	ItemElement *itemElement = itemList.getHead();
+	while (itemElement != NULL) {
+		itemFile << itemElement->data->getId() << ",";
+		itemFile << itemElement->data->getTitle() << ",";
+		itemFile << itemElement->data->getRentalType() << ",";
+		itemFile << itemElement->data->getLoanType() << ",";
+		itemFile << itemElement->data->getNumberOfCopies() << ",";
+		itemFile << itemElement->data->getRentalFee();
+		if (itemElement->data->getRentalType() != "Game") {
+			itemFile <<  "," << itemElement->data->getGenre();
+		}
+		itemFile << endl;
+		itemElement = itemElement->next;
+	}
+
+	itemFile.close();
+
+
 	// Display group information
 	cout << "- - - - - - - - Group Information - - - - - - - -" << endl;
 	cout << "ASSIGNMENT 2 GROUP 18" << endl;

@@ -198,3 +198,8 @@ void LinkedItem::sortedByTitle() {
 }
 
 
+ItemElement *LinkedItem::getHead() {
+	return Head;
+}
+
+

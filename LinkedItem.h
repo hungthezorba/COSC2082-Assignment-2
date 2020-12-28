@@ -25,6 +25,7 @@ public:
 	void printOutOfStockItem();
 	void sortedByID();
 	void sortedByTitle();
+	ItemElement *getHead();
 
 
 };
