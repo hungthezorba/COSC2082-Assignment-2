@@ -58,33 +58,76 @@ void itemMenu(LinkedItem &itemList) {
 		itemMenu(itemList);
 	}
 	else if (input == "2") {
-		cout << "---------------------* Delete Item *---------------------" << endl;
-		// Consider show all item in the stock here
 
-		// Check ID format
-		while (true) {
-			cout << "PROMPT: Enter item's ID want to delete: ";
-			cin >> input;
-			if (validateItemID(input))
-				break;
-		}
-		// Find item through the list here
-		ItemElement *foundItem = itemList.searchItemByID(input);
-		if ( foundItem != NULL) {
-			foundItem->data->printDetail();
-			cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-			cin >> input;
-			if (input == "yes") {
-				itemList.deleteItem(foundItem->data->getId());
-				cout << "SUCCESS: Item has been deleted." << endl;
-				itemList.printItem();
-			}
-			else
-				cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
-		}
-		else {
-			cout << "ERROR: Item not found. Return to item menu." << endl;
-		}
+	    while (true) {
+            cout << "---------------------* Delete Item *---------------------" << endl;
+            cout << "|1. By ID                                                |" << endl;
+            cout << "|2. By title                                             |" << endl;
+            cout << "|3. Back                                                 |" << endl;
+            cout << "----------------------------------------------------------" << endl;
+            cout << "PROMPT: Enter an option: ";
+            cin >> input;
+
+            if (input == "1") {
+                while (true) {
+                    cout << "PROMPT: Enter item's ID want to delete: ";
+                    cin >> input;
+                    // Check ID format
+                    if (validateItemID(input))
+                        break;
+                }
+                // Find item through the list here
+                ItemElement *foundItem = itemList.searchItemByID(input);
+                if ( foundItem != NULL) {
+                    foundItem->data->printDetail();
+                    cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+                    cin >> input;
+                    if (input == "yes") {
+                        itemList.deleteItem(foundItem->data->getId());
+                        cout << "SUCCESS: Item has been deleted." << endl;
+                        itemList.printItem();
+                    }
+                    else
+                        cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
+                }
+                else {
+                    cout << "ERROR: Item not found." << endl;
+                }
+            }
+            else if (input == "2") {
+                while (true) {
+                    cout << "PROMPT: Enter item's title want to delete: ";
+                    cin >> input;
+                    // Check title format
+                    if (validateTitle(input))
+                        break;
+                }
+                // Find item through the list here
+                ItemElement *foundItem = itemList.searchItemByTitle(input);
+                if ( foundItem != NULL) {
+                    foundItem->data->printDetail();
+                    cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+                    cin >> input;
+                    if (input == "yes") {
+                        itemList.deleteItem(foundItem->data->getId());
+                        cout << "SUCCESS: Item has been deleted." << endl;
+                        itemList.printItem();
+                    }
+                    else {
+                        cout << "SUCCESS: No deletion has taken place." << endl;
+                    }
+                }
+                else {
+                    cout << "ERROR: Item not found." << endl;
+                }
+            }
+            else if (input == "3") {
+                break;
+            }
+            else {
+                cout << "ERROR: Invalid Input. Please enter again." << endl;
+            }
+	    }
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
 		// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
