@@ -9,6 +9,16 @@ private:
 
 
 public:
+  // Constructors
+  RegularAccount();
 
+  RegularAccount(string id, string name, string address, string phoneNumber);
+
+  // Member functions
+  void rentItem();
+
+  void returnItem();
+
+  void details();
 
 };

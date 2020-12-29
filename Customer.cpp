@@ -49,6 +49,14 @@ void Customer::setPhoneNumber(string phoneNumber) {
   this->phoneNumber = phoneNumber;
 }
 
+void Customer::rentItem() {
+  cout << "Renting item.." << endl;
+}
+
+void Customer::returnItem() {
+  cout << "Returning item.." << endl;
+}
+
 void Customer::details() {
   cout << this->id;
   cout << ", " << this->name;

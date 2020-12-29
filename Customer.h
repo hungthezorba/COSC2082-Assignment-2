@@ -19,7 +19,7 @@ public:
   Customer(string id, string name, string address, string phoneNumber);
 
   /* Destructor
-  ~Customer(); */
+     ~Customer(); */
 
   // Methods
   string getId() const;
@@ -38,7 +38,11 @@ public:
 
   void setPhoneNumber(const string phoneNumber);
 
-  // Print Customer details
+  // Polymorphism functions
+  virtual void rentItem();
+
+  virtual void returnItem();
+
   virtual void details();
 
 };

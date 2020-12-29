@@ -7,9 +7,23 @@
 
 class VipAccount : public Customer {
 private:
-
+  int rewardPoints;
 
 public:
+  // Constructors
+  VipAccount();
 
+  VipAccount(string id, string name, string address, string phoneNumber);
+
+  // Member functions
+  void rentItem();
+
+  void returnItem();
+
+  void checkRewardPoints();
+
+  void freeRentItem();
+
+  void details();
 
 };

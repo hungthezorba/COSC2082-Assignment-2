@@ -6,9 +6,20 @@
 
 class GuestAccount : public Customer {
 private:
-  int rentalCount = 0;
 
+  // int rentalCount;
 
 public:
+  // Constructors
+  GuestAccount();
+
+  GuestAccount(string id, string name, string address, string phoneNumber);
+
+  // Member functions
+  void rentItem();
+
+  void returnItem();
+
+  void details();
 
 };
