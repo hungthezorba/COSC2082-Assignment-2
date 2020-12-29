@@ -10,8 +10,6 @@ private:
 
 
 public:
-  // Constructors
-  VipAccount();
 
 
 };

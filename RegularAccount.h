@@ -9,8 +9,6 @@ private:
 
 
 public:
-  // Constructors
-  RegularAccount();
 
 
 };
