@@ -363,7 +363,7 @@ Item* itemCreateMenu() {
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "1. Enter item ID: ";
+		cout << "1. Enter item ID(Ixxx-yyyy): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[0];
 		if (validateItemID(inputArray[0]))
@@ -381,7 +381,7 @@ Item* itemCreateMenu() {
 	}
 
 	while (true) {
-		cout << "3. Enter item's type: ";
+		cout << "3. Enter item's type(Game, DVD or Record): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[2];
 		if (validateRentalType(inputArray[2]))
@@ -389,7 +389,7 @@ Item* itemCreateMenu() {
 	}
 
 	while (true) {
-		cout << "4. Enter item's loan type: ";
+		cout << "4. Enter item's loan type(2-day or 1-week): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
 		if (validateLoanType(inputArray[3]))
@@ -431,7 +431,7 @@ Item* itemCreateMenu() {
 			}
 		}
 		else {
-			cout << "7. Enter item's genre: ";
+			cout << "7. Enter item's genre(Action, Horror, Comedy or Drama): ";
 			cin >> inputArray[6];
 			// Implemented validation. Still need further testing
 			if (validateGenre(inputArray[6])) {
@@ -475,7 +475,7 @@ void itemUpdateMenu(ItemElement *item) {
 	}
 	else if (input == "2") {
 		while (true) {
-			cout << "Enter item's type: ";
+			cout << "Enter item's type(Game, DVD or Record): ";
 			cin >> input;
 			if (validateRentalType(input)) {
 				item->data->setRentalType(input);
@@ -494,7 +494,7 @@ void itemUpdateMenu(ItemElement *item) {
 	}
 	else if (input == "3") {
 		while (true) {
-			cout << "Enter item's loan type: ";
+			cout << "Enter item's loan type(2-day or 1-week): ";
 			cin >> input;
 			if (validateLoanType(input)) {
 				item->data->setLoanType(input);
@@ -524,7 +524,7 @@ void itemUpdateMenu(ItemElement *item) {
 	}
 	else if (input == "6" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
 		while (true) {
-			cout << "Enter item's genre: ";
+			cout << "Enter item's genre(Action, Horror, Comedy or Drama): ";
 			cin >> input;
 			if (validateGenre(input)) {
 				item->data->setGenre(input);

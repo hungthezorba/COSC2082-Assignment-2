@@ -11,7 +11,8 @@ using namespace std;
 void ItemData(LinkedItem &itemList) {
     string sitem;
     int temp3item = 0;
-    ifstream itemfile("items.txt");
+	ifstream itemfile;
+	itemfile.open("items.txt");
     if (itemfile)
     {
         int temp2 = 0;
@@ -20,7 +21,7 @@ void ItemData(LinkedItem &itemList) {
             if (sitem[0] == 'I') {
                 temp3item = 0;
                 string listtemp[10];
-                string delimiter = ",";
+				string delimiter = ",";
                 int pos = 0;
                 string token;
                 int temp = 0;
