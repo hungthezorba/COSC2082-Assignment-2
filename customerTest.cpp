@@ -24,7 +24,7 @@ int main() {
   RegularAccount regular2("456", "Hoa", "Ha Noi", "0123456789");
 
   VipAccount vip1;
-  VipAccount vip2("789", "Hong", "Ha Noi", "0123456789");
+  VipAccount vip2("789", "Huan Rose", "Ha Noi", "0123456789");
 
 
   // Test object methods
