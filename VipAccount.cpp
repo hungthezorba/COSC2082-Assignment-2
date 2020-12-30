@@ -28,7 +28,7 @@ void VipAccount::freeRentItem() {
   if (this->rewardPoints >= 100) {
     cout << "Congratulations " << this->getName() << ", you are eligible to exchange for 1 free rent item!" << endl;
   } else {
-    cout << "Sorry " << this->getName() << ", you need 100 points to exchange for a free rental item!" << endl;
+    cout << "Sorry " << this->getName() << ", you need 100 points to exchange for a free rent item!" << endl;
   }
 }
 
