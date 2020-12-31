@@ -19,8 +19,10 @@ void LinkedRentalList::addItem(string s) {
     head = new RentalListNode(s, nullptr);
   } else {
     // Make a new node that points to head
+    // Comment this function to test the code block below it
     RentalListNode *temp = new RentalListNode(s, head);
 
+    // Uncomment this block to test
     /* Attempt to append item to LinkedRentalList
     // Create new node and point to head
     RentalListNode *temp = head;
