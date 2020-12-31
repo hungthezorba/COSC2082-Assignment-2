@@ -1,5 +1,7 @@
 #include "RentalListNode.h"
 
+using namespace std;
+
 RentalListNode::RentalListNode()
   : item(""), next(NULL) {}
 
@@ -16,8 +18,4 @@ RentalListNode* RentalListNode::getNext() {
 
 void RentalListNode::setNext(RentalListNode *newNext) {
   next = newNext;
-}
-
-int main() {
-  return 0;
 }
