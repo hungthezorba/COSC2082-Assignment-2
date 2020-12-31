@@ -19,3 +19,5 @@ RentalListNode* RentalListNode::getNext() {
 void RentalListNode::setNext(RentalListNode *newNext) {
   next = newNext;
 }
+
+

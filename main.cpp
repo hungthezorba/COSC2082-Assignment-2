@@ -11,6 +11,8 @@
 #include "LinkedItem.h"
 #include "ItemElement.h"
 #include "ItemData.h"
+#include "CustomerData.h"
+#include "LinkedCustomer.h"
 
 using namespace std;
 
@@ -20,9 +22,10 @@ int main()
 
 //	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
 	LinkedItem itemList;
+	LinkedCustomer customerList;
 
 	ItemData(itemList);
-	mainMenu(itemList);
+	CustomerData(customerList);
 //    Customer customer1("123", "Quan", "Vietnam", "0123456789");
 //    Customer customer2("124", "Tuan", "Vietnam", "0123456789");
 //    Customer customer3("125", "Huan", "Vietnam", "0123456789");
