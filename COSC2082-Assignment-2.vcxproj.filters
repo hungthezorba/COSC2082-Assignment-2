@@ -15,43 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Customer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomerData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="customerTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DVD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GuestAccount.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemElement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LinkedCustomer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LinkedItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LinkedRentalList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -63,57 +33,57 @@
     <ClCompile Include="Record.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ValidateItemInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomerData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GuestAccount.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedCustomer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="RegularAccount.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RentalListNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ValidateItemInput.cpp">
+    <ClCompile Include="VipAccount.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VipAccount.cpp">
+    <ClCompile Include="Customer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="customerTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedRentalList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Customer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomerData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomerNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DVD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GuestAccount.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemElement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedCustomer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedRentalList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
@@ -122,16 +92,46 @@
     <ClInclude Include="Record.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ValidateItemInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Customer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GuestAccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedCustomer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="RegularAccount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RentalListNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ValidateItemInput.h">
+    <ClInclude Include="VipAccount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VipAccount.h">
+    <ClInclude Include="CustomerData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedRentalList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
