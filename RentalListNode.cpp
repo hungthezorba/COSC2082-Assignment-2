@@ -18,6 +18,3 @@ void RentalListNode::setNext(RentalListNode *newNext) {
   next = newNext;
 }
 
-int main() {
-  return 0;
-}
