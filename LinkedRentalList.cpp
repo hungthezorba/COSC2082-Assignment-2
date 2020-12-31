@@ -1,10 +1,11 @@
 #include "LinkedRentalList.h"
 #include "RentalListNode.h"
+#include "RentalListNode.cpp"
 
 using namespace std;
 
 LinkedRentalList::LinkedRentalList() {
-  head = NULL;
+  head = nullptr;
 }
 
 LinkedRentalList::~LinkedRentalList() {
