@@ -1,5 +1,4 @@
-#include "VipAccount.h"
-#include "Customer.h"
+#include "GuestAccount.h"
 #include <iostream>
 
 using namespace std;

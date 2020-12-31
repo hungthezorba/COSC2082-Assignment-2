@@ -10,14 +10,16 @@ using namespace std;
 
 void ItemData(LinkedItem &itemList) {
     string sitem;
+    int temp3item = 0;
     ifstream itemfile("items.txt");
     if (itemfile)
     {
+        int temp2 = 0;
         while (getline(itemfile, sitem))  // same as: while (getline( myfile, line ).good())
         {
-			string listtemp[10];
-
             if (sitem[0] == 'I') {
+                temp3item = 0;
+                string listtemp[10];
                 string delimiter = ",";
                 int pos = 0;
                 string token;
@@ -41,6 +43,7 @@ void ItemData(LinkedItem &itemList) {
 					Record *i = new Record(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
 					itemList.addItem(i);
 				}
+                temp2++;
             }
         }
         itemfile.close();

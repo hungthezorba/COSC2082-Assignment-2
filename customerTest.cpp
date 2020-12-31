@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int test() {
+int main() {
   // Test objects instantiation
   Customer customer1;
   Customer customer2("123", "Quan", "Vietnam", "0123456789");
