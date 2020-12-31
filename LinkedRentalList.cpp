@@ -13,31 +13,30 @@ LinkedRentalList::~LinkedRentalList() {
 
 // Add item to the beginning of LinkedRentalList
 void LinkedRentalList::addItem(string s) {
-	RentalListNode *node = new RentalListNode(s, NULL);
-	RentalListNode *temp = head;
-
-  if (head == NULL) {
+  if (head == nullptr) {
     // New item, make head point to it
-	  head = node;
+    head = new RentalListNode(s, nullptr);
   } else {
     // Make a new node that points to head
     // Comment this function to test the code block below it
+    RentalListNode *temp = new RentalListNode(s, head);
 
     // Uncomment this block to test
-    // Attempt to append item to LinkedRentalList
+    /* Attempt to append item to LinkedRentalList
     // Create new node and point to head
+    RentalListNode *temp = head;
 
     // Traverse to next node until temp point to nullptr
-	// Check if next node is NULL
-    while (temp->getNext() != NULL) {
+    while (temp != nullptr) {
       temp = temp->getNext();
     }
-	// Set the next node(item)
-	temp->setNext(node);
+
+    // Create new node and get s (item)
+    temp = new RentalListNode(s, nullptr);
+    */
 
     // Set head to the new node
-	// Head is always the first one so cannot set the head = temp
-	
+    head = temp;
   }
 }
 
@@ -78,8 +77,6 @@ int main() {
   list1.addItem("SpoderMen");
   list1.addItem("Sadman");
 
-  list1.showItem();
-  list1.removeItem("Sadman");
   list1.showItem();
 
   cout << "still fucking working!" << endl;
