@@ -8,16 +8,18 @@ RegularAccount::RegularAccount() {
 
 }
 
-RegularAccount::RegularAccount(string id, string name, string address, string phoneNumber) : Customer(id, name, address, phoneNumber) {
+RegularAccount::RegularAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
 
 }
 
 // Member Functions
 void RegularAccount::rentItem(const string itemName) {
+	// This work fine, but the pattern is weird. Need to refactor
   this->Customer::rentItem(itemName);
 }
 
 void RegularAccount::returnItem(const string itemName) {
+	// This work fine, but the pattern is weird. Need to refactor
   this->Customer::returnItem(itemName);
 }
 

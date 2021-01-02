@@ -5,14 +5,12 @@
 #define GUEST_PROMOTION_CONDITION 3
 
 class GuestAccount : public Customer {
-private:
-  int currentRentingItemCount;
 
 public:
   // Constructors
   GuestAccount();
 
-  GuestAccount(string id, string name, string address, string phoneNumber);
+  GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental);
 
   // Member functions
   void rentItem(const string itemName);

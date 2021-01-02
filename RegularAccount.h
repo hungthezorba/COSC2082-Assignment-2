@@ -12,7 +12,7 @@ public:
   // Constructors
   RegularAccount();
 
-  RegularAccount(string id, string name, string address, string phoneNumber);
+  RegularAccount(string id, string name, string address, string phoneNumber, int numberOfRental);
 
   // Member functions
   void rentItem(const string itemName);

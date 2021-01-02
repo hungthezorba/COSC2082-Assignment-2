@@ -5,19 +5,19 @@ using namespace std;
 
 // Constructors
 GuestAccount::GuestAccount() {
-  currentRentingItemCount = 0;
+
 }
 
-GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber) : Customer(id, name, address, phoneNumber) {
-  currentRentingItemCount = 0;
+GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
+
 }
 
 
 // Member functions
 void GuestAccount::rentItem(const string itemName) {
-  if (currentRentingItemCount < GUEST_RENTAL_LIMIT) {
+  if (this->getNumberOfRental() < GUEST_RENTAL_LIMIT) {
     this->Customer::rentItem(itemName);
-    currentRentingItemCount++;
+	// Increase current rentals
   } else {
     cout << "Sorry! Guest member can only rent a maximum of " << GUEST_RENTAL_LIMIT << " at a time!" << endl;
     cout << "Please return your rented items first!" << endl;
@@ -26,6 +26,7 @@ void GuestAccount::rentItem(const string itemName) {
 
 void GuestAccount::returnItem(const string itemName) {
   this->Customer::returnItem(itemName);
+  // Reduce current rentals
 }
 
 void GuestAccount::details() {

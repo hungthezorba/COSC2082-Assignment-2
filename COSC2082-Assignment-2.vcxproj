@@ -102,7 +102,6 @@
   <ItemGroup>
     <ClCompile Include="Customer.cpp" />
     <ClCompile Include="CustomerData.cpp" />
-    <ClCompile Include="customerTest.cpp" />
     <ClCompile Include="DVD.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GuestAccount.cpp" />

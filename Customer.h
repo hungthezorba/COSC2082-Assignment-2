@@ -12,12 +12,13 @@ private:
   string name;
   string address;
   string phoneNumber;
+  int numberOfRental;
   LinkedRentalList rentalList;
 
 public:
   // Constructor
   Customer();
-  Customer(string id, string name, string address, string phoneNumber);
+  Customer(string id, string name, string address, string phoneNumber, int numberOfRental);
 
   /* Destructor
      ~Customer(); */
@@ -38,6 +39,12 @@ public:
   string getPhoneNumber() const;
 
   void setPhoneNumber(const string phoneNumber);
+
+  int getNumberOfRental();
+
+  void setNumberOfRental(const int numberOfRental);
+
+  LinkedRentalList *getRentalList();
 
   // Polymorphism functions
   virtual void details();

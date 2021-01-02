@@ -8,13 +8,17 @@ Customer::Customer() {
   this->name = "NA";
   this->address = "NA";
   this->phoneNumber = "NA";
+  this->numberOfRental = 0;
+  this->rentalList;
 }
 
-Customer::Customer(string id, string name, string address, string phoneNumber) {
+Customer::Customer(string id, string name, string address, string phoneNumber, int numberOfRental) {
   this->id = id;
   this->name = name;
   this->address = address;
   this->phoneNumber = phoneNumber;
+  this->numberOfRental = numberOfRental;
+  this->rentalList;
 }
 
 string Customer::getId() const {
@@ -49,6 +53,19 @@ void Customer::setPhoneNumber(string phoneNumber) {
   this->phoneNumber = phoneNumber;
 }
 
+int Customer::getNumberOfRental() {
+	return numberOfRental;
+}
+
+void Customer::setNumberOfRental(const int numberOfRental) {
+	this->numberOfRental = numberOfRental;
+}
+
+// This function will return the reference so when reading data from database, it can be used to add items in correct list.
+LinkedRentalList *Customer::getRentalList() {
+	return &rentalList;
+}
+
 void Customer::details() {
   cout << this->id;
   cout << ", " << this->name;
@@ -61,9 +78,11 @@ void Customer::showRentalList() {
 }
 
 void Customer::rentItem(const string itemName) {
-  rentalList.addItem(itemName);
+	this->numberOfRental++;
+	rentalList.addItem(itemName);
 }
 
 void Customer::returnItem(const string itemName) {
+	this->numberOfRental--;
   rentalList.removeItem(itemName);
 }

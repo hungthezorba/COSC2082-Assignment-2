@@ -15,7 +15,7 @@ public:
   // Constructors
   VipAccount();
 
-  VipAccount(string id, string name, string address, string phoneNumber);
+  VipAccount(string id, string name, string address, string phoneNumber, int numberOfRental);
 
   // Member functions
   void rentItem(const string itemName);

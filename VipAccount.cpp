@@ -9,7 +9,7 @@ VipAccount::VipAccount() {
   this->freeRentItemAwarded = 0;
 }
 
-VipAccount::VipAccount(string id, string name, string address, string phoneNumber) : Customer(id, name, address, phoneNumber) {
+VipAccount::VipAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
   this->rewardPoints = 0;
   this->freeRentItemAwarded = 0;
 }
