@@ -123,7 +123,7 @@ bool Item::checkStockAndSetRentalStatus() {
 }
 
 void Item::printDetail() {
-		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->rentalStatus <<endl;	
+		cout << this->id << " - " << this->title << " - " << this->rentalType << " - " << this->loanType << " - " << this->numberOfCopies << " - " << this->rentalFee << " - " << this->rentalStatus <<endl;
 }
 
 string Item::getGenre() {
