@@ -12,13 +12,15 @@ VipAccount::VipAccount(string id, string name, string address, string phoneNumbe
   this->rewardPoints = 0;
 }
 
-void VipAccount::rentItem() {
+void VipAccount::rentItem(const string itemName) {
+  this->Customer::rentItem(itemName);
   this->rewardPoints+=10;
-  cout << "Guest renting item.." << endl;
+  cout << "VIP customer " << this->getName() << " rented item successfully, you are rewarded 10 reward points!" << endl;
 }
 
-void VipAccount::returnItem() {
-  cout << "Guest returning item.." << endl;
+void VipAccount::returnItem(const string itemName) {
+  this->Customer::returnItem(itemName);
+  cout << "VIP customer " << this->getName() << " successfully returned an item!" << endl;
 }
 
 void VipAccount::checkRewardPoints() {
@@ -38,4 +40,8 @@ void VipAccount::details() {
   cout << ", " << this->getName();
   cout << ", " << this->getAddress();
   cout << ", " << this->getPhoneNumber() << endl;
+}
+
+void VipAccount::showRentalList() {
+  this->Customer::showRentalList();
 }

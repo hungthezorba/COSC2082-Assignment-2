@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Constructors
 RegularAccount::RegularAccount() {
 
 }
@@ -11,12 +12,13 @@ RegularAccount::RegularAccount(string id, string name, string address, string ph
 
 }
 
-void RegularAccount::rentItem() {
-  cout << "Regular account renting item.." << endl;
+// Member Functions
+void RegularAccount::rentItem(const string itemName) {
+  this->Customer::rentItem(itemName);
 }
 
-void RegularAccount::returnItem() {
-  cout << "Regular account returning item.." << endl;
+void RegularAccount::returnItem(const string itemName) {
+  this->Customer::returnItem(itemName);
 }
 
 void RegularAccount::details() {
@@ -24,4 +26,8 @@ void RegularAccount::details() {
   cout << ", " << this->getName();
   cout << ", " << this->getAddress();
   cout << ", " << this->getPhoneNumber() << endl;
+}
+
+void RegularAccount::showRentalList() {
+  this->Customer::showRentalList();
 }

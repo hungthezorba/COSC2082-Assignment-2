@@ -59,5 +59,4 @@ void LinkedRentalList::showItem() {
     cout << temp->getItem() << endl;
     temp = temp->getNext();
   }
-  cout << endl;
 }

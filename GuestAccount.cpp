@@ -15,11 +15,11 @@ GuestAccount::GuestAccount(string id, string name, string address, string phoneN
 
 // Member functions
 void GuestAccount::rentItem(const string itemName) {
-  this->rentItem(itemName);
+  this->Customer::rentItem(itemName);
 }
 
 void GuestAccount::returnItem(const string itemName) {
-  this->returnItem(itemName);
+  this->Customer::returnItem(itemName);
 }
 
 void GuestAccount::details() {
@@ -30,5 +30,5 @@ void GuestAccount::details() {
 }
 
 void GuestAccount::showRentalList() {
-  this->showRentalList();
+  this->Customer::showRentalList();
 }

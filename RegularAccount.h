@@ -15,10 +15,12 @@ public:
   RegularAccount(string id, string name, string address, string phoneNumber);
 
   // Member functions
-  void rentItem();
+  void rentItem(const string itemName);
 
-  void returnItem();
+  void returnItem(const string itemName);
 
   void details();
+
+  void showRentalList();
 
 };

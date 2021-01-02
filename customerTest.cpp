@@ -40,10 +40,23 @@ using namespace std;
   customer2.showRentalList();
   customer2.returnItem("PowerPuff Girls");
   customer2.showRentalList();
+  cout << endl;
 
   guest2.details();
-  guest2.rentItem("Superhero");
+  guest2.rentItem("Guest - Superhero");
   guest2.showRentalList();
+  cout << endl;
+
+  regular2.details();
+  regular2.rentItem("Regular - Superhero");
+  regular2.showRentalList();
+  cout << endl;
+
+  vip2.details();
+  vip2.rentItem("VIP - Superhero");
+  vip2.showRentalList();
+  vip2.checkRewardPoints();
+  cout << endl;
 
   // guest1.details();
   // guest2.details();
