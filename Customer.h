@@ -40,12 +40,11 @@ public:
   void setPhoneNumber(const string phoneNumber);
 
   // Polymorphism functions
-
   virtual void details();
 
-  virtual void rentalListDetails();
+  virtual void showRentalList();
 
   virtual void rentItem(const string itemName);
 
-  virtual void returnItem();
+  virtual void returnItem(const string itemName);
 };

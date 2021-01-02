@@ -61,19 +61,3 @@ void LinkedRentalList::showItem() {
   }
   cout << endl;
 }
-
-// int main() {
-//   LinkedRentalList list1;
-//
-//   list1.addItem("Superhero");
-//   list1.addItem("SpoderMen");
-//   list1.addItem("Sadman");
-//
-//   list1.showItem();
-//   list1.removeItem("Sadman");
-//   list1.showItem();
-//
-//   cout << "still fucking working!" << endl;
-//
-//   return 0;
-// }

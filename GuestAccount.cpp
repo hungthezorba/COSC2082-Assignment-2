@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Constructors
 GuestAccount::GuestAccount() {
 
 }
@@ -11,12 +12,14 @@ GuestAccount::GuestAccount(string id, string name, string address, string phoneN
 
 }
 
-void GuestAccount::rentItem() {
-  cout << "Guest renting item.." << endl;
+
+// Member functions
+void GuestAccount::rentItem(const string itemName) {
+  this->rentItem(itemName);
 }
 
-void GuestAccount::returnItem() {
-  cout << "Guest returning item.." << endl;
+void GuestAccount::returnItem(const string itemName) {
+  this->returnItem(itemName);
 }
 
 void GuestAccount::details() {
@@ -24,4 +27,8 @@ void GuestAccount::details() {
   cout << ", " << this->getName();
   cout << ", " << this->getAddress();
   cout << ", " << this->getPhoneNumber() << endl;
+}
+
+void GuestAccount::showRentalList() {
+  this->showRentalList();
 }

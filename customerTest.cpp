@@ -33,10 +33,17 @@ using namespace std;
 
 
   // Test object methods
-  customer1.details();
+  // customer1.details(); // Empty object of Customer
   customer2.details();
   customer2.rentItem("PowerPuff Girls");
-  customer2.rentalListDetails();
+  customer2.rentItem("Sex in the city");
+  customer2.showRentalList();
+  customer2.returnItem("PowerPuff Girls");
+  customer2.showRentalList();
+
+  guest2.details();
+  guest2.rentItem("Superhero");
+  guest2.showRentalList();
 
   // guest1.details();
   // guest2.details();

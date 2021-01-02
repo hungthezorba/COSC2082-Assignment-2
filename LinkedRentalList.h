@@ -13,7 +13,7 @@ public:
   LinkedRentalList();
   ~LinkedRentalList();
 
-  void addItem(string s); // Adds to front
+  void addItem(string s); // Appends item to list
   void removeItem(string s); // Delete first occurence of s in the list
   void showItem(); // Show all elements in the RentalListNode
 };
