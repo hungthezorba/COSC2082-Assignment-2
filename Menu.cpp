@@ -4,6 +4,7 @@
 #include "ValidateItemInput.h"
 #include "ItemMenu.h"
 #include "LinkedItem.h"
+#include "CustomerMenu.h"
 #include "LinkedCustomer.h"
 #include <fstream>
 
@@ -30,7 +31,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		itemMenu(itemList, customerList);
 	}
 	else if (input == "2") {
-		cout << "Option 2" << endl;
+		customerMenu(itemList, customerList);
 	}
 	else if (input == "3") {
 		cout << "Option 3" << endl;
