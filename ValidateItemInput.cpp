@@ -59,7 +59,7 @@ bool validateRentalType(string input) {
 	// case-sensitive ?
 	// Rental type can only in three categories: Game, DVD, Record
 	if (input != "Game" && input != "DVD" && input != "Record") {
-		cout << "ERROR: Rental type must be in Game, DVD or Record. Please enter again." << endl;
+		cout << "ERROR: Rental type must be in 'Game', 'DVD' or 'Record'. Please enter again." << endl;
 		return false;
 	}
 	return true;
@@ -69,8 +69,8 @@ bool validateRentalType(string input) {
 bool validateLoanType(string input) {
 	// case-sensitive ?
 	// Loan type can only in two categories: 2-days and 1-week
-	if (input != "2-days" && input != "1-week") {
-		cout << "ERROR: Loan type must be 2-days or 1-week. Please enter again." << endl;
+	if (input != "2-day" && input != "1-week") {
+		cout << "ERROR: Loan type must be '2-day' or '1-week'. Please enter again." << endl;
 		return false;
 	}
 	return true;
@@ -110,41 +110,12 @@ bool validateGenre(string input) {
 	// case-sensitive ?
 	// Genre can only in four categories: Horror, Comedy, Drama, Action
 	if (input != "Horror" && input != "Comedy" && input != "Drama" && input != "Action") {
-		cout << "ERROR: Genre must be in Horror, Comedy, Drama or Action. Please enter again." << endl;
+		cout << "ERROR: Genre must be in 'Horror', 'Comedy', 'Drama' or 'Action'. Please enter again." << endl;
 		return false;
 	}
 	return true;
 }
 
-// Implement Item Validation
-bool validateItemInput(string input, int option) {
-	if (input == "exit") {
-		exit(0);
-		return true;
-	}
-	switch (option) {
-	case 1:
-		return (validateItemID(input));
-		break;
-	case 2:
-		return (validateTitle(input));
-		break;
-	case 3:
-		return (validateRentalType(input));
-		break;
-	case 4:
-		return (validateLoanType(input));
-		break;
-	case 5:
-		return (validateNumberOfCopies(input));
-		break;
-	case 6:
-		return (validateRentalFee(input));
-		break;
-	case 7:
-		return (validateGenre(input));
-		break;
-	}
-}
+
 
 

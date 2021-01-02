@@ -10,7 +10,10 @@ using namespace std;
 
 void ItemData(LinkedItem &itemList) {
     string sitem;
-    ifstream itemfile("items.txt");
+
+    int temp3item = 0;
+	ifstream itemfile;
+	itemfile.open("items.txt");
     if (itemfile)
     {
         while (getline(itemfile, sitem))  // same as: while (getline( myfile, line ).good())
@@ -18,7 +21,10 @@ void ItemData(LinkedItem &itemList) {
 			string listtemp[10];
 
             if (sitem[0] == 'I') {
-                string delimiter = ",";
+
+                temp3item = 0;
+                string listtemp[10];
+				string delimiter = ",";
                 int pos = 0;
                 string token;
                 int temp = 0;

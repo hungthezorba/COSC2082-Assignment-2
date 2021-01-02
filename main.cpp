@@ -27,5 +27,7 @@ int main()
 	ItemData(itemList);
 	CustomerData(customerList);
 
+	mainMenu(itemList, customerList);
+
     return 0;
 }

@@ -9,10 +9,42 @@
 
 LinkedItem :: LinkedItem(){
     Head = NULL;
-    temp = NULL;
     last = NULL;
     track = NULL;
+	current = NULL;
 }
+
+//Copy Constructor
+// References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
+LinkedItem::LinkedItem(const LinkedItem &l)
+{
+	ItemElement * p1 = 0;//current
+	ItemElement * p2 = 0;//next
+
+	if (l.Head == 0)
+		Head = 0;
+
+	else
+	{
+		Head = new ItemElement;
+		Head->next = l.Head->next;
+		Head->data = l.Head->data;
+
+		p1 = Head;
+		p2 = l.Head->next;
+	}
+
+	while (p2)
+	{
+		p1->next = new ItemElement;
+		p1 = p1->next;
+		p1->data = p2->data;
+
+		p2 = p2->next;
+	}
+	p1->next = 0;
+}
+
 
 // Add item to linked list
 void LinkedItem::addItem(Item *newItem) {
@@ -23,61 +55,151 @@ void LinkedItem::addItem(Item *newItem) {
         Head = newPtr;
     }
 	else{
-		temp = Head;
-        while(temp->next != NULL){
-            temp = temp->next;
+		current = Head;
+        while(current->next != NULL){
+            current = current->next;
         }
-        temp->next = newPtr;
+        current->next = newPtr;
     }
 }
 
 
-// Print all item
+// Print all items
 void LinkedItem::printItem(){
-    temp = Head;
-    while(temp!=NULL){
+    current = Head;
+    while(current!=NULL){
 		// Print first then move to jnext
-		temp->data->printDetail();
-		temp = temp->next;
+		current->data->printDetail();
+		current = current->next;
     }
 };
 
+// Print all out of stock items
+void LinkedItem::printOutOfStockItem() {
+	current = Head;
+	while (current != NULL) {
+		// Print first then move to jnext
+		if (current->data->getNumberOfCopies() == 0) {
+			current->data->printDetail();
+		}
+		current = current->next;
+	}
+}
+
 // Search item by ID
-ItemElement *LinkedItem::searchItem(string id){
+ItemElement *LinkedItem::searchItemByID(string id){
 	
-    temp = Head;
+    current = Head;
     track = Head;
-    while(temp!=NULL && temp->data->getId()!=id){
-        track = temp;
-        temp = temp->next;
+    while(current!=NULL && current->data->getId()!=id){
+        track = current;
+        current = current->next;
     }
-    if(temp == NULL){
+    if(current == NULL){
         // No need to print message in this function. Message will be carried out by menu.
         return NULL;
     }
-    return temp;
+    return current;
 };
+
+ItemElement *LinkedItem::searchItemByTitle(string title) {
+	current = Head;
+	track = Head;
+	while (current != NULL && current->data->getTitle() != title) {
+		track = current;
+		current = current->next;
+	}
+	if (current == NULL) {
+		// No need to print message in this function. Message will be carried out by menu.
+		return NULL;
+	}
+	return current;
+
+};
+
 
 // Delete item by ID
 void LinkedItem::deleteItem(string id) {
 	// Considering to refactor this function because there is a repeat part in find by id.
-    temp = Head;
-    track = temp;
-    while(temp!=NULL){
+    current = Head;
+    track = current;
+    while(current!=NULL){
 		// Rewrite
-		if (temp->data->getId() == id) {
+		if (current->data->getId() == id) {
 			// Found match id
-			if (temp != Head) {
-				track->next = temp->next; // behind item now will point to front item of the deleted item
-				temp->next = NULL; // deleted item will be remove the next
+			if (current != Head) {
+				track->next = current->next; // behind item now will point to front item of the deleted item
+				current->next = NULL; // deleted item will be remove the next
 			}
 			else {
-				Head = temp->next;
+				Head = current->next;
 			}
 		}
-        track = temp; // track will keep the behind item of the current item in case found item to delete.
-        temp = temp->next;
+        track = current; // track will keep the behind item of the current item in case found item to delete.
+        current = current->next;
     }
 
 }
+
+// Sorted by id. Directly affect on linked list so need to create a deep copy linked list.
+void LinkedItem::sortedByID() {
+	// The function enhance on this program
+	// References: https://www.javatpoint.com/program-to-sort-the-elements-of-the-singly-linked-list
+	current = Head;
+	track = NULL;
+
+	if (Head == NULL)
+		return;
+	else {
+		while (current != NULL) {
+			track = current-> next;
+			while (track != NULL) {
+				if (stoi(current->data->getId().substr(1, 3)) > stoi(track->data->getId().substr(1, 3))) {
+					Item *temp = current->data;
+					current->data = track->data;
+					track->data = temp;
+				}
+
+				track = track->next;
+			}
+
+			current = current->next;
+		}
+			
+	}
+	
+}
+
+// Sorted by title. Directly affect on linked list so need to create a deep copy linked list.
+void LinkedItem::sortedByTitle() {
+	current = Head;
+	track = NULL;
+
+	if (Head == NULL)
+		return;
+	else {
+		while (current != NULL) {
+			track = current->next;
+			while (track != NULL) {
+				if (current->data->getTitle() > track->data->getTitle()) {
+					Item *temp = current->data;
+					current->data = track->data;
+					track->data = temp;
+				}
+
+				track = track->next;
+			}
+
+			current = current->next;
+		}
+
+	}
+
+}
+
+
+ItemElement *LinkedItem::getHead() {
+	return Head;
+}
+
 
