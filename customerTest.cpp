@@ -58,30 +58,9 @@ using namespace std;
   vip2.checkRewardPoints();
   cout << endl;
 
-  // guest1.details();
-  // guest2.details();
-  //
-  // regular1.details();
-  // regular2.details();
-  //
-  // vip1.details();
-  // vip2.details();
-  //
-  // vip2.rentItem();
-  // vip2.checkRewardPoints();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.rentItem();
-  // vip2.checkRewardPoints();
-  // vip2.freeRentItem();
-  // vip2.rentItem(); // 10 rents
-  // vip2.checkRewardPoints();
-  // vip2.freeRentItem();
+  for (int numberOfRent = 0; numberOfRent <= 10; numberOfRent++) {
+    vip2.rentItem("VIP - Superhero");
+  }
 
   return 0;
 }

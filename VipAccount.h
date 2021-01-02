@@ -8,6 +8,8 @@
 class VipAccount : public Customer {
 private:
   int rewardPoints;
+  int freeItemAwarded;
+
 
 public:
   // Constructors
