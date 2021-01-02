@@ -33,31 +33,30 @@ void CustomerData(LinkedCustomer &customerList){
 
                 temp2++;
             }
-			int numberOfRentals = stoi(listtemp[4]);
-			string *rentalList = new string[numberOfRentals];
-
-			if (numberOfRentals != 0) {
-				for (int j = 0; j < numberOfRentals; j++) {
-					getline(myfile, s);
-					rentalList[j] = s;
-					cout << rentalList[j] << endl;
-				}
-			}
-
+			// Initialize pointer to a customer
+			Customer *c;
+			
 			if (listtemp[5] == "Guest") {
-				GuestAccount *c = new GuestAccount(listtemp[0], listtemp[1], listtemp[2], listtemp[3]);
+				c = new GuestAccount(listtemp[0], listtemp[1], listtemp[2], listtemp[3],stoi(listtemp[4]));
 				customerList.addCustomer(c);
 			}
 			else if (listtemp[5] == "Regular") {
-				RegularAccount *c = new RegularAccount(listtemp[0], listtemp[1], listtemp[2], listtemp[3]);
+				c = new RegularAccount(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]));
 				customerList.addCustomer(c);
 			}
 			else {
-				VipAccount *c = new VipAccount(listtemp[0], listtemp[1], listtemp[2], listtemp[3]);
+				c = new VipAccount(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]));
 				customerList.addCustomer(c);
 			}
-
-			delete[] rentalList;
+			// Get the number of rental in order to use for 'for-loop' to add correctly number of item.
+			int numberOfRentals = stoi(listtemp[4]);
+			// Looping to add item to rental list of the customer.
+			for (int j = 0; j < numberOfRentals; j++) {
+				// Add item id to customer rental list
+				getline(myfile, s);
+				LinkedRentalList *list = c->getRentalList();
+				list->addItem(s);
+			}
 
         }
         myfile.close();
