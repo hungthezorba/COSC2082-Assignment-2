@@ -4,15 +4,20 @@
 #include "GuestAccount.h"
 #include "RegularAccount.h"
 #include "VipAccount.h"
+#include "LinkedRentalList.h"
+#include "RentalListNode.h"
 
 #include "Customer.cpp"
 #include "GuestAccount.cpp"
 #include "RegularAccount.cpp"
 #include "VipAccount.cpp"
+#include "LinkedRentalList.cpp"
+#include "RentalListNode.cpp"
 
 using namespace std;
 
-int test() {
+// int test() {
+  int main() {
   // Test objects instantiation
   Customer customer1;
   Customer customer2("123", "Quan", "Vietnam", "0123456789");
@@ -30,31 +35,33 @@ int test() {
   // Test object methods
   customer1.details();
   customer2.details();
+  customer2.rentItem("PowerPuff Girls");
+  customer2.rentalListDetails();
 
-  guest1.details();
-  guest2.details();
-
-  regular1.details();
-  regular2.details();
-
-  vip1.details();
-  vip2.details();
-
-  vip2.rentItem();
-  vip2.checkRewardPoints();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.rentItem();
-  vip2.checkRewardPoints();
-  vip2.freeRentItem();
-  vip2.rentItem(); // 10 rents
-  vip2.checkRewardPoints();
-  vip2.freeRentItem();
+  // guest1.details();
+  // guest2.details();
+  //
+  // regular1.details();
+  // regular2.details();
+  //
+  // vip1.details();
+  // vip2.details();
+  //
+  // vip2.rentItem();
+  // vip2.checkRewardPoints();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.rentItem();
+  // vip2.checkRewardPoints();
+  // vip2.freeRentItem();
+  // vip2.rentItem(); // 10 rents
+  // vip2.checkRewardPoints();
+  // vip2.freeRentItem();
 
   return 0;
 }

@@ -1,6 +1,8 @@
 #include "LinkedRentalList.h"
 #include "RentalListNode.h"
 
+// #include "RentalListNode.cpp" // Delete this after testing is done
+
 using namespace std;
 
 LinkedRentalList::LinkedRentalList() {
@@ -20,24 +22,13 @@ void LinkedRentalList::addItem(string s) {
     // New item, make head point to it
 	  head = node;
   } else {
-    // Make a new node that points to head
-    // Comment this function to test the code block below it
-
-    // Uncomment this block to test
-    // Attempt to append item to LinkedRentalList
-    // Create new node and point to head
-
-    // Traverse to next node until temp point to nullptr
 	// Check if next node is NULL
     while (temp->getNext() != NULL) {
       temp = temp->getNext();
     }
 	// Set the next node(item)
 	temp->setNext(node);
-
-    // Set head to the new node
 	// Head is always the first one so cannot set the head = temp
-	
   }
 }
 
@@ -71,18 +62,18 @@ void LinkedRentalList::showItem() {
   cout << endl;
 }
 
-int main() {
-  LinkedRentalList list1;
-
-  list1.addItem("Superhero");
-  list1.addItem("SpoderMen");
-  list1.addItem("Sadman");
-
-  list1.showItem();
-  list1.removeItem("Sadman");
-  list1.showItem();
-
-  cout << "still fucking working!" << endl;
-
-  return 0;
-}
+// int main() {
+//   LinkedRentalList list1;
+//
+//   list1.addItem("Superhero");
+//   list1.addItem("SpoderMen");
+//   list1.addItem("Sadman");
+//
+//   list1.showItem();
+//   list1.removeItem("Sadman");
+//   list1.showItem();
+//
+//   cout << "still fucking working!" << endl;
+//
+//   return 0;
+// }

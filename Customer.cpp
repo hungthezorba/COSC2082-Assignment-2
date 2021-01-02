@@ -49,10 +49,6 @@ void Customer::setPhoneNumber(string phoneNumber) {
   this->phoneNumber = phoneNumber;
 }
 
-void Customer::rentItem() {
-  cout << "Renting item.." << endl;
-}
-
 void Customer::returnItem() {
   cout << "Returning item.." << endl;
 }
@@ -62,4 +58,12 @@ void Customer::details() {
   cout << ", " << this->name;
   cout << ", " << this->address;
   cout << ", " << this->phoneNumber << endl;
+}
+
+void Customer::rentalListDetails() {
+  this->rentalList.showItem();
+}
+
+void Customer::rentItem(const string itemName) {
+  this->rentalList.addItem(itemName);
 }

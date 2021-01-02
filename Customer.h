@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include "RentalListNode.h"
+#include "LinkedRentalList.h"
 
 using namespace std;
 
@@ -10,8 +12,7 @@ private:
   string name;
   string address;
   string phoneNumber;
-  // rentalList not implemented
-  string rentalList;
+  LinkedRentalList rentalList;
 
 public:
   // Constructor
@@ -39,10 +40,12 @@ public:
   void setPhoneNumber(const string phoneNumber);
 
   // Polymorphism functions
-  virtual void rentItem();
-
-  virtual void returnItem();
 
   virtual void details();
 
+  virtual void rentalListDetails();
+
+  virtual void rentItem(const string itemName);
+
+  virtual void returnItem();
 };
