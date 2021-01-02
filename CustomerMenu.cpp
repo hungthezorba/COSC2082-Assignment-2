@@ -38,6 +38,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	else if (input == "5") {
 		mainMenu(itemList, customerList);
 	}
+	else if (input == "Exit") {
+		closeProgram(itemList);
+	}
 	else {
 		cout << "ERROR: Invalid input. Please enter again." << endl;
 	}
