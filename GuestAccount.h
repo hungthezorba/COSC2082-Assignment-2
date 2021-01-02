@@ -6,7 +6,7 @@
 
 class GuestAccount : public Customer {
 private:
-  // int rentalCount;
+  int currentRentingItemCount;
 
 public:
   // Constructors

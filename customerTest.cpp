@@ -58,7 +58,7 @@ using namespace std;
   vip2.checkRewardPoints();
   cout << endl;
 
-  for (int numberOfRent = 0; numberOfRent <= 10; numberOfRent++) {
+  for (int numberOfRent = 0; numberOfRent < 10; numberOfRent++) {
     vip2.rentItem("VIP - Superhero");
   }
 

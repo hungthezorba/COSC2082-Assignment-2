@@ -8,7 +8,7 @@
 class VipAccount : public Customer {
 private:
   int rewardPoints;
-  int freeItemAwarded;
+  int freeRentItemAwarded;
 
 
 public:
@@ -23,8 +23,6 @@ public:
   void returnItem(const string itemName);
 
   void checkRewardPoints();
-
-  void freeRentItem();
 
   void details();
 
