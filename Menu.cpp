@@ -4,11 +4,12 @@
 #include "ValidateItemInput.h"
 #include "ItemMenu.h"
 #include "LinkedItem.h"
+#include "LinkedCustomer.h"
 #include <fstream>
 
 using namespace std;
 
-void mainMenu(LinkedItem &itemList) {
+void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	string input;
 	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 	cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
@@ -26,7 +27,7 @@ void mainMenu(LinkedItem &itemList) {
 	cin >> input;
 
 	if (input == "1") {
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 	else if (input == "2") {
 		cout << "Option 2" << endl;
@@ -60,13 +61,13 @@ void mainMenu(LinkedItem &itemList) {
 		else {
 			cout << "ERROR: Invalid input." << endl;
 		}
-		mainMenu(itemList);
+		mainMenu(itemList, customerList);
 	}
 	else if (input == "7") {
 		cout << "Option 7" << endl;
 		// Display out of stock
 		itemList.printOutOfStockItem();
-		mainMenu(itemList);
+		mainMenu(itemList, customerList);
 	}
 	else if (input == "8") {
 		cout << "Option 8" << endl;
@@ -79,7 +80,7 @@ void mainMenu(LinkedItem &itemList) {
 	}
 	else {
 		cout << "Prompt: Invalid input" << endl;
-		mainMenu(itemList);
+		mainMenu(itemList, customerList);
 	}
 }
 

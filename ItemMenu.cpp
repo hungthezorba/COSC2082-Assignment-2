@@ -7,7 +7,7 @@
 #include "LinkedItem.h"
 using namespace std;
 
-void itemMenu(LinkedItem &itemList) {
+void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 	// Dear reader: At the moment, only Menu 1 can Exit by typing 'Exit'. 
 	cout << "-----------------------* Item Menu *----------------------" << endl;
@@ -55,7 +55,7 @@ void itemMenu(LinkedItem &itemList) {
 		cout << "----------------------------------------------------------" << endl;
 		cout << endl; // space
 		// Back to item menu
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 	else if (input == "2") {
 
@@ -131,7 +131,7 @@ void itemMenu(LinkedItem &itemList) {
 		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 		//
 		// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 	else if (input == "3") {
 		// Check ID format
@@ -218,7 +218,7 @@ void itemMenu(LinkedItem &itemList) {
                 cout << "ERROR: Invalid Input. Please enter again." << endl;
             }
 }
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 	// Dummy option. Implement later
 	else if (input == "4") {
@@ -231,7 +231,7 @@ void itemMenu(LinkedItem &itemList) {
 			cout << "PROMPT: Enter item's ID want to update: ";
 			cin >> input;
 			if (input == "back") {
-				itemMenu(itemList);
+				itemMenu(itemList, customerList);
 				break;
 			}
 			else
@@ -246,7 +246,7 @@ void itemMenu(LinkedItem &itemList) {
 				cout << "PROMPT: Enter number of stock arrived:  ";
 				cin >> input;
 				if (input == "back") {
-					itemMenu(itemList);
+					itemMenu(itemList, customerList);
 					break;
 				}
 				else {
@@ -257,12 +257,12 @@ void itemMenu(LinkedItem &itemList) {
 				}
 			}
 		}
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 	else if (input == "5") {
 		cout << "------------------* List of items *----------------" << endl;
 		itemList.printItem();
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 	else if (input == "6") {
 
@@ -278,7 +278,7 @@ void itemMenu(LinkedItem &itemList) {
 					cout << "PROMPT: Enter item's ID want to search: ";
 					cin >> input;
 					if (input == "back") {
-						itemMenu(itemList);
+						itemMenu(itemList, customerList);
 						break;
 					}
 					else {
@@ -302,7 +302,7 @@ void itemMenu(LinkedItem &itemList) {
 					cin.ignore();
 					getline(cin, input);
 					if (input == "back") {
-						itemMenu(itemList);
+						itemMenu(itemList, customerList);
 						break;
 					}
 					else {
@@ -325,7 +325,7 @@ void itemMenu(LinkedItem &itemList) {
 			}
 			else {
 				cout << "ERROR: Invalid input." << endl;
-				itemMenu(itemList);
+				itemMenu(itemList, customerList);
 			}
 			cout << "PROMPT: Continue to search ? (y/n): ";
 			cin >> input;
@@ -341,11 +341,11 @@ void itemMenu(LinkedItem &itemList) {
 			}
 		}
 		
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 
 	}
 	else if (input == "7") {
-		mainMenu(itemList);
+		mainMenu(itemList, customerList);
 	}
 	// Close program.
 	else if (input == "Exit") {
@@ -353,7 +353,7 @@ void itemMenu(LinkedItem &itemList) {
 	}
 	else {
 		cout << "ERROR: Invalid input" << endl;
-		itemMenu(itemList);
+		itemMenu(itemList, customerList);
 	}
 }
 
@@ -363,7 +363,7 @@ Item* itemCreateMenu() {
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "1. Enter item ID: ";
+		cout << "1. Enter item ID(Ixxx-yyyy): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[0];
 		if (validateItemID(inputArray[0]))
@@ -381,7 +381,7 @@ Item* itemCreateMenu() {
 	}
 
 	while (true) {
-		cout << "3. Enter item's type: ";
+		cout << "3. Enter item's type(Game, DVD or Record): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[2];
 		if (validateRentalType(inputArray[2]))
@@ -389,7 +389,7 @@ Item* itemCreateMenu() {
 	}
 
 	while (true) {
-		cout << "4. Enter item's loan type: ";
+		cout << "4. Enter item's loan type(2-day or 1-week): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
 		if (validateLoanType(inputArray[3]))
@@ -431,7 +431,7 @@ Item* itemCreateMenu() {
 			}
 		}
 		else {
-			cout << "7. Enter item's genre: ";
+			cout << "7. Enter item's genre(Action, Horror, Comedy or Drama): ";
 			cin >> inputArray[6];
 			// Implemented validation. Still need further testing
 			if (validateGenre(inputArray[6])) {
@@ -475,7 +475,7 @@ void itemUpdateMenu(ItemElement *item) {
 	}
 	else if (input == "2") {
 		while (true) {
-			cout << "Enter item's type: ";
+			cout << "Enter item's type(Game, DVD or Record): ";
 			cin >> input;
 			if (validateRentalType(input)) {
 				item->data->setRentalType(input);
@@ -494,7 +494,7 @@ void itemUpdateMenu(ItemElement *item) {
 	}
 	else if (input == "3") {
 		while (true) {
-			cout << "Enter item's loan type: ";
+			cout << "Enter item's loan type(2-day or 1-week): ";
 			cin >> input;
 			if (validateLoanType(input)) {
 				item->data->setLoanType(input);
@@ -524,7 +524,7 @@ void itemUpdateMenu(ItemElement *item) {
 	}
 	else if (input == "6" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
 		while (true) {
-			cout << "Enter item's genre: ";
+			cout << "Enter item's genre(Action, Horror, Comedy or Drama): ";
 			cin >> input;
 			if (validateGenre(input)) {
 				item->data->setGenre(input);
