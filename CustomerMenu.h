@@ -3,9 +3,10 @@
 #include "ItemMenu.h"
 #include "LinkedItem.h"
 #include "LinkedCustomer.h"
+#include "CustomerNode.h"
 #include "Customer.h"
 
 void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList);
 
 Customer* customerCreateMenu();
-Customer* customerUpdateMenu();
+void customerUpdateMenu(CustomerNode *customer);

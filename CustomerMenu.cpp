@@ -18,7 +18,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	string input;
 	cin >> input;
 
-	// Option 1
+	// Add a new customer menu
 	if (input == "1") {
 		cout << "------------------* Add a new customer *------------------" << endl;
 		Customer *c = customerCreateMenu();
@@ -36,16 +36,174 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "FAIL: No customer added." << endl;
 		}
 	}
-	// Option 2
-	else if (input == "2") {
-		cout << "Option 2" << endl;
-	}
-	else if (input == "3") {
-		cout << "Option 3" << endl;
-	}
-	else if (input == "4") {
-		cout << "Option 4" << endl;
 
+	// Delete customer menu 
+	else if (input == "2") {
+		while (true) {
+			cout << "-------------------* Delete Customer *-------------------" << endl;
+			cout << "|1. By ID                                               |" << endl;
+			cout << "|2. By name                                             |" << endl;
+			cout << "|3. Back                                                |" << endl;
+			cout << "---------------------------------------------------------" << endl;
+			cout << "PROMPT: Enter an option: ";
+			cin >> input;
+
+			if (input == "1") {
+				while (true) {
+					cout << "PROMPT: Enter customer's ID want to delete: ";
+					cin >> input;
+					// Check ID format
+					if (validateCustomerID(input))
+						break;
+				}
+				// Find item through the list here
+				CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
+				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+				if (foundCustomer != NULL) {
+					foundCustomer->data->details();
+					// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+					cout << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
+					cin >> input;
+					if (input == "yes") {
+						customerList.deleteCustomer(foundCustomer->data->getId());
+						cout << "SUCCESS: Customer has been deleted." << endl;
+					}
+					else
+						cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+				}
+				else {
+					cout << "ERROR: Customer not found." << endl;
+				}
+			}
+			else if (input == "2") {
+				while (true) {
+					cout << "PROMPT: Enter customer's name want to delete: ";
+					cin >> input;
+					// Check title format
+					if (validateCustomerName(input))
+						break;
+				}
+				// Find item through the list here
+				CustomerNode *foundCustomer = customerList.searchCustomerByName(input);
+				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+				if (foundCustomer != NULL) {
+					foundCustomer->data->details();
+					// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+					cout << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
+					cin >> input;
+					if (input == "yes") {
+						customerList.deleteCustomer(foundCustomer->data->getId());
+						cout << "SUCCESS: Customer has been deleted." << endl;
+					}
+					else {
+						cout << "FAIL: No deletion has taken place." << endl;
+					}
+				}
+				else {
+					cout << "ERROR: Customer not found." << endl;
+				}
+			}
+			else if (input == "3") {
+				break;
+			}
+			else {
+				cout << "ERROR: Invalid Input. Please enter again." << endl;
+			}
+		}
+
+	}
+
+	// Update customer menu
+	else if (input == "3") {
+
+		while (true) {
+			cout << "--------------------* Update Customer *--------------------" << endl;
+			cout << "|1. By ID                                                 |" << endl;
+			cout << "|2. By name                                               |" << endl;
+			cout << "|3. Back                                                  |" << endl;
+			cout << "-----------------------------------------------------------" << endl;
+			cout << "PROMPT: Enter an option: ";
+			cin >> input;
+
+			if (input == "1") {
+				cin.ignore();
+				while (true) {
+					cout << "PROMPT: Enter customer's ID want to update: ";
+					getline(cin, input);
+					if (validateCustomerID(input))
+						break;
+				}
+				// Find item through the list here
+				CustomerNode *customer = customerList.searchCustomerByID(input);
+				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+				//
+				if (customer != NULL) {
+					while (true) {
+						// Call update function
+						customerUpdateMenu(customer);
+						customer->data->details();
+						cout << "PROMPT: Continue to update ? (y/n): ";
+						cin >> input;
+
+						if (input == "y") {
+							// Continue to update
+						}
+						else {
+							// Break out the update loop
+							break;
+						}
+					}
+				}
+				else {
+					// Will implement input id again
+					cout << "ERROR: Cusotmer not found." << endl;
+				}
+			}
+			else if (input == "2") {
+				while (true) {
+					cout << "PROMPT: Enter customer's name want to update: ";
+					cin >> input;
+					if (validateCustomerName(input))
+						break;
+				}
+				// Find item through the list here
+				CustomerNode *customer = customerList.searchCustomerByName(input);
+				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+				//
+				if (customer != NULL) {
+					while (true) {
+						// Call update function
+						customerUpdateMenu(customer);
+						customer->data->details();
+						cout << "PROMPT: Continue to update ? (y/n): ";
+						cin >> input;
+
+						if (input == "y") {
+							// Continue to update
+						}
+						else {
+							// Break out the update loop
+							break;
+						}
+					}
+				}
+				else {
+					cout << "ERROR: Customer not found." << endl;
+				}
+			}
+			else if (input == "3") {
+				break;
+			}
+			else {
+				cout << "ERROR: Invalid Input. Please enter again." << endl;
+			}
+		}
+
+	}
+
+	// Search customer menu
+	else if (input == "4") {
+		// Use while loop to let the user exit the option by their choice
 		while (true) {
 			cout << "-------------------* Search a customer *-------------------" << endl;
 			cout << "|1. By ID                                                 |" << endl;
@@ -66,6 +224,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				CustomerNode *c = customerList.searchCustomerByID(input);
 				if (c != NULL) {
 					c->data->details();
+					cout << "Currently renting: " << endl;
+					LinkedRentalList *list = c->data->getRentalList();
+					list->showItem();
 				}
 				else {
 					cout << "PROMPT: Cannot found the customer with specified ID." << endl;
@@ -84,6 +245,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				CustomerNode *c = customerList.searchCustomerByName(input);
 				if (c != NULL) {
 					c->data->details();
+					cout << "Currently rent: " << endl;
+					LinkedRentalList *list = c->data->getRentalList();
+					list->showItem();
 				}
 				else {
 					cout << "PROMPT: Cannot found the customer with specified name." << endl;
@@ -94,7 +258,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			}
 			else {
 				cout << "ERROR: Invalid input." << endl;
-				itemMenu(itemList, customerList);
 			}
 			cout << "PROMPT: Continue to search ? (y/n): ";
 			cin >> input;
@@ -111,9 +274,13 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 
 	}
+
+	// Back to main menu
 	else if (input == "5") {
 		mainMenu(itemList, customerList);
 	}
+
+	// Close the program
 	else if (input == "Exit") {
 		closeProgram(itemList);
 	}
@@ -186,4 +353,74 @@ Customer *customerCreateMenu() {
 	// Free up space in heap
 	delete[] inputArray;
 	return c;
+}
+
+void customerUpdateMenu(CustomerNode *customer) {
+	string input;
+	cout << "----------------------* Update Item *----------------------" << endl;
+	customer->data->details();
+	cout << "Select an option: ";
+	cin >> input;
+
+	if (input == "1") {
+		cin.ignore();
+		while (true) {
+			cout << "Enter customer's name: ";
+			// Name can contains spaces so need to use getline in this case
+			getline(cin, input);
+			if (validateCustomerName(input)) {
+				customer->data->setName(input);
+				break;
+			}
+		}
+	}
+	else if (input == "2") {
+		cin.ignore();
+		while (true) {
+			cout << "Enter customer's address: ";
+			// Address can contains spaces so need to use getline in this case
+			getline(cin, input);
+			if (validateCustomerAddress(input)) {
+				customer->data->setAddress(input);
+				break;
+			}
+		}
+	}
+	else if (input == "3") {
+		while (true) {
+			cout << "Enter customer's phone number(10 digits): ";
+			cin >> input;
+			if (validateCustomerPhoneNumber(input)) {
+				customer->data->setPhoneNumber(input);
+				break;
+			}
+		}
+	}
+	else if (input == "4") {
+		while (true) {
+			cout << "Enter customer's type(Guest, Regular, VIP): ";
+			cin >> input;
+			if (validateCustomerType(input)) {
+				// Save a temporary rental list for conversion
+				LinkedRentalList *temp = customer->data->getRentalList();
+				if (input == "Guest") {
+					customer->data = new GuestAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
+					customer->data->setRentalList(*temp);
+				}
+				else if (input == "Regular") {
+					customer->data = new RegularAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
+					customer->data->setRentalList(*temp);
+				}
+				else {
+					customer->data = new VipAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
+					customer->data->setRentalList(*temp);
+				}
+				break;
+			}
+		}
+	}
+	else {
+		cout << "ERROR: Invalid input. Please enter again." << endl;
+	}
+	return;
 }
