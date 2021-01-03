@@ -37,7 +37,19 @@ bool validateCustomerName(string input) {
 	return true;
 }
 
-bool validateCustomerAddress(string input);
+bool validateCustomerAddress(string input) {
+
+	for (int i = 0; i < input.length(); i++) {
+		if ((input[i] >= 33 && input[i] <= 43) ||
+			(input[i] >= 58 && input[i] <= 64) ||
+			(input[i] >= 91 && input[i] <= 96) ||
+			(input[i] >= 123)) {
+			cout << "ERROR: Address cannot contains special characters. Please enter again." << endl;
+			return false;
+		}
+	}
+	return true;
+}
 
 bool validateCustomerPhoneNumber(string input);
 
