@@ -2,6 +2,7 @@
 #include "GuestAccount.h"
 #include "RegularAccount.h"
 #include "VipAccount.h"
+#include "ValidateCustomerInput.h"
 
 
 void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
@@ -57,7 +58,7 @@ Customer *customerCreateMenu() {
 		cout << "1. Enter customer ID(Cxxx): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[0];
-		if (true)
+		if (validateCustomerID(inputArray[0]))
 			break;
 	}
 
@@ -81,13 +82,14 @@ Customer *customerCreateMenu() {
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "4. Enter customer phone number : ";
+		cout << "4. Enter customer phone number: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
 		if (true)
 			break;
 	}
 
+	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
 		cout << "5. Enter customer type: ";
 		cin >> inputArray[4];

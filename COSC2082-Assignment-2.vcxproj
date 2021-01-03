@@ -124,6 +124,7 @@
     <ClCompile Include="Record.cpp" />
     <ClCompile Include="RegularAccount.cpp" />
     <ClCompile Include="RentalListNode.cpp" />
+    <ClCompile Include="ValidateCustomerInput.cpp" />
     <ClCompile Include="ValidateItemInput.cpp" />
     <ClCompile Include="VipAccount.cpp" />
   </ItemGroup>
@@ -146,6 +147,7 @@
     <ClInclude Include="Record.h" />
     <ClInclude Include="RegularAccount.h" />
     <ClInclude Include="RentalListNode.h" />
+    <ClInclude Include="ValidateCustomerInput.h" />
     <ClInclude Include="ValidateItemInput.h" />
     <ClInclude Include="VipAccount.h" />
   </ItemGroup>
