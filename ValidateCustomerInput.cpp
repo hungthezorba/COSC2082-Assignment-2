@@ -51,6 +51,20 @@ bool validateCustomerAddress(string input) {
 	return true;
 }
 
-bool validateCustomerPhoneNumber(string input);
+bool validateCustomerPhoneNumber(string input) {
+
+	if (input.length() != 10) {
+		cout << "ERROR: Wrong format. Please enter again." << endl;
+		return false;
+	}
+
+	for (int i = 0; i < 10; i++) {
+		if (!isdigit(input[i])) {
+			cout << "ERROR: Phone number only contains digit. Please enter agian." << endl;
+			return false;
+		}
+	}
+	return true;
+}
 
 bool validateCustomerType(string input);

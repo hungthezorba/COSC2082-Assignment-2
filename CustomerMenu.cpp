@@ -61,22 +61,20 @@ Customer *customerCreateMenu() {
 			break;
 	}
 
+	cin.ignore();
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
 		cout << "2. Enter customer name: ";
 		// ignore the newline character
-		cin.ignore();
-		cin >> inputArray[1];
+		getline(cin, inputArray[1]);
 		if (validateCustomerName(inputArray[1]))
 			break;
 	}
-
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
 		cout << "3. Enter customer address: ";
 		// ignore the newline character
-		cin.ignore();
-		cin >> inputArray[2];
+		getline(cin, inputArray[2]);
 		if (validateCustomerAddress(inputArray[2]))
 			break;
 	}
@@ -86,7 +84,7 @@ Customer *customerCreateMenu() {
 		cout << "4. Enter customer phone number: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
-		if (true)
+		if (validateCustomerPhoneNumber(inputArray[3]))
 			break;
 	}
 
