@@ -67,7 +67,7 @@ Customer *customerCreateMenu() {
 		cout << "2. Enter customer name: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[1];
-		if (true)
+		if (validateCustomerName(inputArray[1]))
 			break;
 	}
 
