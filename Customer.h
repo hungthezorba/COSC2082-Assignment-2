@@ -46,6 +46,8 @@ public:
 
   LinkedRentalList *getRentalList();
 
+  void setRentalList(LinkedRentalList &rentalList);
+
   // Polymorphism functions
   virtual void details();
 

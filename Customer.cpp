@@ -66,6 +66,10 @@ LinkedRentalList *Customer::getRentalList() {
 	return &rentalList;
 }
 
+void Customer::setRentalList(LinkedRentalList &rentalList) {
+	this->rentalList = rentalList;
+}
+
 void Customer::details() {
   cout << this->id;
   cout << ", " << this->name;
