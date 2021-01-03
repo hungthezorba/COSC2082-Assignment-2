@@ -45,6 +45,71 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	}
 	else if (input == "4") {
 		cout << "Option 4" << endl;
+
+		while (true) {
+			cout << "-------------------* Search a customer *-------------------" << endl;
+			cout << "|1. By ID                                                 |" << endl;
+			cout << "|2. By name                                               |" << endl;
+			cout << "|3. Back                                                  |" << endl;
+			cout << "-----------------------------------------------------------" << endl;
+			cout << "PROMPT: Enter an option: ";
+			cin >> input;
+			if (input == "1") {
+				while (true) {
+					cout << "PROMPT: Enter customer's ID want to search: ";
+					cin >> input;
+					if (validateCustomerID(input))
+						break;
+				}
+				// Find item through the list here
+
+				CustomerNode *c = customerList.searchCustomerByID(input);
+				if (c != NULL) {
+					c->data->details();
+				}
+				else {
+					cout << "PROMPT: Cannot found the customer with specified ID." << endl;
+				}
+			}
+			else if (input == "2") {
+				cin.ignore();
+				while (true) {
+					cout << "PROMPT: Enter customer's name want to search: ";
+					getline(cin, input);
+						if (validateCustomerName(input))
+							break;
+				}
+
+				// Find item through the list here
+				CustomerNode *c = customerList.searchCustomerByName(input);
+				if (c != NULL) {
+					c->data->details();
+				}
+				else {
+					cout << "PROMPT: Cannot found the customer with specified name." << endl;
+				}
+			}
+			else if (input == "3") {
+				break;
+			}
+			else {
+				cout << "ERROR: Invalid input." << endl;
+				itemMenu(itemList, customerList);
+			}
+			cout << "PROMPT: Continue to search ? (y/n): ";
+			cin >> input;
+			if (input == "y") {
+				cout << endl; // Add space
+				// Continue to update
+			}
+			else {
+				cout << "-----------------------------------------------------------" << endl;
+				cout << endl; // Add space
+				// Break out the update loop
+				break;
+			}
+		}
+
 	}
 	else if (input == "5") {
 		mainMenu(itemList, customerList);

@@ -41,9 +41,8 @@ void LinkedCustomer::printAllCustomer(){
     }
 };
 //
-//// Search item by ID
-CustomerNode *LinkedCustomer::searchCustomer(string id){
-
+//// Search customer by ID
+CustomerNode *LinkedCustomer::searchCustomerByID(string id){
     temp = Head;
     track = Head;
     while(temp!=NULL && temp->data->getId()!=id){
@@ -55,6 +54,20 @@ CustomerNode *LinkedCustomer::searchCustomer(string id){
         return NULL;
     }
     return temp;
+};
+
+CustomerNode *LinkedCustomer::searchCustomerByName(string name) {
+	temp = Head;
+	track = Head;
+	while (temp != NULL && temp->data->getName() != name) {
+		track = temp;
+		temp = temp->next;
+	}
+	if (temp == NULL) {
+		// No need to print message in this function. Message will be carried out by menu.
+		return NULL;
+	}
+	return temp;
 };
 //
 //// Delete item by ID
