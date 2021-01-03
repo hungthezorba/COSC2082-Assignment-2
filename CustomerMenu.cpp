@@ -92,7 +92,7 @@ Customer *customerCreateMenu() {
 	while (true) {
 		cout << "5. Enter customer type: ";
 		cin >> inputArray[4];
-		if (true)
+		if (validateCustomerType(inputArray[4]))
 			break;
 	}
 	

@@ -67,4 +67,10 @@ bool validateCustomerPhoneNumber(string input) {
 	return true;
 }
 
-bool validateCustomerType(string input);
+bool validateCustomerType(string input) {
+	if (input != "Guest" && input != "Regular" && input != "VIP") {
+		cout << "ERROR: Customer type must be in 'Guest', 'Regular' or 'VIP'. Please enter again." << endl;
+		return false;
+	}
+	return true;
+}
