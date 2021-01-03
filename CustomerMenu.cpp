@@ -20,11 +20,21 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 	// Option 1
 	if (input == "1") {
-		cout << "-----------------* Add a new customer *-----------------" << endl;
+		cout << "------------------* Add a new customer *------------------" << endl;
 		Customer *c = customerCreateMenu();
+		cout << "----------------------------------------------------------" << endl;
+		cout << "-----------------* Add a new customer *-------------------" << endl;
 		c->details();
-		customerList.addCustomer(c);
-		customerList.printAllCustomer();
+		cout << "----------------------------------------------------------" << endl;
+		cout << "PROPMP: Customer will be added to database. Type 'yes' to confirm: ";
+		cin >> input;
+		if (input == "yes") {
+			customerList.addCustomer(c);
+			cout << "SUCCESS: Customer added." << endl;
+		}
+		else {
+			cout << "FAIL: No customer added." << endl;
+		}
 	}
 	// Option 2
 	else if (input == "2") {
@@ -81,7 +91,7 @@ Customer *customerCreateMenu() {
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "4. Enter customer phone number: ";
+		cout << "4. Enter customer phone number(10 digits): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
 		if (validateCustomerPhoneNumber(inputArray[3]))
@@ -90,7 +100,7 @@ Customer *customerCreateMenu() {
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "5. Enter customer type: ";
+		cout << "5. Enter customer type(Guest, Regular, VIP): ";
 		cin >> inputArray[4];
 		if (validateCustomerType(inputArray[4]))
 			break;
@@ -98,6 +108,7 @@ Customer *customerCreateMenu() {
 	
 	Customer *c;
 
+	// With each case of customer type will create each correctly object class.
 	if (inputArray[4] == "Guest") {
 		c = new GuestAccount(inputArray[0], inputArray[1], inputArray[2], inputArray[3], 0);
 	}
@@ -107,6 +118,7 @@ Customer *customerCreateMenu() {
 	else {
 		c = new VipAccount(inputArray[0], inputArray[1], inputArray[2], inputArray[3], 0);
 	}
+	// Free up space in heap
 	delete[] inputArray;
 	return c;
 }

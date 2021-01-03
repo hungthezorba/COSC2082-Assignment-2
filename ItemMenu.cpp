@@ -50,7 +50,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "SUCCESS: Item added." << endl;
 		}
 		else {
-			cout << "SUCCESS: No item added." << endl;
+			cout << "FAIL: No item added." << endl;
 		}
 		cout << "----------------------------------------------------------" << endl;
 		cout << endl; // space
@@ -88,7 +88,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                         itemList.printItem();
                     }
                     else
-                        cout << "SUCCESS: No deletion has taken place. Return to item menu." << endl;
+                        cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
                 }
                 else {
                     cout << "ERROR: Item not found." << endl;
@@ -114,7 +114,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                         itemList.printItem();
                     }
                     else {
-                        cout << "SUCCESS: No deletion has taken place." << endl;
+                        cout << "FAIL: No deletion has taken place." << endl;
                     }
                 }
                 else {
@@ -420,7 +420,7 @@ Item* itemCreateMenu() {
 			break;
 		}
 		else if (inputArray[2] == "DVD") {
-			cout << "7. Enter item's genre: ";
+			cout << "7. Enter item's genre(Action, Horror, Comedy or Drama): ";
 			// Implemented validation. Still need further testing
 			cin >> inputArray[6];
 			if (validateGenre(inputArray[6])) {
