@@ -47,12 +47,12 @@ void VipAccount::checkRewardPoints() {
 }
 
 void VipAccount::details() {
-  cout << "Customer's details:" << endl;
-  cout << "ID: " << this->getId() << endl;
-  cout << "Name: " << this->getName() << endl;
-  cout << "Address: " << this->getAddress() << endl;
-  cout << "Phone Number: " << this->getPhoneNumber() << endl;
-  cout << "Reward Points: " << this->rewardPoints << endl;
+  cout << "Customer ID: "<< this->getId() << endl;
+  cout << "1. Name: " << this->getName() << endl;
+  cout << "2. Address: " << this->getAddress() << endl;
+  cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
+  cout << "4. Type: VIP" << endl;
+  cout << "5. Reward Points: " << this->rewardPoints << endl;
 }
 
 void VipAccount::showRentalList() {
