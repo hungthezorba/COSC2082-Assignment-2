@@ -54,8 +54,6 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 		cout << "----------------------------------------------------------" << endl;
 		cout << endl; // space
-		// Back to item menu
-		itemMenu(itemList, customerList);
 	}
 	else if (input == "2") {
 
@@ -78,14 +76,15 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                 }
                 // Find item through the list here
                 ItemElement *foundItem = itemList.searchItemByID(input);
+				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
                 if ( foundItem != NULL) {
                     foundItem->data->printDetail();
+					// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
                     cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
                     cin >> input;
                     if (input == "yes") {
                         itemList.deleteItem(foundItem->data->getId());
                         cout << "SUCCESS: Item has been deleted." << endl;
-                        itemList.printItem();
                     }
                     else
                         cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
@@ -104,14 +103,15 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                 }
                 // Find item through the list here
                 ItemElement *foundItem = itemList.searchItemByTitle(input);
+				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
                 if ( foundItem != NULL) {
                     foundItem->data->printDetail();
+					// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
                     cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
                     cin >> input;
                     if (input == "yes") {
                         itemList.deleteItem(foundItem->data->getId());
                         cout << "SUCCESS: Item has been deleted." << endl;
-                        itemList.printItem();
                     }
                     else {
                         cout << "FAIL: No deletion has taken place." << endl;
@@ -128,13 +128,8 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                 cout << "ERROR: Invalid Input. Please enter again." << endl;
             }
 	    }
-		// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//
-		// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		itemMenu(itemList, customerList);
 	}
 	else if (input == "3") {
-		// Check ID format
 
 		while (true) {
             cout << "---------------------* Update Item *---------------------" << endl;
@@ -217,8 +212,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
             else {
                 cout << "ERROR: Invalid Input. Please enter again." << endl;
             }
-}
-		itemMenu(itemList, customerList);
+		}
 	}
 	// Dummy option. Implement later
 	else if (input == "4") {
@@ -230,13 +224,8 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		while (true) {
 			cout << "PROMPT: Enter item's ID want to update: ";
 			cin >> input;
-			if (input == "back") {
-				itemMenu(itemList, customerList);
+			if (validateItemID(input))
 				break;
-			}
-			else
-				if (validateItemID(input))
-					break;
 		}
 		// Find item through the list here
 
@@ -245,24 +234,17 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			while (true) {
 				cout << "PROMPT: Enter number of stock arrived:  ";
 				cin >> input;
-				if (input == "back") {
-					itemMenu(itemList, customerList);
+				if (validateNumberOfCopies(input)) {
+					item->data->increaseStock(stoi(input));
 					break;
 				}
-				else {
-					if (validateNumberOfCopies(input)) {
-						item->data->increaseStock(stoi(input));
-						break;
-					}
-				}
+		
 			}
 		}
-		itemMenu(itemList, customerList);
 	}
 	else if (input == "5") {
 		cout << "------------------* List of items *----------------" << endl;
 		itemList.printItem();
-		itemMenu(itemList, customerList);
 	}
 	else if (input == "6") {
 
@@ -270,6 +252,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "--------------------* Search an item *--------------------" << endl;
 			cout << "|1. By ID                                                |" << endl;
 			cout << "|2. By title                                             |" << endl;
+			cout << "|3. Back                                                 |" << endl;
 			cout << "----------------------------------------------------------" << endl;
 			cout << "PROMPT: Enter an option: ";
 			cin >> input;
@@ -277,17 +260,10 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				while (true) {
 					cout << "PROMPT: Enter item's ID want to search: ";
 					cin >> input;
-					if (input == "back") {
-						itemMenu(itemList, customerList);
+					if (validateItemID(input))
 						break;
-					}
-					else {
-						if (validateItemID(input))
-							break;
-					}
 				}
 				// Find item through the list here
-
 				ItemElement *item = itemList.searchItemByID(input);
 				if (item != NULL) {
 					item->data->printDetail();
@@ -301,14 +277,8 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					cout << "PROMPT: Enter item's title want to search: ";
 					cin.ignore();
 					getline(cin, input);
-					if (input == "back") {
-						itemMenu(itemList, customerList);
+					if (validateTitle(input))
 						break;
-					}
-					else {
-						if (validateTitle(input))
-							break;
-					}
 				}
 				// Find item through the list here
 
@@ -340,9 +310,6 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				break;
 			}
 		}
-		
-		itemMenu(itemList, customerList);
-
 	}
 	else if (input == "7") {
 		mainMenu(itemList, customerList);
@@ -353,8 +320,8 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	}
 	else {
 		cout << "ERROR: Invalid input" << endl;
-		itemMenu(itemList, customerList);
 	}
+	itemMenu(itemList, customerList);
 }
 
 // Create item
