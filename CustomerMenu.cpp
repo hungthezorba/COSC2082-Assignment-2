@@ -196,21 +196,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						CustomerNode *customer = customerList.searchCustomerByID(input);
 						
 						if (customer != NULL) {
-							while (true) {
 								// Call update function
 								customerUpdateMenu(customer);
-								customer->data->details();
-								cout << "PROMPT: Continue to update ? (y/n): ";
-								cin >> input;
-
-								if (input == "y") {
-									// Continue to update
-								}
-								else {
-									// Break out the update loop
-									break;
-								}
-							}
+							
 						}
 						else {
 							cout << "ERROR: Customer not found." << endl;
@@ -384,70 +372,84 @@ Customer *customerCreateMenu() {
 
 void customerUpdateMenu(CustomerNode *customer) {
 	string input;
-	cout << "----------------------* Update Customer *----------------------" << endl;
-	customer->data->details();
-	cout << "Select an option: ";
-	cin >> input;
 
-	if (input == "1") {
-		cin.ignore();
-		while (true) {
-			cout << "Enter customer's name: ";
-			// Name can contains spaces so need to use getline in this case
-			getline(cin, input);
-			if (validateCustomerName(input)) {
-				customer->data->setName(input);
-				break;
-			}
-		}
-	}
-	else if (input == "2") {
-		cin.ignore();
-		while (true) {
-			cout << "Enter customer's address: ";
-			// Address can contains spaces so need to use getline in this case
-			getline(cin, input);
-			if (validateCustomerAddress(input)) {
-				customer->data->setAddress(input);
-				break;
-			}
-		}
-	}
-	else if (input == "3") {
-		while (true) {
-			cout << "Enter customer's phone number(10 digits): ";
-			cin >> input;
-			if (validateCustomerPhoneNumber(input)) {
-				customer->data->setPhoneNumber(input);
-				break;
-			}
-		}
-	}
-	else if (input == "4") {
-		while (true) {
-			cout << "Enter customer's type(Guest, Regular, VIP): ";
-			cin >> input;
-			if (validateCustomerType(input)) {
-				// Save a temporary rental list for conversion
-				LinkedRentalList *temp = customer->data->getRentalList();
-				if (input == "Guest") {
-					customer->data = new GuestAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
-					customer->data->setRentalList(*temp);
+	while (true) {
+		cout << "----------------------* Update Customer *----------------------" << endl;
+		customer->data->details();
+		cout << "Select an option: ";
+		cin >> input;
+
+		if (input == "1") {
+			cin.ignore();
+			while (true) {
+				cout << "Enter customer's name: ";
+				// Name can contains spaces so need to use getline in this case
+				getline(cin, input);
+				if (validateCustomerName(input)) {
+					customer->data->setName(input);
+					break;
 				}
-				else if (input == "Regular") {
-					customer->data = new RegularAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
-					customer->data->setRentalList(*temp);
-				}
-				else {
-					customer->data = new VipAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
-					customer->data->setRentalList(*temp);
-				}
-				break;
 			}
 		}
-	}
-	else {
-		cout << "ERROR: Invalid input. Please enter again." << endl;
+		else if (input == "2") {
+			cin.ignore();
+			while (true) {
+				cout << "Enter customer's address: ";
+				// Address can contains spaces so need to use getline in this case
+				getline(cin, input);
+				if (validateCustomerAddress(input)) {
+					customer->data->setAddress(input);
+					break;
+				}
+			}
+		}
+		else if (input == "3") {
+			while (true) {
+				cout << "Enter customer's phone number(10 digits): ";
+				cin >> input;
+				if (validateCustomerPhoneNumber(input)) {
+					customer->data->setPhoneNumber(input);
+					break;
+				}
+			}
+		}
+		else if (input == "4") {
+			while (true) {
+				cout << "Enter customer's type(Guest, Regular, VIP): ";
+				cin >> input;
+				if (validateCustomerType(input)) {
+					// Save a temporary rental list for conversion
+					LinkedRentalList *temp = customer->data->getRentalList();
+					if (input == "Guest") {
+						customer->data = new GuestAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
+						customer->data->setRentalList(*temp);
+					}
+					else if (input == "Regular") {
+						customer->data = new RegularAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
+						customer->data->setRentalList(*temp);
+					}
+					else {
+						customer->data = new VipAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
+						customer->data->setRentalList(*temp);
+					}
+					break;
+				}
+			}
+		}
+		else {
+			cout << "ERROR: Invalid input. Please enter again." << endl;
+		}
+
+		customer->data->details();
+		cout << "PROMPT: Continue to update ? (y/n): ";
+		cin >> input;
+		if (input == "y") {
+			// Continue to update
+		}
+		else {
+			// Break out the update loop
+			break;
+		}
 	}
 	return;
 }
