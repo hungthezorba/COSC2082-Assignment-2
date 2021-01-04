@@ -9,319 +9,321 @@ using namespace std;
 
 void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
-	// Dear reader: At the moment, only Menu 1 can Exit by typing 'Exit'. 
-	cout << "-----------------------* Item Menu *----------------------" << endl;
-	cout << "| 1. Add a new item                                      |" << endl;
-	cout << "| 2. Delete an item                                      |" << endl;
-	cout << "| 3. Update an item                                      |" << endl;
-	cout << "| 4. Increase item's stock                               |" << endl;
-	cout << "| 5. Show all item in stock                              |" << endl;
-	cout << "| 6. Search an item                                      |" << endl;
-	cout << "| 7. Back                                                |" << endl;
-	cout << "| Exit.                                                  |" << endl;
-	cout << "----------------------------------------------------------" << endl;
-	cout << "Choose an option: ";
-	string input;
-	cin >> input;
+	while (true) {
 
-	// Menu 1, Item 1
-	if (input == "1") {
-		// Create a new item
-		cout << "--------------------* Add a new item *--------------------" << endl;
-		Item *newItem = itemCreateMenu();
+		// Dear reader: At the moment, only Menu 1 can Exit by typing 'Exit'. 
+		cout << "-----------------------* Item Menu *----------------------" << endl;
+		cout << "| 1. Add a new item                                      |" << endl;
+		cout << "| 2. Delete an item                                      |" << endl;
+		cout << "| 3. Update an item                                      |" << endl;
+		cout << "| 4. Increase item's stock                               |" << endl;
+		cout << "| 5. Show all item in stock                              |" << endl;
+		cout << "| 6. Search an item                                      |" << endl;
+		cout << "| 7. Back                                                |" << endl;
+		cout << "| Exit.                                                  |" << endl;
 		cout << "----------------------------------------------------------" << endl;
-		// Insert item into linked list here
-		cout << "--------------------* Add a new item *--------------------" << endl;
-		cout << "| Item " << newItem->getId() << endl;
-		cout << "| 1. Title: " << newItem->getTitle() << endl;
-		cout << "| 2. Type: " << newItem->getRentalType() << endl;
-		cout << "| 3. Loan's type: " << newItem->getLoanType() << endl;
-		cout << "| 4. Number of copies: " << newItem->getNumberOfCopies() << endl;
-		cout << "| 5. Rental fee: " << newItem->getRentalFee() << endl;
-		if (newItem->getGenre() != "") {
-			cout << "| 6. Genre: " << newItem->getGenre() << endl;
-		}
-		cout << "----------------------------------------------------------" << endl;
-
-		cout << "PROPMP: Item will be added to database. Type 'yes' to confirm: ";
+		cout << "Choose an option: ";
+		string input;
 		cin >> input;
-		if (input == "yes") {
-			itemList.addItem(newItem);
-			cout << "SUCCESS: Item added." << endl;
-		}
-		else {
-			cout << "FAIL: No item added." << endl;
-		}
-		cout << "----------------------------------------------------------" << endl;
-		cout << endl; // space
-	}
-	else if (input == "2") {
 
-	    while (true) {
-            cout << "---------------------* Delete Item *---------------------" << endl;
-            cout << "|1. By ID                                                |" << endl;
-            cout << "|2. By title                                             |" << endl;
-            cout << "|3. Back                                                 |" << endl;
-            cout << "----------------------------------------------------------" << endl;
-            cout << "PROMPT: Enter an option: ";
-            cin >> input;
+		// Menu 1, Item 1
+		if (input == "1") {
+			// Create a new item
+			cout << "--------------------* Add a new item *--------------------" << endl;
+			Item *newItem = itemCreateMenu();
+			cout << "----------------------------------------------------------" << endl;
+			// Insert item into linked list here
+			cout << "--------------------* Add a new item *--------------------" << endl;
+			cout << "| Item " << newItem->getId() << endl;
+			cout << "| 1. Title: " << newItem->getTitle() << endl;
+			cout << "| 2. Type: " << newItem->getRentalType() << endl;
+			cout << "| 3. Loan's type: " << newItem->getLoanType() << endl;
+			cout << "| 4. Number of copies: " << newItem->getNumberOfCopies() << endl;
+			cout << "| 5. Rental fee: " << newItem->getRentalFee() << endl;
+			if (newItem->getGenre() != "") {
+				cout << "| 6. Genre: " << newItem->getGenre() << endl;
+			}
+			cout << "----------------------------------------------------------" << endl;
 
-            if (input == "1") {
-                while (true) {
-                    cout << "PROMPT: Enter item's ID want to delete: ";
-                    cin >> input;
-                    // Check ID format
-                    if (validateItemID(input))
-                        break;
-                }
-                // Find item through the list here
-                ItemElement *foundItem = itemList.searchItemByID(input);
-				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-                if ( foundItem != NULL) {
-                    foundItem->data->printDetail();
-					// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-                    cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-                    cin >> input;
-                    if (input == "yes") {
-                        itemList.deleteItem(foundItem->data->getId());
-                        cout << "SUCCESS: Item has been deleted." << endl;
-                    }
-                    else
-                        cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
-                }
-                else {
-                    cout << "ERROR: Item not found." << endl;
-                }
-            }
-            else if (input == "2") {
-                while (true) {
-                    cout << "PROMPT: Enter item's title want to delete: ";
-                    cin >> input;
-                    // Check title format
-                    if (validateTitle(input))
-                        break;
-                }
-                // Find item through the list here
-                ItemElement *foundItem = itemList.searchItemByTitle(input);
-				// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-                if ( foundItem != NULL) {
-                    foundItem->data->printDetail();
-					// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-                    cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-                    cin >> input;
-                    if (input == "yes") {
-                        itemList.deleteItem(foundItem->data->getId());
-                        cout << "SUCCESS: Item has been deleted." << endl;
-                    }
-                    else {
-                        cout << "FAIL: No deletion has taken place." << endl;
-                    }
-                }
-                else {
-                    cout << "ERROR: Item not found." << endl;
-                }
-            }
-            else if (input == "3") {
-                break;
-            }
-            else {
-                cout << "ERROR: Invalid Input. Please enter again." << endl;
-            }
-	    }
-	}
-	else if (input == "3") {
-
-		while (true) {
-            cout << "---------------------* Update Item *---------------------" << endl;
-            cout << "|1. By ID                                                |" << endl;
-            cout << "|2. By title                                             |" << endl;
-            cout << "|3. Back                                                 |" << endl;
-            cout << "----------------------------------------------------------" << endl;
-            cout << "PROMPT: Enter an option: ";
-            cin >> input;
-
-            if (input == "1") {
-                while (true) {
-                    cout << "PROMPT: Enter item's ID want to update: ";
-                    cin >> input;
-                    if (validateItemID(input))
-                        break;
-                }
-                // Find item through the list here
-                ItemElement *item = itemList.searchItemByID(input);
-                // If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-                //
-                if (item != NULL) {
-                    while (true) {
-                        // Call update function
-                        itemUpdateMenu(item);
-                        item->data->printDetail();
-                        cout << "PROMPT: Continue to update ? (y/n): ";
-                        cin >> input;
-
-                        if (input == "y") {
-                            // Continue to update
-                        }
-                        else {
-                            // Break out the update loop
-                            break;
-                        }
-                    }
-                }
-                else {
-                    // Will implement input id again
-                    cout << "ERROR: Item not found." << endl;
-                }
-		    }
-            else if (input == "2") {
-                while (true) {
-                    cout << "PROMPT: Enter item's title want to update: ";
-                    cin >> input;
-                    if (validateTitle(input))
-                        break;
-                }
-                // Find item through the list here
-                ItemElement *item = itemList.searchItemByTitle(input);
-                // If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-                //
-                if (item != NULL) {
-                    while (true) {
-                        // Call update function
-                        itemUpdateMenu(item);
-                        item->data->printDetail();
-                        cout << "PROMPT: Continue to update ? (y/n): ";
-                        cin >> input;
-
-                        if (input == "y") {
-                            // Continue to update
-                        }
-                        else {
-                            // Break out the update loop
-                            break;
-                        }
-                    }
-                }
-                else {
-                    // Will implement input id again
-                    cout << "ERROR: Item not found." << endl;
-                }
-            }
-            else if (input == "3") {
-                break;
-            }
-            else {
-                cout << "ERROR: Invalid Input. Please enter again." << endl;
-            }
-		}
-	}
-	// Dummy option. Implement later
-	else if (input == "4") {
-		cout << "Option 4" << endl;
-		cout << "---------------------* Add more stock *---------------------" << endl;
-		// Consider show all item in the stock here
-
-		// Check ID format
-		while (true) {
-			cout << "PROMPT: Enter item's ID want to update: ";
+			cout << "PROPMP: Item will be added to database. Type 'yes' to confirm: ";
 			cin >> input;
-			if (validateItemID(input))
-				break;
+			if (input == "yes") {
+				itemList.addItem(newItem);
+				cout << "SUCCESS: Item added." << endl;
+			}
+			else {
+				cout << "FAIL: No item added." << endl;
+			}
+			cout << "----------------------------------------------------------" << endl;
+			cout << endl; // space
 		}
-		// Find item through the list here
+		else if (input == "2") {
 
-		ItemElement *item = itemList.searchItemByID(input);
-		if (item != NULL) {
 			while (true) {
-				cout << "PROMPT: Enter number of stock arrived:  ";
+				cout << "---------------------* Delete Item *---------------------" << endl;
+				cout << "|1. By ID                                                |" << endl;
+				cout << "|2. By title                                             |" << endl;
+				cout << "|3. Back                                                 |" << endl;
+				cout << "----------------------------------------------------------" << endl;
+				cout << "PROMPT: Enter an option: ";
 				cin >> input;
-				if (validateNumberOfCopies(input)) {
-					item->data->increaseStock(stoi(input));
+
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to delete: ";
+						cin >> input;
+						// Check ID format
+						if (validateItemID(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *foundItem = itemList.searchItemByID(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					if (foundItem != NULL) {
+						foundItem->data->printDetail();
+						// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+						cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+						cin >> input;
+						if (input == "yes") {
+							itemList.deleteItem(foundItem->data->getId());
+							cout << "SUCCESS: Item has been deleted." << endl;
+						}
+						else
+							cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+					}
+					else {
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "2") {
+					while (true) {
+						cout << "PROMPT: Enter item's title want to delete: ";
+						cin >> input;
+						// Check title format
+						if (validateTitle(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *foundItem = itemList.searchItemByTitle(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					if (foundItem != NULL) {
+						foundItem->data->printDetail();
+						// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+						cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+						cin >> input;
+						if (input == "yes") {
+							itemList.deleteItem(foundItem->data->getId());
+							cout << "SUCCESS: Item has been deleted." << endl;
+						}
+						else {
+							cout << "FAIL: No deletion has taken place." << endl;
+						}
+					}
+					else {
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "3") {
 					break;
 				}
-		
+				else {
+					cout << "ERROR: Invalid Input. Please enter again." << endl;
+				}
 			}
 		}
-	}
-	else if (input == "5") {
-		cout << "------------------* List of items *----------------" << endl;
-		itemList.printItem();
-	}
-	else if (input == "6") {
+		else if (input == "3") {
 
-		while (true) {
-			cout << "--------------------* Search an item *--------------------" << endl;
-			cout << "|1. By ID                                                |" << endl;
-			cout << "|2. By title                                             |" << endl;
-			cout << "|3. Back                                                 |" << endl;
-			cout << "----------------------------------------------------------" << endl;
-			cout << "PROMPT: Enter an option: ";
-			cin >> input;
-			if (input == "1") {
-				while (true) {
-					cout << "PROMPT: Enter item's ID want to search: ";
-					cin >> input;
-					if (validateItemID(input))
-						break;
-				}
-				// Find item through the list here
-				ItemElement *item = itemList.searchItemByID(input);
-				if (item != NULL) {
-					item->data->printDetail();
-				}
-				else {
-					cout << "PROMPT: Cannot found the item with specified ID." << endl;
-				}
-			}
-			else if (input == "2") {
-				while (true) {
-					cout << "PROMPT: Enter item's title want to search: ";
-					cin.ignore();
-					getline(cin, input);
-					if (validateTitle(input))
-						break;
-				}
-				// Find item through the list here
-
-				ItemElement *items = itemList.searchItemByTitle(input);
-				if (items != NULL) {
-					items->data->printDetail();
-				}
-				else {
-					cout << "PROMPT: Cannot found the item with specified title." << endl;
-				}
-			}
-			else if (input == "3") {
-				break;
-			}
-			else {
-				cout << "ERROR: Invalid input." << endl;
-				itemMenu(itemList, customerList);
-			}
-			cout << "PROMPT: Continue to search ? (y/n): ";
-			cin >> input;
-			if (input == "y") {
-				cout << endl; // Add space
-				// Continue to update
-			}
-			else {
+			while (true) {
+				cout << "---------------------* Update Item *---------------------" << endl;
+				cout << "|1. By ID                                                |" << endl;
+				cout << "|2. By title                                             |" << endl;
+				cout << "|3. Back                                                 |" << endl;
 				cout << "----------------------------------------------------------" << endl;
-				cout << endl; // Add space
-				// Break out the update loop
-				break;
+				cout << "PROMPT: Enter an option: ";
+				cin >> input;
+
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to update: ";
+						cin >> input;
+						if (validateItemID(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *item = itemList.searchItemByID(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					//
+					if (item != NULL) {
+						while (true) {
+							// Call update function
+							itemUpdateMenu(item);
+							item->data->printDetail();
+							cout << "PROMPT: Continue to update ? (y/n): ";
+							cin >> input;
+
+							if (input == "y") {
+								// Continue to update
+							}
+							else {
+								// Break out the update loop
+								break;
+							}
+						}
+					}
+					else {
+						// Will implement input id again
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "2") {
+					while (true) {
+						cout << "PROMPT: Enter item's title want to update: ";
+						cin >> input;
+						if (validateTitle(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *item = itemList.searchItemByTitle(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					//
+					if (item != NULL) {
+						while (true) {
+							// Call update function
+							itemUpdateMenu(item);
+							item->data->printDetail();
+							cout << "PROMPT: Continue to update ? (y/n): ";
+							cin >> input;
+
+							if (input == "y") {
+								// Continue to update
+							}
+							else {
+								// Break out the update loop
+								break;
+							}
+						}
+					}
+					else {
+						// Will implement input id again
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "3") {
+					break;
+				}
+				else {
+					cout << "ERROR: Invalid Input. Please enter again." << endl;
+				}
 			}
 		}
+		// Dummy option. Implement later
+		else if (input == "4") {
+			cout << "Option 4" << endl;
+			cout << "---------------------* Add more stock *---------------------" << endl;
+			// Consider show all item in the stock here
+
+			// Check ID format
+			while (true) {
+				cout << "PROMPT: Enter item's ID want to update: ";
+				cin >> input;
+				if (validateItemID(input))
+					break;
+			}
+			// Find item through the list here
+
+			ItemElement *item = itemList.searchItemByID(input);
+			if (item != NULL) {
+				while (true) {
+					cout << "PROMPT: Enter number of stock arrived:  ";
+					cin >> input;
+					if (validateNumberOfCopies(input)) {
+						item->data->increaseStock(stoi(input));
+						break;
+					}
+
+				}
+			}
+		}
+		else if (input == "5") {
+			cout << "------------------* List of items *----------------" << endl;
+			itemList.printItem();
+		}
+		else if (input == "6") {
+
+			while (true) {
+				cout << "--------------------* Search an item *--------------------" << endl;
+				cout << "|1. By ID                                                |" << endl;
+				cout << "|2. By title                                             |" << endl;
+				cout << "|3. Back                                                 |" << endl;
+				cout << "----------------------------------------------------------" << endl;
+				cout << "PROMPT: Enter an option: ";
+				cin >> input;
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to search: ";
+						cin >> input;
+						if (validateItemID(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *item = itemList.searchItemByID(input);
+					if (item != NULL) {
+						item->data->printDetail();
+					}
+					else {
+						cout << "PROMPT: Cannot found the item with specified ID." << endl;
+					}
+				}
+				else if (input == "2") {
+					while (true) {
+						cout << "PROMPT: Enter item's title want to search: ";
+						cin.ignore();
+						getline(cin, input);
+						if (validateTitle(input))
+							break;
+					}
+					// Find item through the list here
+
+					ItemElement *items = itemList.searchItemByTitle(input);
+					if (items != NULL) {
+						items->data->printDetail();
+					}
+					else {
+						cout << "PROMPT: Cannot found the item with specified title." << endl;
+					}
+				}
+				else if (input == "3") {
+					break;
+				}
+				else {
+					cout << "ERROR: Invalid input." << endl;
+					itemMenu(itemList, customerList);
+				}
+				cout << "PROMPT: Continue to search ? (y/n): ";
+				cin >> input;
+				if (input == "y") {
+					cout << endl; // Add space
+					// Continue to update
+				}
+				else {
+					cout << "----------------------------------------------------------" << endl;
+					cout << endl; // Add space
+					// Break out the update loop
+					break;
+				}
+			}
+		}
+		else if (input == "7") {
+			break;
+		}
+		// Close program.
+		else if (input == "Exit") {
+			closeProgram(itemList);
+		}
+		else {
+			cout << "ERROR: Invalid input" << endl;
+		}
 	}
-	else if (input == "7") {
-		mainMenu(itemList, customerList);
-	}
-	// Close program.
-	else if (input == "Exit") {
-		closeProgram(itemList);
-	}
-	else {
-		cout << "ERROR: Invalid input" << endl;
-	}
-	itemMenu(itemList, customerList);
 }
 
 // Create item
@@ -417,13 +419,13 @@ void itemUpdateMenu(ItemElement *item) {
 	string input;
 	cout << "----------------------* Update Item *----------------------" << endl;
 	cout << "Item ID: " << item->data->getId() << endl;
+	cout << "Type: " << item->data->getRentalType() << endl;
 	cout << "1. Item title: " << item->data->getTitle() << endl;
-	cout << "2. Item type: " << item->data->getRentalType() << endl;
-	cout << "3. Item loan's type: " << item->data->getLoanType() << endl;
-	cout << "4. Item number of copies: " << item->data->getNumberOfCopies() << endl;
-	cout << "5. Item rental fee: " << item->data->getRentalFee() << endl;
+	cout << "2. Item loan's type: " << item->data->getLoanType() << endl;
+	cout << "3. Item number of copies: " << item->data->getNumberOfCopies() << endl;
+	cout << "4. Item rental fee: " << item->data->getRentalFee() << endl;
 	if (item->data->getRentalType() != "Game") {
-		cout << "6. Item genre: " << item->data->getGenre() << endl;
+		cout << "5. Item genre: " << item->data->getGenre() << endl;
 	}
 	cout << "Select an option: ";
 	cin >> input;
@@ -440,26 +442,8 @@ void itemUpdateMenu(ItemElement *item) {
 			}
 		}
 	}
+	
 	else if (input == "2") {
-		while (true) {
-			cout << "Enter item's type(Game, DVD or Record): ";
-			cin >> input;
-			if (validateRentalType(input)) {
-				item->data->setRentalType(input);
-				if (item->data->getRentalType() == "DVD") {
-					item->data = new DVD(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
-				}
-				else if (item->data->getRentalType() == "Record") {
-					item->data = new Record(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee(), "NaN");
-				}
-				else {
-					item->data = new Game(item->data->getId(), item->data->getTitle(), item->data->getRentalType(), item->data->getLoanType(), item->data->getNumberOfCopies(), item->data->getRentalFee());
-				}
-				break;
-			}
-		}
-	}
-	else if (input == "3") {
 		while (true) {
 			cout << "Enter item's loan type(2-day or 1-week): ";
 			cin >> input;
@@ -469,7 +453,7 @@ void itemUpdateMenu(ItemElement *item) {
 			}
 		}
 	}
-	else if (input == "4") {
+	else if (input == "3") {
 		while (true) {
 			cout << "Enter item's number of copies: ";
 			cin >> input;
@@ -479,7 +463,7 @@ void itemUpdateMenu(ItemElement *item) {
 			}
 		}
 	}
-	else if (input == "5") {
+	else if (input == "4") {
 		while (true) {
 			cout << "Enter item's rental fee: ";
 			cin >> input;
@@ -489,7 +473,7 @@ void itemUpdateMenu(ItemElement *item) {
 			}
 		}
 	}
-	else if (input == "6" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
+	else if (input == "5" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
 		while (true) {
 			cout << "Enter item's genre(Action, Horror, Comedy or Drama): ";
 			cin >> input;

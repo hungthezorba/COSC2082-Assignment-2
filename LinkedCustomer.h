@@ -16,7 +16,8 @@ public:
     void addCustomer(Customer *newItem);
     void deleteCustomer(string id);
     CustomerNode*searchCustomerByID(string id);
-	CustomerNode*searchCustomerByName(string name);
+	LinkedCustomer searchCustomerByName(string name);
+	CustomerNode* getHead();
     void printAllCustomer();
 
 

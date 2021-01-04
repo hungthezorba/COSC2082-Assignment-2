@@ -56,21 +56,24 @@ CustomerNode *LinkedCustomer::searchCustomerByID(string id){
     return temp;
 };
 
-CustomerNode *LinkedCustomer::searchCustomerByName(string name) {
+LinkedCustomer LinkedCustomer::searchCustomerByName(string name) {
 	temp = Head;
 	track = Head;
-	while (temp != NULL && temp->data->getName() != name) {
+
+	// Initial customer list
+	LinkedCustomer tempList;
+
+	while (temp != NULL) {
+		// If match name
+		if (temp->data->getName() == name) {
+			tempList.addCustomer(temp->data); // Add to list
+		}
 		track = temp;
 		temp = temp->next;
 	}
-	if (temp == NULL) {
-		// No need to print message in this function. Message will be carried out by menu.
-		return NULL;
-	}
-	return temp;
-};
-//
-//// Delete item by ID
+	return tempList;
+}
+// Delete item by ID
 void LinkedCustomer::deleteCustomer(string id) {
     // Considering to refactor this function because there is a repeat part in find by id.
     temp = Head;
@@ -91,4 +94,8 @@ void LinkedCustomer::deleteCustomer(string id) {
         temp = temp->next;
     }
 
+}
+
+CustomerNode* LinkedCustomer::getHead() {
+	return Head;
 }
