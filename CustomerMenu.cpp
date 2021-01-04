@@ -142,21 +142,8 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 					//
 					if (customer != NULL) {
-						while (true) {
 							// Call update function
 							customerUpdateMenu(customer);
-							customer->data->details();
-							cout << "PROMPT: Continue to update ? (y/n): ";
-							cin >> input;
-
-							if (input == "y") {
-								// Continue to update
-							}
-							else {
-								// Break out the update loop
-								break;
-							}
-						}
 					}
 					else {
 						// Will implement input id again
@@ -413,34 +400,9 @@ void customerUpdateMenu(CustomerNode *customer) {
 				}
 			}
 		}
-		else if (input == "4") {
-			while (true) {
-				cout << "Enter customer's type(Guest, Regular, VIP): ";
-				cin >> input;
-				if (validateCustomerType(input)) {
-					// Save a temporary rental list for conversion
-					LinkedRentalList *temp = customer->data->getRentalList();
-					if (input == "Guest") {
-						customer->data = new GuestAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
-						customer->data->setRentalList(*temp);
-					}
-					else if (input == "Regular") {
-						customer->data = new RegularAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
-						customer->data->setRentalList(*temp);
-					}
-					else {
-						customer->data = new VipAccount(customer->data->getId(), customer->data->getName(), customer->data->getAddress(), customer->data->getPhoneNumber(), customer->data->getNumberOfRental());
-						customer->data->setRentalList(*temp);
-					}
-					break;
-				}
-			}
-		}
 		else {
 			cout << "ERROR: Invalid input. Please enter again." << endl;
 		}
-
-		customer->data->details();
 		cout << "PROMPT: Continue to update ? (y/n): ";
 		cin >> input;
 		if (input == "y") {

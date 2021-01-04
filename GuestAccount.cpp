@@ -31,10 +31,10 @@ void GuestAccount::returnItem(const string itemName) {
 
 void GuestAccount::details() {
 	cout << "Customer ID: " << this->getId() << endl;
+	cout << "Type: Guest" << endl;
 	cout << "1. Name: " << this->getName() << endl;
 	cout << "2. Address: " << this->getAddress() << endl;
 	cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
-	cout << "4. Type: Guest" << endl;
 }
 
 void GuestAccount::showRentalList() {

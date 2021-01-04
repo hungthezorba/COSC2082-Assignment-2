@@ -25,10 +25,10 @@ void RegularAccount::returnItem(const string itemName) {
 
 void RegularAccount::details() {
 	cout << "Customer ID: " << this->getId() << endl;
+	cout << "Type: Regular" << endl;
 	cout << "1. Name: " << this->getName() << endl;
 	cout << "2. Address: " << this->getAddress() << endl;
 	cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
-	cout << "4. Type: Regular" << endl;
 }
 
 void RegularAccount::showRentalList() {
