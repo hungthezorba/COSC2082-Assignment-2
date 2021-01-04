@@ -66,13 +66,11 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			else {
 				cout << "ERROR: Invalid input." << endl;
 			}
-			mainMenu(itemList, customerList);
 		}
 		else if (input == "7") {
 			cout << "Option 7" << endl;
 			// Display out of stock
 			itemList.printOutOfStockItem();
-			mainMenu(itemList, customerList);
 		}
 		else if (input == "8") {
 			cout << "Option 8" << endl;
@@ -85,13 +83,8 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 		else {
 			cout << "Prompt: Invalid input" << endl;
-			mainMenu(itemList, customerList);
 		}
-
-
 	}
-
-
 }
 
 void closeProgram(LinkedItem &itemList) {

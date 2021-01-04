@@ -118,92 +118,118 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		//}
 
 		// Update customer menu
-		//else if (input == "3") {
+		else if (input == "3") {
 
-		//	while (true) {
-		//		cout << "--------------------* Update Customer *--------------------" << endl;
-		//		cout << "|1. By ID                                                 |" << endl;
-		//		cout << "|2. By name                                               |" << endl;
-		//		cout << "|3. Back                                                  |" << endl;
-		//		cout << "-----------------------------------------------------------" << endl;
-		//		cout << "PROMPT: Enter an option: ";
-		//		cin >> input;
+			while (true) {
+				cout << "--------------------* Update Customer *--------------------" << endl;
+				cout << "|1. By ID                                                 |" << endl;
+				cout << "|2. By name                                               |" << endl;
+				cout << "|3. Back                                                  |" << endl;
+				cout << "-----------------------------------------------------------" << endl;
+				cout << "PROMPT: Enter an option: ";
+				cin >> input;
 
-		//		if (input == "1") {
-		//			cin.ignore();
-		//			while (true) {
-		//				cout << "PROMPT: Enter customer's ID want to update: ";
-		//				getline(cin, input);
-		//				if (validateCustomerID(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			CustomerNode *customer = customerList.searchCustomerByID(input);
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			//
-		//			if (customer != NULL) {
-		//				while (true) {
-		//					// Call update function
-		//					customerUpdateMenu(customer);
-		//					customer->data->details();
-		//					cout << "PROMPT: Continue to update ? (y/n): ";
-		//					cin >> input;
+				if (input == "1") {
+					cin.ignore();
+					while (true) {
+						cout << "PROMPT: Enter customer's ID want to update: ";
+						getline(cin, input);
+						if (validateCustomerID(input))
+							break;
+					}
+					// Find item through the list here
+					CustomerNode *customer = customerList.searchCustomerByID(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					//
+					if (customer != NULL) {
+						while (true) {
+							// Call update function
+							customerUpdateMenu(customer);
+							customer->data->details();
+							cout << "PROMPT: Continue to update ? (y/n): ";
+							cin >> input;
 
-		//					if (input == "y") {
-		//						// Continue to update
-		//					}
-		//					else {
-		//						// Break out the update loop
-		//						break;
-		//					}
-		//				}
-		//			}
-		//			else {
-		//				// Will implement input id again
-		//				cout << "ERROR: Cusotmer not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "2") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter customer's name want to update: ";
-		//				cin >> input;
-		//				if (validateCustomerName(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			CustomerNode *customer = customerList.searchCustomerByName(input);
-		//			// If-else case: If customer found, show customer's detail. If customer not found, print error message then back to customer menu.
-		//			//
-		//			if (customer != NULL) {
-		//				while (true) {
-		//					// Call update function
-		//					customerUpdateMenu(customer);
-		//					customer->data->details();
-		//					cout << "PROMPT: Continue to update ? (y/n): ";
-		//					cin >> input;
+							if (input == "y") {
+								// Continue to update
+							}
+							else {
+								// Break out the update loop
+								break;
+							}
+						}
+					}
+					else {
+						// Will implement input id again
+						cout << "ERROR: Cusotmer not found." << endl;
+					}
+				}
+				else if (input == "2") {
+					cin.ignore();
+					while (true) {
+						cout << "PROMPT: Enter customer's name want to update: ";
+						getline(cin, input);
+						if (validateCustomerName(input))
+							break;
+					}
+					// Find item through the list here
+					LinkedCustomer foundList = customerList.searchCustomerByName(input);
+					// If-else case: If customer found, show customer's detail. If customer not found, print error message then back to customer menu.
+					//
+					if (foundList.getHead() != NULL) {
+						// Case 1: Found more than 1 customer with matching name
+						if (foundList.getHead()->next != NULL) {
+							foundList.printAllCustomer();
+							while (true) {
+								cout << "PROMPT: Found more than 1 customer with matching name. Enter customer ID to proceed: ";
+								cin >> input; // Get the customer ID
+								if (validateCustomerID(input)) {
+									break;
+								}
+							}
+							
+						}
+						else {
+							// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
+							input = foundList.getHead()->data->getId(); // Get the customer ID
+						}
+						
+						CustomerNode *customer = customerList.searchCustomerByID(input);
+						
+						if (customer != NULL) {
+							while (true) {
+								// Call update function
+								customerUpdateMenu(customer);
+								customer->data->details();
+								cout << "PROMPT: Continue to update ? (y/n): ";
+								cin >> input;
 
-		//					if (input == "y") {
-		//						// Continue to update
-		//					}
-		//					else {
-		//						// Break out the update loop
-		//						break;
-		//					}
-		//				}
-		//			}
-		//			else {
-		//				cout << "ERROR: Customer not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "3") {
-		//			break;
-		//		}
-		//		else {
-		//			cout << "ERROR: Invalid Input. Please enter again." << endl;
-		//		}
-		//	}
+								if (input == "y") {
+									// Continue to update
+								}
+								else {
+									// Break out the update loop
+									break;
+								}
+							}
+						}
+						else {
+							cout << "ERROR: Customer not found." << endl;
+						}
 
-		//}
+					}
+					else {
+						cout << "ERROR: Customer not found." << endl;
+					}
+				}
+				else if (input == "3") {
+					break;
+				}
+				else {
+					cout << "ERROR: Invalid Input. Please enter again." << endl;
+				}
+			}
+
+		}
 
 		// Search customer menu
 		else if (input == "4") {
@@ -358,7 +384,7 @@ Customer *customerCreateMenu() {
 
 void customerUpdateMenu(CustomerNode *customer) {
 	string input;
-	cout << "----------------------* Update Item *----------------------" << endl;
+	cout << "----------------------* Update Customer *----------------------" << endl;
 	customer->data->details();
 	cout << "Select an option: ";
 	cin >> input;
