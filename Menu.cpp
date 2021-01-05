@@ -9,33 +9,36 @@
 
 using namespace std;
 
-void printByType(LinkedCustomer all){
-    LinkedCustomer guest;
-    LinkedCustomer Vip;
-    LinkedCustomer regular;
+void printByType(LinkedCustomer customerList) {
+	LinkedCustomer guestList;
+	LinkedCustomer vipList;
+	LinkedCustomer regularList;
 
-    CustomerNode *thisTemp;
-    thisTemp = all.getHead();
-    while(thisTemp!=NULL){
-//        cout<< "come here"<<endl;
-        if(thisTemp->data->getTypeCustomer() == "Guest"){
-            guest.addCustomer(thisTemp->data);
-        }
-        else if(thisTemp->data->getTypeCustomer() == "Regular"){
-            regular.addCustomer(thisTemp->data);
-        }
-        else if (thisTemp->data->getTypeCustomer() == "Vip") {
-            Vip.addCustomer(thisTemp->data);
-        }
-        thisTemp = thisTemp->next;
-    }
+	CustomerNode *thisTemp;
+	thisTemp = customerList.getHead();
+	while (thisTemp != NULL) {
+		//        cout<< "come here"<<endl;
+		if (thisTemp->data->getTypeCustomer() == "Guest") {
+			guestList.addCustomer(thisTemp->data);
+		}
+		else if (thisTemp->data->getTypeCustomer() == "Regular") {
+			regularList.addCustomer(thisTemp->data);
+		}
+		else if (thisTemp->data->getTypeCustomer() == "Vip") {
+			vipList.addCustomer(thisTemp->data);
+		}
+		thisTemp = thisTemp->next;
+	}
 
-    cout<< "guest is"<<endl;
-    guest.printAllCustomer();
-    cout << "Vip are"<<endl;
-    Vip.printAllCustomer();
-    cout<<"Regurlar are"<<endl;
-    regular.printAllCustomer();
+	cout << "-------------------* Guest Customer *-------------------" << endl;
+	guestList.printAllCustomer();
+	cout << "--------------------------------------------------------" << endl;
+	cout << "------------------* Regular Customer *------------------" << endl;
+	regularList.printAllCustomer();
+	cout << "--------------------------------------------------------" << endl;
+	cout << "-------------------* V.I.P Customer *-------------------" << endl;
+	vipList.printAllCustomer();
+	cout << "--------------------------------------------------------" << endl;
 
 }
 
@@ -100,10 +103,10 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		mainMenu(itemList, customerList);
 	}
 	else if (input == "8") {
-		printByType(customerList);
+		cout << "Option 8" << endl;
 	}
 	else if (input == "9") {
-		cout << "Option 9" << endl;
+		printByType(customerList);
 	}
 	else if (input == "Exit") {
 		closeProgram(itemList);
