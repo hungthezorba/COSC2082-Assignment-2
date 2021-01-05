@@ -42,80 +42,122 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 
 		// Delete customer menu 
-		//else if (input == "2") {
-		//	while (true) {
-		//		cout << "-------------------* Delete Customer *-------------------" << endl;
-		//		cout << "|1. By ID                                               |" << endl;
-		//		cout << "|2. By name                                             |" << endl;
-		//		cout << "|3. Back                                                |" << endl;
-		//		cout << "---------------------------------------------------------" << endl;
-		//		cout << "PROMPT: Enter an option: ";
-		//		cin >> input;
+		else if (input == "2") {
+			while (true) {
+				cout << "-------------------* Delete Customer *-------------------" << endl;
+				cout << "|1. By ID                                               |" << endl;
+				cout << "|2. By name                                             |" << endl;
+				cout << "|3. Back                                                |" << endl;
+				cout << "---------------------------------------------------------" << endl;
+				cout << "PROMPT: Enter an option: ";
+				cin >> input;
 
-		//		if (input == "1") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter customer's ID want to delete: ";
-		//				cin >> input;
-		//				// Check ID format
-		//				if (validateCustomerID(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			if (foundCustomer != NULL) {
-		//				foundCustomer->data->details();
-		//				// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		//				cout << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
-		//				cin >> input;
-		//				if (input == "yes") {
-		//					customerList.deleteCustomer(foundCustomer->data->getId());
-		//					cout << "SUCCESS: Customer has been deleted." << endl;
-		//				}
-		//				else
-		//					cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
-		//			}
-		//			else {
-		//				cout << "ERROR: Customer not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "2") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter customer's name want to delete: ";
-		//				cin >> input;
-		//				// Check title format
-		//				if (validateCustomerName(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			CustomerNode *foundCustomer = customerList.searchCustomerByName(input);
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			if (foundCustomer != NULL) {
-		//				foundCustomer->data->details();
-		//				// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		//				cout << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
-		//				cin >> input;
-		//				if (input == "yes") {
-		//					customerList.deleteCustomer(foundCustomer->data->getId());
-		//					cout << "SUCCESS: Customer has been deleted." << endl;
-		//				}
-		//				else {
-		//					cout << "FAIL: No deletion has taken place." << endl;
-		//				}
-		//			}
-		//			else {
-		//				cout << "ERROR: Customer not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "3") {
-		//			break;
-		//		}
-		//		else {
-		//			cout << "ERROR: Invalid Input. Please enter again." << endl;
-		//		}
-		//	}
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter customer's ID want to delete: ";
+						cin >> input;
+						// Check ID format
+						if (validateCustomerID(input))
+							break;
+					}
+					// Find item through the list here
+					CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					if (foundCustomer != NULL) {
+                        foundCustomer->data->details();
 
-		//}
+                        // Not allow to delete if customer still have rent item
+                        if (foundCustomer->data->getNumberOfRental() != 0) {
+                            cout << "ERROR: Customer must return all the items" << endl;
+                        }
+
+                        else {
+                            // Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+                            cout
+                                    << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
+                            cin >> input;
+                            if (input == "yes") {
+                                customerList.deleteCustomer(foundCustomer->data->getId());
+                                cout << "SUCCESS: Customer has been deleted." << endl;
+                            } else
+                                cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+                        }
+					}
+					else {
+						cout << "ERROR: Customer not found." << endl;
+					}
+				}
+				else if (input == "2") {
+				    cin.ignore();
+					while (true) {
+						cout << "PROMPT: Enter customer's name want to delete: ";
+						getline(cin, input);
+						// Check title format
+						if (validateCustomerName(input))
+							break;
+					}
+					// Find item through the list here
+					LinkedCustomer foundList = customerList.searchCustomerByName(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+                    if (foundList.getHead() != NULL) {
+                        cout << "Run here" << endl;
+                        // Case 1: Found more than 1 customer with matching name
+                        if (foundList.getHead()->next != NULL) {
+                            cout << "Not Here" << endl;
+                            foundList.printAllCustomer();
+                            while (true) {
+                                cout << "PROMPT: Found more than 1 customer with matching name.\nEnter customer ID to proceed: ";
+                                cin >> input; // Get the customer ID
+                                if (validateCustomerID(input)) {
+                                    break;
+                                }
+                            }
+
+                        }
+                        else {
+                            // Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
+                            input = foundList.getHead()->data->getId(); // Get the customer ID
+                        }
+
+                        CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
+
+                        if (foundCustomer != NULL) {
+                            // Call update function
+                            if (foundCustomer->data->getNumberOfRental() != 0) {
+                                cout << "ERROR: Customer must return all the items" << endl;
+                            }
+                            else {
+                                foundCustomer->data->details();
+                                // Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+                                cout << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
+                                cin >> input;
+                                if (input == "yes") {
+                                    customerList.deleteCustomer(foundCustomer->data->getId());
+                                    cout << "SUCCESS: Customer has been deleted." << endl;
+                                }
+                                else
+                                    cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+                            }
+                        }
+                        else {
+                            cout << "ERROR: Customer not found." << endl;
+                        }
+
+                    }
+					else {
+                        cout << "Not here too" << endl;
+                        cout << "ERROR: Customer not found." << endl;
+					}
+				}
+				else if (input == "3") {
+					break;
+				}
+				else {
+					cout << "ERROR: Invalid Input. Please enter again." << endl;
+				}
+			}
+
+		}
 
 		// Update customer menu
 		else if (input == "3") {
@@ -167,7 +209,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						if (foundList.getHead()->next != NULL) {
 							foundList.printAllCustomer();
 							while (true) {
-								cout << "PROMPT: Found more than 1 customer with matching name. Enter customer ID to proceed: ";
+								cout << "PROMPT: Found more than 1 customer with matching name.\nEnter customer ID to proceed: ";
 								cin >> input; // Get the customer ID
 								if (validateCustomerID(input)) {
 									break;
