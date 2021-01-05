@@ -79,7 +79,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "Option 9" << endl;
 		}
 		else if (input == "Exit") {
-			closeProgram(itemList);
+			closeProgram(itemList, customerList);
 		}
 		else {
 			cout << "Prompt: Invalid input" << endl;
@@ -87,18 +87,22 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	}
 }
 
-void closeProgram(LinkedItem &itemList) {
+void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	// Save file 
 	ofstream itemFile;
-	fstream customerFile;
+	ofstream customerFile;
 
 	itemFile.open("items.txt");
-	if (itemFile.fail()) {
+	customerFile.open("customers.txt");
+
+
+	if (itemFile.fail() || customerFile.fail()) {
 		cout << "Could not open file" << endl;
 		return;
 	}
 
 	ItemElement *itemElement = itemList.getHead();
+	CustomerNode *customerNode = customerList.getHead();
 	while (itemElement != NULL) {
 		itemFile << itemElement->data->getId() << ",";
 		itemFile << itemElement->data->getTitle() << ",";
@@ -112,6 +116,31 @@ void closeProgram(LinkedItem &itemList) {
 		itemFile << endl;
 		itemElement = itemElement->next;
 	}
+
+	while (customerNode != NULL) {
+	    customerFile << customerNode->data->getId() << ",";
+	    customerFile << customerNode->data->getName() << ",";
+	    customerFile << customerNode->data->getAddress() << ",";
+	    customerFile << customerNode->data->getPhoneNumber() << ",";
+	    customerFile << customerNode->data->getNumberOfRental() << ",";
+	    customerFile << "VIP";// Test
+	    LinkedRentalList *rentalList = customerNode->data->getRentalList();
+	    RentalListNode *item = rentalList->getHead();
+
+	    while (item != NULL) {
+	        customerFile << endl;
+	        customerFile << item->getItem();
+	        item = item->getNext();
+	    }
+
+	    // If not a last element then add new line so if it is a last element, we will not at new empty line to the file
+	    if (customerNode->next != NULL) {
+	        customerFile << endl;
+	    }
+
+	    customerNode = customerNode->next;
+	}
+	customerFile.close();
 
 	itemFile.close();
 

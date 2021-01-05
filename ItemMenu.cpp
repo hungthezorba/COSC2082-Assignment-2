@@ -318,7 +318,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 		// Close program.
 		else if (input == "Exit") {
-			closeProgram(itemList);
+			closeProgram(itemList, customerList);
 		}
 		else {
 			cout << "ERROR: Invalid input" << endl;

@@ -60,3 +60,8 @@ void LinkedRentalList::showItem() {
     temp = temp->getNext();
   }
 }
+
+RentalListNode *LinkedRentalList::getHead() {
+    return head;
+}
+
