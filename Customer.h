@@ -14,17 +14,23 @@ private:
   string phoneNumber;
   int numberOfRental;
   LinkedRentalList rentalList;
+  string typeCustomer;
 
 public:
   // Constructor
   Customer();
-  Customer(string id, string name, string address, string phoneNumber, int numberOfRental);
+
+    void setTypeCustomer(const string &typeCustomer);
+
+    Customer(string id, string name, string address, string phoneNumber, int numberOfRental);
 
   /* Destructor
      ~Customer(); */
 
   // Methods
-  string getId() const;
+  const string &getTypeCustomer() const;
+
+    string getId() const;
 
   void setId(const string id);
 

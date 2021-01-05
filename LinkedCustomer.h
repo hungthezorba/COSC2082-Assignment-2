@@ -18,6 +18,8 @@ public:
     CustomerNode*searchCustomer(string id);
     void printAllCustomer();
 
+    CustomerNode *getHead() const;
+
 
 };
 

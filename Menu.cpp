@@ -9,6 +9,36 @@
 
 using namespace std;
 
+void printByType(LinkedCustomer all){
+    LinkedCustomer guest;
+    LinkedCustomer Vip;
+    LinkedCustomer regular;
+
+    CustomerNode *thisTemp;
+    thisTemp = all.getHead();
+    while(thisTemp!=NULL){
+//        cout<< "come here"<<endl;
+        if(thisTemp->data->getTypeCustomer() == "Guest"){
+            guest.addCustomer(thisTemp->data);
+        }
+        else if(thisTemp->data->getTypeCustomer() == "Regular"){
+            regular.addCustomer(thisTemp->data);
+        }
+        else if (thisTemp->data->getTypeCustomer() == "Vip") {
+            Vip.addCustomer(thisTemp->data);
+        }
+        thisTemp = thisTemp->next;
+    }
+
+    cout<< "guest is"<<endl;
+    guest.printAllCustomer();
+    cout << "Vip are"<<endl;
+    Vip.printAllCustomer();
+    cout<<"Regurlar are"<<endl;
+    regular.printAllCustomer();
+
+}
+
 void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	string input;
 	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
@@ -70,7 +100,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		mainMenu(itemList, customerList);
 	}
 	else if (input == "8") {
-		cout << "Option 8" << endl;
+		printByType(customerList);
 	}
 	else if (input == "9") {
 		cout << "Option 9" << endl;

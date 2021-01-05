@@ -10,9 +10,11 @@ Customer::Customer() {
   this->phoneNumber = "NA";
   this->numberOfRental = 0;
   this->rentalList;
+  this->typeCustomer = "NA";
 }
 
 Customer::Customer(string id, string name, string address, string phoneNumber, int numberOfRental) {
+  this->typeCustomer = "NA";
   this->id = id;
   this->name = name;
   this->address = address;
@@ -85,4 +87,12 @@ void Customer::rentItem(const string itemName) {
 void Customer::returnItem(const string itemName) {
 	this->numberOfRental--;
   rentalList.removeItem(itemName);
+}
+
+const string &Customer::getTypeCustomer() const {
+    return typeCustomer;
+}
+
+void Customer::setTypeCustomer(const string &typeCustomer) {
+    Customer::typeCustomer = typeCustomer;
 }
