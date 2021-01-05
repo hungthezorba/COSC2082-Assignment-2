@@ -64,7 +64,11 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
 					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 					if (foundCustomer != NULL) {
-                        foundCustomer->data->details();
+                        cout << "--------------------------------------" << endl;
+					    foundCustomer->data->details();
+                        cout << "Currently renting: " << endl;
+                        foundCustomer->data->showRentalList();
+                        cout << "--------------------------------------" << endl;
 
                         // Not allow to delete if customer still have rent item
                         if (foundCustomer->data->getNumberOfRental() != 0) {
@@ -100,13 +104,11 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					LinkedCustomer foundList = customerList.searchCustomerByName(input);
 					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
                     if (foundList.getHead() != NULL) {
-                        cout << "Run here" << endl;
                         // Case 1: Found more than 1 customer with matching name
                         if (foundList.getHead()->next != NULL) {
-                            cout << "Not Here" << endl;
                             foundList.printAllCustomer();
                             while (true) {
-                                cout << "PROMPT: Found more than 1 customer with matching name.\nEnter customer ID to proceed: ";
+                                cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
                                 cin >> input; // Get the customer ID
                                 if (validateCustomerID(input)) {
                                     break;
@@ -122,12 +124,13 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                         CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
 
                         if (foundCustomer != NULL) {
-                            // Call update function
+                            foundCustomer->data->details();
+                            foundCustomer->data->showRentalList();
+
                             if (foundCustomer->data->getNumberOfRental() != 0) {
                                 cout << "ERROR: Customer must return all the items" << endl;
                             }
                             else {
-                                foundCustomer->data->details();
                                 // Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
                                 cout << "PROMPT: Do you really want to delete the customer ? Type 'yes' to confirm action: ";
                                 cin >> input;
@@ -145,7 +148,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
                     }
 					else {
-                        cout << "Not here too" << endl;
                         cout << "ERROR: Customer not found." << endl;
 					}
 				}
