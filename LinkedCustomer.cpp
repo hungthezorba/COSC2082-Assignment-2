@@ -37,6 +37,7 @@ void LinkedCustomer::printAllCustomer(){
     while(temp!=NULL){
         // Print first then move to jnext
         temp->data->details();
+        cout << "-----------------------------------" << endl;
         temp = temp->next;
     }
 };
