@@ -78,18 +78,49 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					}
 					// Find item through the list here
 					ItemElement *foundItem = itemList.searchItemByID(input);
+					
+					CustomerNode *rentingCustomer = customerList.getHead();
+					
+
 					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 					if (foundItem != NULL) {
 						foundItem->data->printDetail();
-						// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-						cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-						cin >> input;
-						if (input == "yes") {
-							itemList.deleteItem(foundItem->data->getId());
-							cout << "SUCCESS: Item has been deleted." << endl;
+						
+						int count = 0; // Count variable to track how many items are being rent
+						
+						while (rentingCustomer != NULL) {
+
+							LinkedRentalList *tempRentalList = rentingCustomer->data->getRentalList();
+							RentalListNode *tempRentItem = tempRentalList->getHead();
+							while (tempRentItem != NULL) {
+
+								if (tempRentItem->getItem() == foundItem->data->getId()) {
+									cout << "Item is currently rent by: " << rentingCustomer->data->getName() << endl;
+									count++;
+								}
+								tempRentItem = tempRentItem->getNext();
+							}
+
+							rentingCustomer = rentingCustomer->next;
 						}
-						else
-							cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+						// If the item not found in customer rental list -> proceed to delete
+						if (count == 0) {
+							cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+							cin >> input;
+							if (input == "yes") {
+								itemList.deleteItem(foundItem->data->getId());
+								cout << "SUCCESS: Item has been deleted." << endl;
+							}
+							else
+								cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+						}
+						// If the item still being rent by customers -> print out error message.
+						else {
+							cout << "PROMPT: The item is still being rent by customers. Please return before proceed to delete." << endl;
+						}
+
+						// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+						
 					}
 					else {
 						cout << "ERROR: Item not found." << endl;
