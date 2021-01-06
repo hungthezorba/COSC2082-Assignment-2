@@ -20,6 +20,8 @@ public:
 	CustomerNode* getHead();
     void printAllCustomer();
 
+    CustomerNode *getHead() const;
+
 
 };
 

@@ -10,6 +10,35 @@
 
 using namespace std;
 
+void printByType(LinkedCustomer customerList) {
+	LinkedCustomer guestList;
+	LinkedCustomer vipList;
+	LinkedCustomer regularList;
+
+	CustomerNode *thisTemp;
+	thisTemp = customerList.getHead();
+	while (thisTemp != NULL) {
+		if (thisTemp->data->getType() == "Guest") {
+			guestList.addCustomer(thisTemp->data);
+		}
+		else if (thisTemp->data->getType() == "Regular") {
+			regularList.addCustomer(thisTemp->data);
+		}
+		else if (thisTemp->data->getType() == "VIP") {
+			vipList.addCustomer(thisTemp->data);
+		}
+		thisTemp = thisTemp->next;
+	}
+
+	cout << "-------------------* Guest Customer *-------------------" << endl;
+	guestList.printAllCustomer();
+	cout << "------------------* Regular Customer *------------------" << endl;
+	regularList.printAllCustomer();
+	cout << "-------------------* V.I.P Customer *-------------------" << endl;
+	vipList.printAllCustomer();
+
+}
+
 void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 
@@ -76,7 +105,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "Option 8" << endl;
 		}
 		else if (input == "9") {
-			cout << "Option 9" << endl;
+			printByType(customerList);
 		}
 		else if (input == "Exit") {
 			closeProgram(itemList, customerList);
@@ -123,7 +152,7 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	    customerFile << customerNode->data->getAddress() << ",";
 	    customerFile << customerNode->data->getPhoneNumber() << ",";
 	    customerFile << customerNode->data->getNumberOfRental() << ",";
-	    customerFile << "VIP";// Test
+	    customerFile << customerNode->data->getType();
 	    LinkedRentalList *rentalList = customerNode->data->getRentalList();
 	    RentalListNode *item = rentalList->getHead();
 

@@ -13,6 +13,10 @@ LinkedCustomer :: LinkedCustomer(){
     track = NULL;
 }
 
+CustomerNode *LinkedCustomer::getHead() const {
+    return Head;
+}
+
 // Add item to linked list
 void LinkedCustomer::addCustomer(Customer *newItem) {
     CustomerNode* newPtr = new CustomerNode;

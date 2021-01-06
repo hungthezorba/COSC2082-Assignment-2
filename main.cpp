@@ -15,10 +15,25 @@
 #include "LinkedCustomer.h"
 
 using namespace std;
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+    return is_base_of<Base, T>::value;
+}
+
+void sayhello(){
+    cout << "hello ";
+}
+void helloSomeOne(string name){
+    sayhello();
+    cout<<name;
+}
 
 
 int main()
 {
+
+
+
 
 //	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
 	LinkedItem itemList;
@@ -28,6 +43,7 @@ int main()
 	CustomerData(customerList);
 
 	mainMenu(itemList, customerList);
+
 
     return 0;
 }

@@ -5,11 +5,11 @@ using namespace std;
 
 // Constructors
 GuestAccount::GuestAccount() {
-
+this->setType("Guest");
 }
 
 GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
-
+this->setType("Guest");
 }
 
 
