@@ -94,6 +94,9 @@ void LinkedCustomer::deleteCustomer(string id) {
             else {
                 Head = temp->next;
             }
+            delete temp->data; // free memory
+            delete temp; // free memory
+            return;
         }
         track = temp; // track will keep the behind item of the current item in case found item to delete.
         temp = temp->next;

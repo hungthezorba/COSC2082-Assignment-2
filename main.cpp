@@ -20,15 +20,6 @@ inline bool instanceof(const T*) {
     return is_base_of<Base, T>::value;
 }
 
-void sayhello(){
-    cout << "hello ";
-}
-void helloSomeOne(string name){
-    sayhello();
-    cout<<name;
-}
-
-
 int main()
 {
 

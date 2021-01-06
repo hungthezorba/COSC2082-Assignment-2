@@ -134,6 +134,9 @@ void LinkedItem::deleteItem(string id) {
 			else {
 				Head = current->next;
 			}
+            delete current->data; // Free memory
+            delete current; // Free memory
+			return;
 		}
         track = current; // track will keep the behind item of the current item in case found item to delete.
         current = current->next;
