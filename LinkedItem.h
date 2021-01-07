@@ -16,6 +16,7 @@ private:
 public:
     LinkedItem();
 	// Copy constructor
+	LinkedItem(const LinkedItem &itemList);
     void addItem(Item *newItem);
     void deleteItem(string id);
     ItemElement*searchItemByID(string id);

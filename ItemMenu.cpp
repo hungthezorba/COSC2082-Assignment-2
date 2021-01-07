@@ -259,7 +259,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				else if (input == "2") {
                     cin.ignore();
                     while (true) {
-                        cout << "PROMPT: Enter customer's name want to update: ";
+                        cout << "PROMPT: Enter item's title want to update: ";
                         getline(cin, input);
                         if (validateTitle(input))
                             break;

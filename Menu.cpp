@@ -102,7 +102,25 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			itemList.printOutOfStockItem();
 		}
 		else if (input == "8") {
-			cout << "Option 8" << endl;
+            cout << "---------------* Display all customers *---------------" << endl;
+            cout << "| 1. sorted by ID                                     |" << endl;
+            cout << "| 2. sorted by Name                                   |" << endl;
+            cout << "-------------------------------------------------------" << endl;
+            cout << "PROMPT: Choose an option: ";
+            cin >> input;
+            if (input == "1") {
+                LinkedCustomer tempCustomerList(customerList);
+                tempCustomerList.sortedByID();
+                tempCustomerList.printAllCustomer();
+            }
+            else if (input == "2") {
+                LinkedCustomer tempCustomerList(customerList);
+                tempCustomerList.sortedByName();
+                tempCustomerList.printAllCustomer();
+            }
+            else {
+                cout << "ERROR: Invalid input." << endl;
+            }
 		}
 		else if (input == "9") {
 			printByType(customerList);

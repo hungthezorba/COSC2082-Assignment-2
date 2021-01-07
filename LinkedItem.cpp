@@ -16,6 +16,34 @@ LinkedItem :: LinkedItem(){
 
 //Copy Constructor
 // References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
+LinkedItem::LinkedItem(const LinkedItem &itemList)
+{
+    ItemElement * p1 = 0;//current
+    ItemElement * p2 = 0;//next
+
+    if (itemList.Head == 0)
+        Head = 0;
+
+    else
+    {
+        Head = new ItemElement;
+        Head->next = itemList.Head->next;
+        Head->data = itemList.Head->data;
+
+        p1 = Head;
+        p2 = itemList.Head->next;
+    }
+
+    while (p2)
+    {
+        p1->next = new ItemElement;
+        p1 = p1->next;
+        p1->data = p2->data;
+
+        p2 = p2->next;
+    }
+    p1->next = 0;
+}
 
 
 // Add item to linked list

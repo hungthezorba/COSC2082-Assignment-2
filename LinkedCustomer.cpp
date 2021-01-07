@@ -11,6 +11,38 @@ LinkedCustomer :: LinkedCustomer(){
     temp = NULL;
     last = NULL;
     track = NULL;
+    current = NULL;
+}
+
+//Copy Constructor
+// References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
+LinkedCustomer::LinkedCustomer(const LinkedCustomer &itemList)
+{
+    CustomerNode * p1 = 0;//current
+    CustomerNode * p2 = 0;//next
+
+    if (itemList.Head == 0)
+        Head = 0;
+
+    else
+    {
+        Head = new CustomerNode;
+        Head->next = itemList.Head->next;
+        Head->data = itemList.Head->data;
+
+        p1 = Head;
+        p2 = itemList.Head->next;
+    }
+
+    while (p2)
+    {
+        p1->next = new CustomerNode;
+        p1 = p1->next;
+        p1->data = p2->data;
+
+        p2 = p2->next;
+    }
+    p1->next = 0;
 }
 
 CustomerNode *LinkedCustomer::getHead() const {
@@ -103,6 +135,65 @@ void LinkedCustomer::deleteCustomer(string id) {
     }
 
 }
+
+// Sorted by id. Directly affect on linked list so need to create a deep copy linked list.
+void LinkedCustomer::sortedByID() {
+    // The function enhance on this program
+    // References: https://www.javatpoint.com/program-to-sort-the-elements-of-the-singly-linked-list
+    current = Head;
+    track = NULL;
+
+    if (Head == NULL)
+        return;
+    else {
+        while (current != NULL) {
+            track = current-> next;
+            while (track != NULL) {
+                if (stoi(current->data->getId().substr(1, 3)) > stoi(track->data->getId().substr(1, 3))) {
+                    Customer *temp = current->data;
+                    current->data = track->data;
+                    track->data = temp;
+                }
+
+                track = track->next;
+            }
+
+            current = current->next;
+        }
+
+    }
+
+}
+
+// Sorted by title. Directly affect on linked list so need to create a deep copy linked list.
+void LinkedCustomer::sortedByName() {
+    current = Head;
+    track = NULL;
+
+    if (Head == NULL)
+        return;
+    else {
+        while (current != NULL) {
+            track = current->next;
+            while (track != NULL) {
+                if (current->data->getName() > track->data->getName()) {
+                    Customer *temp = current->data;
+                    current->data = track->data;
+                    track->data = temp;
+                }
+
+                track = track->next;
+            }
+
+            current = current->next;
+        }
+
+    }
+
+}
+
+
+
 
 CustomerNode* LinkedCustomer::getHead() {
 	return Head;
