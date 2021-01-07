@@ -16,34 +16,6 @@ LinkedItem :: LinkedItem(){
 
 //Copy Constructor
 // References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
-LinkedItem::LinkedItem(const LinkedItem &l)
-{
-	ItemElement * p1 = 0;//current
-	ItemElement * p2 = 0;//next
-
-	if (l.Head == 0)
-		Head = 0;
-
-	else
-	{
-		Head = new ItemElement;
-		Head->next = l.Head->next;
-		Head->data = l.Head->data;
-
-		p1 = Head;
-		p2 = l.Head->next;
-	}
-
-	while (p2)
-	{
-		p1->next = new ItemElement;
-		p1 = p1->next;
-		p1->data = p2->data;
-
-		p2 = p2->next;
-	}
-	p1->next = 0;
-}
 
 
 // Add item to linked list
@@ -102,18 +74,20 @@ ItemElement *LinkedItem::searchItemByID(string id){
     return current;
 };
 
-ItemElement *LinkedItem::searchItemByTitle(string title) {
+LinkedItem LinkedItem::searchItemByTitle(string title) {
 	current = Head;
-	track = Head;
-	while (current != NULL && current->data->getTitle() != title) {
-		track = current;
+
+	// Initial customer list
+	LinkedItem tempListItem;
+
+	while (current != NULL) {
+		// If match name
+		if (current->data->getTitle() == title) {
+			tempListItem.addItem(current->data); // Add to list
+		}
 		current = current->next;
 	}
-	if (current == NULL) {
-		// No need to print message in this function. Message will be carried out by menu.
-		return NULL;
-	}
-	return current;
+	return tempListItem;
 
 };
 
@@ -201,7 +175,7 @@ void LinkedItem::sortedByTitle() {
 }
 
 
-ItemElement *LinkedItem::getHead() {
+ItemElement *LinkedItem::getHead() const {
 	return Head;
 }
 

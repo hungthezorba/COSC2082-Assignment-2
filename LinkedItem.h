@@ -16,16 +16,15 @@ private:
 public:
     LinkedItem();
 	// Copy constructor
-	LinkedItem(const LinkedItem &v);
     void addItem(Item *newItem);
     void deleteItem(string id);
     ItemElement*searchItemByID(string id);
-	ItemElement*searchItemByTitle(string title);
+	LinkedItem searchItemByTitle(string title);
     void printItem();
 	void printOutOfStockItem();
 	void sortedByID();
 	void sortedByTitle();
-	ItemElement *getHead();
+	ItemElement *getHead() const;
 
 
 };
