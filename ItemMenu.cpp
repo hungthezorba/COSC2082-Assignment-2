@@ -57,196 +57,259 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "----------------------------------------------------------" << endl;
 			cout << endl; // space
 		}
-		//else if (input == "2") {
+		else if (input == "2") {
 
-		//	while (true) {
-		//		cout << "---------------------* Delete Item *---------------------" << endl;
-		//		cout << "|1. By ID                                                |" << endl;
-		//		cout << "|2. By title                                             |" << endl;
-		//		cout << "|3. Back                                                 |" << endl;
-		//		cout << "----------------------------------------------------------" << endl;
-		//		cout << "PROMPT: Enter an option: ";
-		//		cin >> input;
+			while (true) {
+				cout << "---------------------* Delete Item *---------------------" << endl;
+				cout << "|1. By ID                                                |" << endl;
+				cout << "|2. By title                                             |" << endl;
+				cout << "|3. Back                                                 |" << endl;
+				cout << "----------------------------------------------------------" << endl;
+				cout << "PROMPT: Enter an option: ";
+				cin >> input;
 
-		//		if (input == "1") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter item's ID want to delete: ";
-		//				cin >> input;
-		//				// Check ID format
-		//				if (validateItemID(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			ItemElement *foundItem = itemList.searchItemByID(input);
-		//			
-		//			CustomerNode *rentingCustomer = customerList.getHead();
-		//			
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to delete: ";
+						cin >> input;
+						// Check ID format
+						if (validateItemID(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *foundItem = itemList.searchItemByID(input);
 
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			if (foundItem != NULL) {
-		//				foundItem->data->printDetail();
-		//				
-		//				int count = 0; // Count variable to track how many items are being rent
-		//				
-		//				while (rentingCustomer != NULL) {
+					CustomerNode *rentingCustomer = customerList.getHead();
 
-		//					LinkedRentalList *tempRentalList = rentingCustomer->data->getRentalList();
-		//					RentalListNode *tempRentItem = tempRentalList->getHead();
-		//					while (tempRentItem != NULL) {
 
-		//						if (tempRentItem->getItem() == foundItem->data->getId()) {
-		//							cout << "Item is currently rent by: " << rentingCustomer->data->getName() << endl;
-		//							count++;
-		//						}
-		//						tempRentItem = tempRentItem->getNext();
-		//					}
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					if (foundItem != NULL) {
+						foundItem->data->printDetail();
 
-		//					rentingCustomer = rentingCustomer->next;
-		//				}
-		//				// If the item not found in customer rental list -> proceed to delete
-		//				if (count == 0) {
-		//					cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-		//					cin >> input;
-		//					if (input == "yes") {
-		//						itemList.deleteItem(foundItem->data->getId());
-		//						cout << "SUCCESS: Item has been deleted." << endl;
-		//					}
-		//					else
-		//						cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
-		//				}
-		//				// If the item still being rent by customers -> print out error message.
-		//				else {
-		//					cout << "PROMPT: The item is still being rent by customers. Please return before proceed to delete." << endl;
-		//				}
+						int count = 0; // Count variable to track how many items are being rent
 
-		//				// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		//				
-		//			}
-		//			else {
-		//				cout << "ERROR: Item not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "2") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter item's title want to delete: ";
-		//				cin >> input;
-		//				// Check title format
-		//				if (validateTitle(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			ItemElement *foundItem = itemList.searchItemByTitle(input);
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			if (foundItem != NULL) {
-		//				foundItem->data->printDetail();
-		//				// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
-		//				cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
-		//				cin >> input;
-		//				if (input == "yes") {
-		//					itemList.deleteItem(foundItem->data->getId());
-		//					cout << "SUCCESS: Item has been deleted." << endl;
-		//				}
-		//				else {
-		//					cout << "FAIL: No deletion has taken place." << endl;
-		//				}
-		//			}
-		//			else {
-		//				cout << "ERROR: Item not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "3") {
-		//			break;
-		//		}
-		//		else {
-		//			cout << "ERROR: Invalid Input. Please enter again." << endl;
-		//		}
-		//	}
-		//}
-		//else if (input == "3") {
+						while (rentingCustomer != NULL) {
 
-		//	while (true) {
-		//		cout << "---------------------* Update Item *---------------------" << endl;
-		//		cout << "|1. By ID                                                |" << endl;
-		//		cout << "|2. By title                                             |" << endl;
-		//		cout << "|3. Back                                                 |" << endl;
-		//		cout << "----------------------------------------------------------" << endl;
-		//		cout << "PROMPT: Enter an option: ";
-		//		cin >> input;
+							LinkedRentalList *tempRentalList = rentingCustomer->data->getRentalList();
+							RentalListNode *tempRentItem = tempRentalList->getHead();
+							while (tempRentItem != NULL) {
 
-		//		if (input == "1") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter item's ID want to update: ";
-		//				cin >> input;
-		//				if (validateItemID(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			ItemElement *item = itemList.searchItemByID(input);
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			//
-		//			if (item != NULL) {
-		//				while (true) {
-		//					// Call update function
-		//					itemUpdateMenu(item);
-		//					item->data->printDetail();
-		//					cout << "PROMPT: Continue to update ? (y/n): ";
-		//					cin >> input;
+								if (tempRentItem->getItem() == foundItem->data->getId()) {
+									cout << "Item is currently rent by: " << rentingCustomer->data->getName() << endl;
+									count++;
+								}
+								tempRentItem = tempRentItem->getNext();
+							}
 
-		//					if (input == "y") {
-		//						// Continue to update
-		//					}
-		//					else {
-		//						// Break out the update loop
-		//						break;
-		//					}
-		//				}
-		//			}
-		//			else {
-		//				// Will implement input id again
-		//				cout << "ERROR: Item not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "2") {
-		//			while (true) {
-		//				cout << "PROMPT: Enter item's title want to update: ";
-		//				cin >> input;
-		//				if (validateTitle(input))
-		//					break;
-		//			}
-		//			// Find item through the list here
-		//			ItemElement *item = itemList.searchItemByTitle(input);
-		//			// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
-		//			//
-		//			if (item != NULL) {
-		//				while (true) {
-		//					// Call update function
-		//					itemUpdateMenu(item);
-		//					item->data->printDetail();
-		//					cout << "PROMPT: Continue to update ? (y/n): ";
-		//					cin >> input;
+							rentingCustomer = rentingCustomer->next;
+						}
+						// If the item not found in customer rental list -> proceed to delete
+						if (count == 0) {
+							cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+							cin >> input;
+							if (input == "yes") {
+								itemList.deleteItem(foundItem->data->getId());
+								cout << "SUCCESS: Item has been deleted." << endl;
+							}
+							else
+								cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+						}
+						// If the item still being rent by customers -> print out error message.
+						else {
+							cout << "PROMPT: The item is still being rent by customers. Please return the item before proceed to delete." << endl;
+						}
 
-		//					if (input == "y") {
-		//						// Continue to update
-		//					}
-		//					else {
-		//						// Break out the update loop
-		//						break;
-		//					}
-		//				}
-		//			}
-		//			else {
-		//				// Will implement input id again
-		//				cout << "ERROR: Item not found." << endl;
-		//			}
-		//		}
-		//		else if (input == "3") {
-		//			break;
-		//		}
-		//		else {
-		//			cout << "ERROR: Invalid Input. Please enter again." << endl;
-		//		}
-		//	}
-		//}
+						// Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+
+					}
+					else {
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "2") {
+					while (true) {
+						cout << "PROMPT: Enter item's title want to delete: ";
+						cin >> input;
+						// Check title format
+						if (validateTitle(input))
+							break;
+					}
+					// Find item through the list here
+					LinkedItem foundList = itemList.searchItemByTitle(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					if (foundList.getHead() != NULL) {
+
+					    if (foundList.getHead()->next != NULL) {
+					        foundList.printItem();
+					        while (true) {
+                                cout << "PROMPT: Found more than 1 item with matching name.\nPROMPT: Enter item ID to proceed: ";
+                                cin >> input; // Get the customer ID
+                                if (validateTitle(input)) {
+                                    break;
+                                }
+					        }
+					    }
+
+					    else {
+					        input = foundList.getHead()->data->getId();
+					    }
+
+					    ItemElement *foundItem = foundList.searchItemByID(input);
+					    CustomerNode *rentingCustomer = customerList.getHead();
+
+                        if (foundItem != NULL) {
+                            foundItem->data->printDetail();
+
+                            int count = 0; // Count variable to track how many items are being rent
+
+                            while (rentingCustomer != NULL) {
+
+                                LinkedRentalList *tempRentalList = rentingCustomer->data->getRentalList();
+                                RentalListNode *tempRentItem = tempRentalList->getHead();
+                                while (tempRentItem != NULL) {
+
+                                    if (tempRentItem->getItem() == foundItem->data->getId()) {
+                                        cout << "Item is currently rent by: " << rentingCustomer->data->getName() << endl;
+                                        count++;
+                                    }
+                                    tempRentItem = tempRentItem->getNext();
+                                }
+
+                                rentingCustomer = rentingCustomer->next;
+                            }
+                            // If the item not found in customer rental list -> proceed to delete
+                            if (count == 0) {
+                                cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
+                                cin >> input;
+                                if (input == "yes") {
+                                    itemList.deleteItem(foundItem->data->getId());
+                                    cout << "SUCCESS: Item has been deleted." << endl;
+                                }
+                                else
+                                    cout << "FAIL: No deletion has taken place. Return to item menu." << endl;
+                            }
+                                // If the item still being rent by customers -> print out error message.
+                            else {
+                                cout << "PROMPT: The item is still being rent by customers. Please return the item before proceed to delete." << endl;
+                            }
+
+                            // Delete is a dangerous action. So the program make it harder to delete an item. Just like Github.
+
+                        }
+                        else {
+                            cout << "ERROR: Item not found." << endl;
+                        }
+					}
+					else {
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "3") {
+					break;
+				}
+				else {
+					cout << "ERROR: Invalid Input. Please enter again." << endl;
+				}
+			}
+		}
+		else if (input == "3") {
+
+			while (true) {
+				cout << "---------------------* Update Item *---------------------" << endl;
+				cout << "|1. By ID                                                |" << endl;
+				cout << "|2. By title                                             |" << endl;
+				cout << "|3. Back                                                 |" << endl;
+				cout << "----------------------------------------------------------" << endl;
+				cout << "PROMPT: Enter an option: ";
+				cin >> input;
+
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to update: ";
+						cin >> input;
+						if (validateItemID(input))
+							break;
+					}
+					// Find item through the list here
+					ItemElement *item = itemList.searchItemByID(input);
+					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
+					//
+					if (item != NULL) {
+						while (true) {
+							// Call update function
+							itemUpdateMenu(item);
+							item->data->printDetail();
+							cout << "PROMPT: Continue to update ? (y/n): ";
+							cin >> input;
+
+							if (input == "y") {
+								// Continue to update
+							}
+							else {
+								// Break out the update loop
+								break;
+							}
+						}
+					}
+					else {
+						// Will implement input id again
+						cout << "ERROR: Item not found." << endl;
+					}
+				}
+				else if (input == "2") {
+                    cin.ignore();
+                    while (true) {
+                        cout << "PROMPT: Enter customer's name want to update: ";
+                        getline(cin, input);
+                        if (validateTitle(input))
+                            break;
+                    }
+                    // Find item through the list here
+                    LinkedItem foundList = itemList.searchItemByTitle(input);
+                    // If-else case: If customer found, show customer's detail. If customer not found, print error message then back to customer menu.
+                    //
+                    if (foundList.getHead() != NULL) {
+                        // Case 1: Found more than 1 customer with matching name
+                        if (foundList.getHead()->next != NULL) {
+                            foundList.printItem();
+                            while (true) {
+                                cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
+                                cin >> input; // Get the customer ID
+                                if (validateItemID(input)) {
+                                    break;
+                                }
+                            }
+
+                        }
+                        else {
+                            // Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
+                            input = foundList.getHead()->data->getId(); // Get the customer ID
+                        }
+
+                        ItemElement *item = foundList.searchItemByID(input);
+
+                        if (item != NULL) {
+                            // Call update function
+                            itemUpdateMenu(item);
+
+                        }
+                        else {
+                            cout << "ERROR: Item not found." << endl;
+                        }
+
+                    }
+                    else {
+                        cout << "ERROR: Item not found." << endl;
+                    }
+				}
+				else if (input == "3") {
+					break;
+				}
+				else {
+					cout << "ERROR: Invalid Input. Please enter again." << endl;
+				}
+			}
+		}
 		// Dummy option. Implement later
 		else if (input == "4") {
 			cout << "Option 4" << endl;
@@ -446,74 +509,88 @@ Item* itemCreateMenu() {
 // Update item
 void itemUpdateMenu(ItemElement *item) {
 	string input;
-	cout << "----------------------* Update Item *----------------------" << endl;
-	cout << "Item ID: " << item->data->getId() << endl;
-	cout << "Type: " << item->data->getRentalType() << endl;
-	cout << "1. Item title: " << item->data->getTitle() << endl;
-	cout << "2. Item loan's type: " << item->data->getLoanType() << endl;
-	cout << "3. Item number of copies: " << item->data->getNumberOfCopies() << endl;
-	cout << "4. Item rental fee: " << item->data->getRentalFee() << endl;
-	if (item->data->getRentalType() != "Game") {
-		cout << "5. Item genre: " << item->data->getGenre() << endl;
-	}
-	cout << "Select an option: ";
-	cin >> input;
 
-	if (input == "1") {
-		while (true) {
-			cout << "Enter item's title: ";
-			cin.ignore();
-			// Title can contains spaces so need to use getline in this case
-			getline(cin, input);
-			if (validateTitle(input)) {
-				item->data->setTitle(input);
-				break;
-			}
-		}
+	while (true) {
+        cout << "----------------------* Update Item *----------------------" << endl;
+        cout << "Item ID: " << item->data->getId() << endl;
+        cout << "Type: " << item->data->getRentalType() << endl;
+        cout << "1. Item title: " << item->data->getTitle() << endl;
+        cout << "2. Item loan's type: " << item->data->getLoanType() << endl;
+        cout << "3. Item number of copies: " << item->data->getNumberOfCopies() << endl;
+        cout << "4. Item rental fee: " << item->data->getRentalFee() << endl;
+        if (item->data->getRentalType() != "Game") {
+            cout << "5. Item genre: " << item->data->getGenre() << endl;
+        }
+        cout << "Select an option: ";
+        cin >> input;
+
+        if (input == "1") {
+            while (true) {
+                cout << "Enter item's title: ";
+                cin.ignore();
+                // Title can contains spaces so need to use getline in this case
+                getline(cin, input);
+                if (validateTitle(input)) {
+                    item->data->setTitle(input);
+                    break;
+                }
+            }
+        }
+
+        else if (input == "2") {
+            while (true) {
+                cout << "Enter item's loan type(2-day or 1-week): ";
+                cin >> input;
+                if (validateLoanType(input)) {
+                    item->data->setLoanType(input);
+                    break;
+                }
+            }
+        }
+        else if (input == "3") {
+            while (true) {
+                cout << "Enter item's number of copies: ";
+                cin >> input;
+                if (validateNumberOfCopies(input)) {
+                    item->data->setNumberOfCopies(stoi(input));
+                    break;
+                }
+            }
+        }
+        else if (input == "4") {
+            while (true) {
+                cout << "Enter item's rental fee: ";
+                cin >> input;
+                if (validateRentalFee(input)) {
+                    item->data->setRentalFee(stod(input));
+                    break;
+                }
+            }
+        }
+        else if (input == "5" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
+            while (true) {
+                cout << "Enter item's genre(Action, Horror, Comedy or Drama): ";
+                cin >> input;
+                if (validateGenre(input)) {
+                    item->data->setGenre(input);
+                    break;
+                }
+            }
+        }
+        else {
+            cout << "ERROR: Invalid input. Please enter again." << endl;
+        }
+        cout << "PROMPT: Continue to update ? (y/n): ";
+        cin >> input;
+        if (input == "y") {
+            // Continue to update
+        }
+        else {
+            // Break out the update loop
+            break;
+        }
 	}
-	
-	else if (input == "2") {
-		while (true) {
-			cout << "Enter item's loan type(2-day or 1-week): ";
-			cin >> input;
-			if (validateLoanType(input)) {
-				item->data->setLoanType(input);
-				break;
-			}
-		}
-	}
-	else if (input == "3") {
-		while (true) {
-			cout << "Enter item's number of copies: ";
-			cin >> input;
-			if (validateNumberOfCopies(input)) {
-				item->data->setNumberOfCopies(stoi(input));
-				break;
-			}
-		}
-	}
-	else if (input == "4") {
-		while (true) {
-			cout << "Enter item's rental fee: ";
-			cin >> input;
-			if (validateRentalFee(input)) {
-				item->data->setRentalFee(stod(input));
-				break;
-			}
-		}
-	}
-	else if (input == "5" && (item->data->getRentalType() == "DVD" || item->data->getRentalType() == "Record")) {
-		while (true) {
-			cout << "Enter item's genre(Action, Horror, Comedy or Drama): ";
-			cin >> input;
-			if (validateGenre(input)) {
-				item->data->setGenre(input);
-				break;
-			}
-		}
-	}
-	else {
-		cout << "ERROR: Invalid input. Please enter again." << endl;
-	}
+
+
 	return;
 }
