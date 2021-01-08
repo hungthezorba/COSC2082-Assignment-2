@@ -16,33 +16,40 @@ LinkedItem :: LinkedItem(){
 
 //Copy Constructor
 // References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
-LinkedItem::LinkedItem(const LinkedItem &itemList)
+LinkedItem::LinkedItem(const LinkedItem & ll)
 {
-    ItemElement * p1 = 0;//current
-    ItemElement * p2 = 0;//next
+	if (ll.Head == NULL) {
+		Head = NULL;
+		return;
+	}
+	// Create a temp variable since ll.current doesn't move/change.
+	ItemElement* tmp = ll.Head;
 
-    if (itemList.Head == 0)
-        Head = 0;
+	// Allocate a new node in memory.
+	Head = new ItemElement;
+	// Copy over the value.
+	Head->data = tmp->data;
+	// Set the 'next' value to null (the loop will fill this in). 
+	Head->next = NULL;
+	// Point 'current' to 'head'.
+	current = Head;
 
-    else
-    {
-        Head = new ItemElement;
-        Head->next = itemList.Head->next;
-        Head->data = itemList.Head->data;
+	// Move to next item in ll's list.
+	tmp = tmp->next;
 
-        p1 = Head;
-        p2 = itemList.Head->next;
-    }
-
-    while (p2)
-    {
-        p1->next = new ItemElement;
-        p1 = p1->next;
-        p1->data = p2->data;
-
-        p2 = p2->next;
-    }
-    p1->next = 0;
+	while (tmp != NULL)
+	{
+		// Allocate new memory for a new 'node'.
+		current->next = new ItemElement;
+		// Point to this new 'node'.
+		current = current->next;
+		// Copy over the data.
+		current->data = tmp->data;
+		// By default set the 'next' to null.
+		current->next = NULL;
+		// Move along ll's list.
+		tmp = tmp->next;
+	}
 }
 
 
@@ -106,16 +113,16 @@ LinkedItem LinkedItem::searchItemByTitle(string title) {
 	current = Head;
 
 	// Initial customer list
-	LinkedItem tempListItem;
+	LinkedItem *tempListItem = new LinkedItem;
 
 	while (current != NULL) {
 		// If match name
 		if (current->data->getTitle() == title) {
-			tempListItem.addItem(current->data); // Add to list
+			tempListItem->addItem(current->data); // Add to list
 		}
 		current = current->next;
 	}
-	return tempListItem;
+	return *tempListItem;
 
 };
 

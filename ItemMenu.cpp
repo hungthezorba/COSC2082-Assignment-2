@@ -138,7 +138,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					LinkedItem foundList = itemList.searchItemByTitle(input);
 					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 					if (foundList.getHead() != NULL) {
-
+						cout << foundList.getHead()->data << endl;
 					    if (foundList.getHead()->next != NULL) {
 					        foundList.printItem();
 					        while (true) {
@@ -265,9 +265,8 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                             break;
                     }
                     // Find item through the list here
-                    LinkedItem foundList = itemList.searchItemByTitle(input);
+					LinkedItem foundList = itemList.searchItemByTitle(input);
                     // If-else case: If customer found, show customer's detail. If customer not found, print error message then back to customer menu.
-                    //
                     if (foundList.getHead() != NULL) {
                         // Case 1: Found more than 1 customer with matching name
                         if (foundList.getHead()->next != NULL) {
