@@ -95,14 +95,22 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							while (tempRentItem != NULL) {
 
 								if (tempRentItem->getItem() == foundItem->data->getId()) {
-									cout << "Item is currently rent by: " << rentingCustomer->data->getName() << endl;
+									// To make all the customer's name who are renting in the same line. Improving the readability.
+									if (count == 0) {
+										cout << "Item is currently rent by: " << rentingCustomer->data->getName();
+									}
+									else {
+										cout << ", " << rentingCustomer->data->getName();
+									}
 									count++;
+									break;
 								}
 								tempRentItem = tempRentItem->getNext();
 							}
 
 							rentingCustomer = rentingCustomer->next;
 						}
+						cout << endl; // breakline after print currently rent list
 						// If the item not found in customer rental list -> proceed to delete
 						if (count == 0) {
 							cout << "PROMPT: Do you really want to delete the item ? Type 'yes' to confirm action: ";
@@ -241,14 +249,6 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							item->data->printDetail();
 							cout << "PROMPT: Continue to update ? (y/n): ";
 							cin >> input;
-
-							if (input == "y") {
-								// Continue to update
-							}
-							else {
-								// Break out the update loop
-								break;
-							}
 						}
 					}
 					else {

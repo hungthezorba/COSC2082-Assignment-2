@@ -290,7 +290,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							break;
 					}
 
-					// Find item through the list here
+					// Find customer through the list here
 					LinkedCustomer foundList = customerList.searchCustomerByName(input);
 					if (foundList.getHead() != NULL)
 						foundList.printAllCustomer();
