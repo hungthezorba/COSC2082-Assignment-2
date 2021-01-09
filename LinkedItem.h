@@ -26,8 +26,9 @@ public:
 	void sortedByID();
 	void sortedByTitle();
 	ItemElement *getHead();
-
-
+	void IncreaseNumberOfCopies(string id);
+	void DecreaseNumberOfCopies(string id);
+	void Output(LinkedItem* list);
 };
 
 

@@ -45,6 +45,7 @@ public:
   void setNumberOfRental(const int numberOfRental);
 
   LinkedRentalList *getRentalList();
+  LinkedRentalList getRentalList2();
 
   // Polymorphism functions
   virtual void details();
@@ -54,4 +55,5 @@ public:
   virtual void rentItem(const string itemName);
 
   virtual void returnItem(const string itemName);
+  virtual int typeCustomer();
 };

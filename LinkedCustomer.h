@@ -17,7 +17,7 @@ public:
     void deleteCustomer(string id);
     CustomerNode*searchCustomer(string id);
     void printAllCustomer();
-
+    void Output(LinkedCustomer* list);
 
 };
 

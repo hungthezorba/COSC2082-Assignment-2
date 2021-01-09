@@ -21,4 +21,6 @@ public:
 
   void showRentalList();
 
+  int typeCustomer();
+
 };

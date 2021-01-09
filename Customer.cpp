@@ -65,7 +65,9 @@ void Customer::setNumberOfRental(const int numberOfRental) {
 LinkedRentalList *Customer::getRentalList() {
 	return &rentalList;
 }
-
+LinkedRentalList Customer::getRentalList2() {
+	return rentalList;
+}
 void Customer::details() {
   cout << this->id;
   cout << ", " << this->name;
@@ -85,4 +87,7 @@ void Customer::rentItem(const string itemName) {
 void Customer::returnItem(const string itemName) {
 	this->numberOfRental--;
   rentalList.removeItem(itemName);
+}
+int Customer::typeCustomer() {
+	return 0;
 }

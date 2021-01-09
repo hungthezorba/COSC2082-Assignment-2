@@ -5,7 +5,8 @@
 #include <iostream>
 #include "LinkedItem.h"
 #include "ItemElement.h"
-
+#include<iostream>
+#include<fstream>
 
 LinkedItem :: LinkedItem(){
     Head = NULL;
@@ -85,7 +86,43 @@ void LinkedItem::printOutOfStockItem() {
 		current = current->next;
 	}
 }
-
+// Increase Number Of Copies
+void LinkedItem::IncreaseNumberOfCopies(string id) {
+	current = Head;
+	track = Head;
+	while (current != NULL && current->data->getId() != id) {
+		track = current;
+		current = current->next;
+	}
+	int numOfCopies = current->data->getNumberOfCopies();
+	current->data->setNumberOfCopies(numOfCopies + 1);
+};
+// Decrease Number Of Copies
+void LinkedItem::DecreaseNumberOfCopies(string id) {
+	current = Head;
+	track = Head;
+	while (current != NULL && current->data->getId() != id) {
+		track = current;
+		current = current->next;
+	}
+	int numOfCopies = current->data->getNumberOfCopies();
+	current->data->setNumberOfCopies(numOfCopies - 1);
+};
+// Get object in list
+void LinkedItem::Output(LinkedItem* list) {
+	ofstream out("items.txt");
+	ItemElement* temp = list->Head;
+	while (temp != NULL) {
+		if (temp->data->getGenre() != "") {
+			out << temp->data->getId() << "," << temp->data->getTitle() << "," << temp->data->getRentalType() << "," << temp->data->getLoanType() << "," << temp->data->getNumberOfCopies() << "," << temp->data->getRentalFee() << "," << temp->data->getGenre() << endl;
+		}
+		else {
+			out << temp->data->getId() << "," << temp->data->getTitle() << "," << temp->data->getRentalType() << "," << temp->data->getLoanType() << "," << temp->data->getNumberOfCopies() << "," << temp->data->getRentalFee()<< endl;
+		}
+		temp = temp->next;
+	}
+	
+}
 // Search item by ID
 ItemElement *LinkedItem::searchItemByID(string id){
 	

@@ -16,10 +16,12 @@ RegularAccount::RegularAccount(string id, string name, string address, string ph
 void RegularAccount::rentItem(const string itemName) {
 	// This work fine, but the pattern is weird. Need to refactor
   this->Customer::rentItem(itemName);
+  cout << "Regular customer " << this->getName() << " rented item successfully!" << endl;
 }
 
 void RegularAccount::returnItem(const string itemName) {
 	// This work fine, but the pattern is weird. Need to refactor
+  cout << "Guest customer " << this->getName() << " returned item successfully!" << endl;
   this->Customer::returnItem(itemName);
 }
 
@@ -32,4 +34,7 @@ void RegularAccount::details() {
 
 void RegularAccount::showRentalList() {
   this->Customer::showRentalList();
+}
+int RegularAccount::typeCustomer() {
+	return 1;
 }
