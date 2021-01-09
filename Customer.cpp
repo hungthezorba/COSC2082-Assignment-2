@@ -72,6 +72,9 @@ void Customer::setRentalList(LinkedRentalList &rentalList) {
 	this->rentalList = rentalList;
 }
 
+LinkedRentalList Customer::getRentalList2() {
+	return rentalList;
+}
 void Customer::details() {
   cout << this->id;
   cout << ", " << this->name;
@@ -98,5 +101,9 @@ string Customer::getType() const {
 }
 
 void Customer::setType(const string &type) {
-    this->type = type;
+	this->type = type;
+}
+
+int Customer::typeCustomer() {
+	return 0;
 }

@@ -16,6 +16,7 @@ this->setType("Guest");
 // Member functions
 void GuestAccount::rentItem(const string itemName) {
   if (this->getNumberOfRental() < GUEST_RENTAL_LIMIT) {
+    cout << "Guest customer " << this->getName() << " rented item successfully!" << endl;
     this->Customer::rentItem(itemName);
 	// Increase current rentals
   } else {
@@ -25,6 +26,7 @@ void GuestAccount::rentItem(const string itemName) {
 }
 
 void GuestAccount::returnItem(const string itemName) {
+  cout << "Guest customer " << this->getName() << " returned item successfully!" << endl;
   this->Customer::returnItem(itemName);
   // Reduce current rentals
 }
@@ -39,4 +41,7 @@ void GuestAccount::details() {
 
 void GuestAccount::showRentalList() {
   this->Customer::showRentalList();
+}
+int GuestAccount::typeCustomer() {
+    return 3;
 }

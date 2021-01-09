@@ -29,7 +29,6 @@ void printByType(LinkedCustomer customerList) {
 		}
 		thisTemp = thisTemp->next;
 	}
-
 	cout << "-------------------* Guest Customer *-------------------" << endl;
 	guestList.printAllCustomer();
 	cout << "------------------* Regular Customer *------------------" << endl;
@@ -70,10 +69,147 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "Option 3" << endl;
 		}
 		else if (input == "4") {
-			cout << "Option 4" << endl;
+			cout << "------------------* Rent items *-------------------" << endl;
+			cout << "| Please enter ID Customer then choose the option |" << endl;
+			cout << "| 1. Rent by ID                                   |" << endl;
+			cout << "| 2. Rent by Title                                |" << endl;
+			cout << "---------------------------------------------------" << endl;
+			cout << "List of items :  " << endl;
+			LinkedItem tempItemList(itemList);
+			tempItemList.printItem();
+			cout << "List of customers :  " << endl;
+			LinkedCustomer tempCustomerList(customerList);
+			tempCustomerList.printAllCustomer();
+			string key;
+			string idCustomer;
+			cout << "| Please enter ID Customer : " << endl;
+			cin.ignore();
+			getline(cin, idCustomer);
+			CustomerNode* cus = customerList.searchCustomerByID(idCustomer);
+			if (cus != NULL) {
+				cout << "PROMPT: Choose an option: ";
+				cin >> input;
+				if (input == "1") {
+					cout << "| Please enter ID : " << endl;
+					cin.ignore();
+					getline(cin, key);
+					bool isValidateItem = validateItemID(key);
+					if (isValidateItem) {
+						ItemElement* rent = itemList.searchItemByID(key);
+						if (rent != NULL) {
+							int isAvailable = rent->data->getNumberOfCopies();
+							if (isAvailable != 0) {
+								rent->data->renting();
+								cus->data->rentItem(rent->data->getId());
+							}
+							else {
+								cout << "ERROR: Rental status is not available" << endl;
+							}
+						}
+						else {
+							cout << "ERROR: Couldn't find this ID in Item's list" << endl;
+						}
+					}
+
+				}
+				//else if (input == "2") {
+				//	cout << "| Please enter Title : " << endl;
+				//	cin.ignore();
+				//	getline(cin, key);
+				//	bool isValidateItem = validateTitle(key);
+				//	if (isValidateItem) {
+				//		ItemElement* rent = itemList.searchItemByTitle(key);
+				//		if (rent != NULL) {
+				//			int isAvailable = rent->data->getNumberOfCopies();
+				//			if (isAvailable != 0) {
+				//				itemList.DecreaseNumberOfCopies(rent->data->getId());
+				//				cus->data->rentItem(rent->data->getId());
+				//			}
+				//			else {
+				//				cout << "ERROR: Rental status is unavailable" << endl;
+				//			}
+				//		}
+				//		else {
+				//			cout << "ERROR: Couldn't find this Title in Item's list" << endl;
+				//		}
+				//	}
+
+				//}
+				else {
+					cout << "ERROR: Invalid input." << endl;
+				}
+			}
+			else {
+				cout << "ERROR: Couldn't find this ID in customer's list" << endl;
+			}
+			//itemList.Output(&itemList);
+			//customerList.Output(&customerList);
 		}
 		else if (input == "5") {
-			cout << "Option 5" << endl;
+			cout << "-----------------* Return items *------------------" << endl;
+			cout << "| Please enter ID Customer then choose the option |" << endl;
+			cout << "| 1. Return by ID                                 |" << endl;
+			cout << "| 2. Return by Title                              |" << endl;
+			cout << "---------------------------------------------------" << endl;
+			string key;
+			string idCustomer;
+			cout << "| Please enter ID Customer : " << endl;
+			cin.ignore();
+			getline(cin, idCustomer);
+			CustomerNode* cus = customerList.searchCustomerByID(idCustomer);
+			if (cus != NULL) {
+				cout << "List of Rentals :  " << endl;
+				cus->data->showRentalList();
+				cout << "PROMPT: Choose an option: ";
+				cin >> input;
+				if (input == "1") {
+					cout << "| Please enter ID : " << endl;
+					cin.ignore();
+					getline(cin, key);
+					bool isValidateItem = validateItemID(key);
+					if (isValidateItem) {
+						bool isHaveThisId = cus->data->getRentalList()->isListHaveId(key);
+						if (isHaveThisId) {
+							itemList.IncreaseNumberOfCopies(key);
+							cus->data->returnItem(key);
+						}
+						else {
+							cout << "Couldn't find this Item's Id in Rentals list" << endl;
+						}
+					}
+				}
+				//else if (input == "2") {
+				//	cout << "| Please enter Title : " << endl;
+				//	cin.ignore();
+				//	getline(cin, key);
+				//	bool isValidateItem = validateTitle(key);
+				//	if (isValidateItem) {
+				//		ItemElement* temp = itemList.searchItemByTitle(key);
+				//		if (temp != NULL) {
+				//			bool isHaveThisId = cus->data->getRentalList()->isListHaveId(temp->data->getId());
+				//			if (isHaveThisId) {
+				//				itemList.IncreaseNumberOfCopies(temp->data->getId());
+				//				cus->data->returnItem(temp->data->getId());
+				//			}
+				//			else {
+				//				cout << "Couldn't find this Item's Id in Rentals list" << endl;
+				//			}
+				//		}
+				//		else {
+				//			cout << "Couldn't find this Item's Id in Rentals list" << endl;
+				//		}
+				//	}
+
+				//}
+				else {
+					cout << "ERROR: Invalid input." << endl;
+				}
+			}
+			else {
+				cout << "ERROR: Couldn't find this ID in customer's list" << endl;
+			}
+			//itemList.Output(&itemList);
+			//customerList.Output(&customerList);
 		}
 		else if (input == "6") {
 			cout << "---------------* Display all items *---------------" << endl;

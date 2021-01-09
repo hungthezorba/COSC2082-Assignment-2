@@ -6,6 +6,7 @@
 using namespace std;
 
 class LinkedRentalList {
+  friend ostream& operator<<(ostream& os, const LinkedRentalList& obj);
 private:
   RentalListNode* head;
 
@@ -17,4 +18,6 @@ public:
   void removeItem(string s); // Delete first occurence of s in the list
   void showItem(); // Show all elements in the RentalListNode
   RentalListNode *getHead();
+  bool isListHaveId(string id);
+  
 };

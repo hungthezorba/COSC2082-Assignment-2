@@ -52,6 +52,7 @@ public:
   void setType(const string &typeCustomer);
 
   LinkedRentalList *getRentalList();
+  LinkedRentalList getRentalList2();
 
   void setRentalList(LinkedRentalList &rentalList);
 
@@ -63,4 +64,5 @@ public:
   virtual void rentItem(const string itemName);
 
   virtual void returnItem(const string itemName);
+  virtual int typeCustomer();
 };

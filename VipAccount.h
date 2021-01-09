@@ -27,5 +27,5 @@ public:
   void details();
 
   void showRentalList();
-
+  int typeCustomer();
 };

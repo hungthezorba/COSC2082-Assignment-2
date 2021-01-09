@@ -28,6 +28,9 @@ public:
 	ItemElement *getHead() const;
 
 
+	void IncreaseNumberOfCopies(string id);
+	void DecreaseNumberOfCopies(string id);
+	void Output(LinkedItem* list);
 };
 
 

@@ -11,6 +11,4 @@ using namespace std;
 
 // Change filename and function name later
 void ItemData(LinkedItem &itemList);
-
-
 #endif

@@ -31,7 +31,17 @@ void LinkedRentalList::addItem(string s) {
 	// Head is always the first one so cannot set the head = temp
   }
 }
-
+// Is List Rentals have this Id
+bool LinkedRentalList::isListHaveId(string id) {
+    RentalListNode* temp = head;
+    while (temp != nullptr) {
+        if (temp->getItem().compare(id) == 0) {
+            return true;
+        }
+        temp = temp->getNext();
+    }
+    return false;
+}
 void LinkedRentalList::removeItem(string s) {
   RentalListNode *temp = head;
   RentalListNode *prev = nullptr;
@@ -65,3 +75,12 @@ RentalListNode *LinkedRentalList::getHead() {
     return head;
 }
 
+ostream& operator<<(ostream& os, const LinkedRentalList& obj)
+{
+    RentalListNode* temp = obj.head;
+    while (temp != nullptr) {
+        os << temp->getItem() << endl;
+        temp = temp->getNext();
+    }
+    return os;
+}

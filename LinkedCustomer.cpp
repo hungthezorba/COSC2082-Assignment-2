@@ -5,6 +5,8 @@
 #include "LinkedCustomer.h"
 #include "CustomerNode.h"
 #include "Customer.h"
+#include<iostream>
+#include<fstream>
 
 LinkedCustomer :: LinkedCustomer(){
     Head = NULL;
@@ -197,4 +199,27 @@ void LinkedCustomer::sortedByName() {
 
 CustomerNode* LinkedCustomer::getHead() {
 	return Head;
+}
+
+void LinkedCustomer::Output(LinkedCustomer* list) {
+	ofstream out;
+	out.open("customers.txt");
+    CustomerNode* temp = list->Head;
+    while (temp != NULL) {
+        if (temp->data->typeCustomer() == 1) {
+            out << temp->data->getId() << "," << temp->data->getName() << "," << temp->data->getAddress() << "," << temp->data->getPhoneNumber() << "," << temp->data->getNumberOfRental() << "," << "Regular" << endl;
+            out << temp->data->getRentalList2();
+        }
+        if (temp->data->typeCustomer() == 2) {
+            out << temp->data->getId() << "," << temp->data->getName() << "," << temp->data->getAddress() << "," << temp->data->getPhoneNumber() << "," << temp->data->getNumberOfRental() << "," << "VIP" << endl;
+            out << temp->data->getRentalList2();
+        }
+        if (temp->data->typeCustomer() == 3) {
+            out << temp->data->getId() << "," << temp->data->getName() << "," << temp->data->getAddress() << "," << temp->data->getPhoneNumber() << "," << temp->data->getNumberOfRental() << "," << "Guest" << endl;
+            out << temp->data->getRentalList2();
+        }
+        
+        temp = temp->next;
+    }
+
 }

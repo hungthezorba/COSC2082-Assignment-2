@@ -59,3 +59,6 @@ void VipAccount::details() {
 void VipAccount::showRentalList() {
   this->Customer::showRentalList();
 }
+int VipAccount::typeCustomer() {
+    return 2;
+}
