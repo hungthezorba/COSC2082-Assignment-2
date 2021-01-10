@@ -10,9 +10,11 @@ Customer::Customer() {
   this->phoneNumber = "NA";
   this->numberOfRental = 0;
   this->rentalList;
+  this->type = "NA";
 }
 
 Customer::Customer(string id, string name, string address, string phoneNumber, int numberOfRental) {
+  this->type = "NA";
   this->id = id;
   this->name = name;
   this->address = address;
@@ -61,11 +63,26 @@ void Customer::setNumberOfRental(const int numberOfRental) {
 	this->numberOfRental = numberOfRental;
 }
 
+int Customer::getNumberOfReturnedItems() {
+	return numberOfReturnedItems;
+}
+
+void Customer::setNumberOfReturnedItems(const int numberOfReturnedItems) {
+	this->numberOfReturnedItems = numberOfReturnedItems;
+}
+
 // This function will return the reference so when reading data from database, it can be used to add items in correct list.
 LinkedRentalList *Customer::getRentalList() {
 	return &rentalList;
 }
 
+void Customer::setRentalList(LinkedRentalList &rentalList) {
+	this->rentalList = rentalList;
+}
+
+LinkedRentalList Customer::getRentalList2() {
+	return rentalList;
+}
 void Customer::details() {
   cout << this->id;
   cout << ", " << this->name;
@@ -84,5 +101,18 @@ void Customer::rentItem(const string itemName) {
 
 void Customer::returnItem(const string itemName) {
 	this->numberOfRental--;
-  rentalList.removeItem(itemName);
+	this->numberOfReturnedItems++;
+	rentalList.removeItem(itemName);
+}
+
+string Customer::getType() const {
+    return type;
+}
+
+void Customer::setType(const string &type) {
+	this->type = type;
+}
+
+int Customer::typeCustomer() {
+	return 0;
 }

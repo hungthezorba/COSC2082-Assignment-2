@@ -77,7 +77,7 @@ Item::Item(string id, string title, string rentalType, string loanType, int numb
 	this->loanType = loanType;
 	this->numberOfCopies = numberOfCopies;
 	this->rentalFee = rentalFee;
-	this->rentalStatus = "available";
+	checkStockAndSetRentalStatus();
 }
 
 Item::Item(Item &i) {

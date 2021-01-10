@@ -11,13 +11,23 @@ private:
     CustomerNode *temp;
     CustomerNode *last;
     CustomerNode *track;
+    CustomerNode *current;
+
 public:
     LinkedCustomer();
+    LinkedCustomer(const LinkedCustomer &itemList);
     void addCustomer(Customer *newItem);
     void deleteCustomer(string id);
-    CustomerNode*searchCustomer(string id);
+    CustomerNode*searchCustomerByID(string id);
+	LinkedCustomer searchCustomerByName(string name);
+	CustomerNode* getHead();
+    void sortedByID();
+    void sortedByName();
     void printAllCustomer();
 
+    CustomerNode *getHead() const;
+
+    void Output(LinkedCustomer* list);
 
 };
 

@@ -22,7 +22,7 @@ bool validateItemID(string input) {
 	
 	// Check item's id format
 	if (input[4] != '-' || input.length() != 9) {
-		cout << "ERROR: Wrong format. Please enter again" << endl;
+		cout << "ERROR: Wrong format. Please enter again." << endl;
 		return false;
 	}
 	string year;
