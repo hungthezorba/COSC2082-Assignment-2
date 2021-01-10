@@ -70,43 +70,102 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			customerMenu(itemList, customerList);
 		}
 		else if (input == "3") {
-			cout << "Enter customer id: " << endl;
-			cin >> input;
-			// Find the customer by ID. Implement find by name later
-			CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
-			if (foundCustomer->data->getType() != "VIP") {
-				// Check the condition
-				if (foundCustomer->data->getNumberOfReturnedItems() >= 3) {
-					// Store object data to keep for promotion
-					string id = foundCustomer->data->getId();
-					string name = foundCustomer->data->getName();
-					string address = foundCustomer->data->getAddress();
-					string phoneNumber = foundCustomer->data->getPhoneNumber();
-					int numberOfRental = foundCustomer->data->getNumberOfRental();
-					LinkedRentalList *tempRentalList = foundCustomer->data->getRentalList();
 
-					// Check the customer current type
-					if (foundCustomer->data->getType() == "Guest") {
-						delete foundCustomer->data; // Delete old object in heap
-						foundCustomer->data = new RegularAccount(id, name, address, phoneNumber,numberOfRental);
-						foundCustomer->data->setRentalList(*tempRentalList);
+			cout << "--------------* Promote a customer *--------------" << endl;
+			cout << "| 1. By ID                                       |" << endl;
+			cout << "| 2. By name                                     |" << endl;
+			cout << "| 3. Back                                        |" << endl;
+			cout << "--------------------------------------------------" << endl;
+
+			cout << "PROMPT: Search the customer want to promote. Choose an option:  ";
+
+			cin >> input;
+
+			CustomerNode *foundCustomer;
+
+			if (input == "1") {
+				// Find the customer by ID. Implement find by name later
+				while (true) {
+					cout << "PROMPT: Enter customer's ID: ";
+					cin >> input;
+					if (validateCustomerID(input))
+						break;
+				}
+				foundCustomer = customerList.searchCustomerByID(input);
+			}
+			else if (input == "2") {
+				cin.ignore();
+				while (true) {
+					cout << "PROMPT: Enter customer's name: ";
+					getline(cin, input);
+					if (validateCustomerName(input))
+						break;
+				}
+				LinkedCustomer foundList = customerList.searchCustomerByName(input);
+				if (foundList.getHead() != NULL) {
+					// Case 1: Found more than 1 customer with matching name
+					if (foundList.getHead()->next != NULL) {
+						foundList.printAllCustomer();
+						while (true) {
+							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
+							cin >> input; // Get the customer ID
+							if (validateCustomerID(input)) {
+								break;
+							}
+						}
+
 					}
 					else {
-						delete foundCustomer->data; // Delete old object in heap
-						foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
-						foundCustomer->data->setRentalList(*tempRentalList);
+						// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
+						input = foundList.getHead()->data->getId(); // Get the customer ID
 					}
-					
+
+					foundCustomer = foundList.searchCustomerByID(input);
 				}
 				else {
-					cout << "Not met condition" << endl;
+					cout << "ERROR: Cannot found customer." << endl;
+				}
+			}
+			
+			if (foundCustomer != NULL) {
+				if (foundCustomer->data->getType() != "VIP") {
+					// Check the condition
+					if (foundCustomer->data->getNumberOfReturnedItems() >= 3) {
+						// Store object data to keep for promotion
+						string id = foundCustomer->data->getId();
+						string name = foundCustomer->data->getName();
+						string address = foundCustomer->data->getAddress();
+						string phoneNumber = foundCustomer->data->getPhoneNumber();
+						int numberOfRental = foundCustomer->data->getNumberOfRental();
+						LinkedRentalList *tempRentalList = foundCustomer->data->getRentalList();
+
+						// Check the customer current type
+						if (foundCustomer->data->getType() == "Guest") {
+							delete foundCustomer->data; // Delete old object in heap
+							foundCustomer->data = new RegularAccount(id, name, address, phoneNumber, numberOfRental);
+							foundCustomer->data->setRentalList(*tempRentalList);
+							cout << foundCustomer->data->getName() << " has been promoted to Regular" << endl;
+						}
+						else {
+							delete foundCustomer->data; // Delete old object in heap
+							foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
+							foundCustomer->data->setRentalList(*tempRentalList);
+							cout << foundCustomer->data->getName() << " has been promoted to VIP" << endl;
+						}
+					}
+					else {
+						cout << "FAIL: Customer not met the promotion's condition" << endl;
+					}
+				}
+				else {
+					cout << "FAIL: Customer is already a VIP member" << endl;
 				}
 			}
 			else {
-				cout << "Customer already a VIP member" << endl;
+				cout << "ERROR: Customer not found." << endl;
 			}
-			
 		}
+
 		else if (input == "4") {
 			cout << "------------------* Rent Item *-------------------" << endl;
 			cout << "| 1. By ID                                       |" << endl;
