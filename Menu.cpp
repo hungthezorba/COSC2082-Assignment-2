@@ -172,7 +172,8 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "| 2. By name                                     |" << endl;
 			cout << "| 3. Back                                        |" << endl;
 			cout << "--------------------------------------------------" << endl;
-			cout << "PROMPT: Search the customer want to rent an item. Choose an option:  ";
+			cout << "PROMPT: Search the customer wants to rent an item." << endl;
+			cout << "PROMPT: Enter an option: ";
 
 			cin >> input;
 			cout << endl;
