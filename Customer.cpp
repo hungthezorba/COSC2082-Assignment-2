@@ -63,6 +63,14 @@ void Customer::setNumberOfRental(const int numberOfRental) {
 	this->numberOfRental = numberOfRental;
 }
 
+int Customer::getNumberOfReturnedItems() {
+	return numberOfReturnedItems;
+}
+
+void Customer::setNumberOfReturnedItems(const int numberOfReturnedItems) {
+	this->numberOfReturnedItems = numberOfReturnedItems;
+}
+
 // This function will return the reference so when reading data from database, it can be used to add items in correct list.
 LinkedRentalList *Customer::getRentalList() {
 	return &rentalList;
@@ -93,7 +101,8 @@ void Customer::rentItem(const string itemName) {
 
 void Customer::returnItem(const string itemName) {
 	this->numberOfRental--;
-  rentalList.removeItem(itemName);
+	this->numberOfReturnedItems++;
+	rentalList.removeItem(itemName);
 }
 
 string Customer::getType() const {

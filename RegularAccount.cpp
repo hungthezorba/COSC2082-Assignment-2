@@ -6,10 +6,12 @@ using namespace std;
 // Constructors
 RegularAccount::RegularAccount() {
 this->setType("Regular");
+this->setNumberOfReturnedItems(0);
 }
 
 RegularAccount::RegularAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
 this->setType("Regular");
+this->setNumberOfReturnedItems(0);
 }
 
 // Member Functions

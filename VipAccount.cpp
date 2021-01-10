@@ -8,12 +8,14 @@ VipAccount::VipAccount() {
   this->rewardPoints = 0;
   this->freeRentItemAwarded = 0;
   this->setType("VIP");
+  this->setNumberOfReturnedItems(0);
 }
 
 VipAccount::VipAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
   this->rewardPoints = 0;
   this->freeRentItemAwarded = 0;
   this->setType("VIP");
+  this->setNumberOfReturnedItems(0);
 }
 
 void VipAccount::rentItem(const string itemName) {

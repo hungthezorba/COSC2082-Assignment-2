@@ -14,6 +14,7 @@ private:
   string phoneNumber;
   int numberOfRental;
   string type;
+  int numberOfReturnedItems;
   LinkedRentalList rentalList;
 
 public:
@@ -47,6 +48,10 @@ public:
 
   void setNumberOfRental(const int numberOfRental);
 
+  int getNumberOfReturnedItems();
+
+  void setNumberOfReturnedItems(const int numberOfReturnedItems);
+
   string getType() const;
 
   void setType(const string &typeCustomer);
@@ -65,4 +70,5 @@ public:
 
   virtual void returnItem(const string itemName);
   virtual int typeCustomer();
+
 };

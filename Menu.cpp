@@ -7,6 +7,9 @@
 #include "LinkedItem.h"
 #include "CustomerMenu.h"
 #include "LinkedCustomer.h"
+#include "RegularAccount.h"
+#include "VipAccount.h"
+
 #include <fstream>
 
 using namespace std;
@@ -67,7 +70,37 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			customerMenu(itemList, customerList);
 		}
 		else if (input == "3") {
-			cout << "Option 3" << endl;
+			cout << "Enter customer id: " << endl;
+			cin >> input;
+			CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
+			if (foundCustomer->data->getType() != "VIP") {
+				if (foundCustomer->data->getNumberOfReturnedItems() >= 3) {
+					string id = foundCustomer->data->getId();
+					string name = foundCustomer->data->getName();
+					string address = foundCustomer->data->getAddress();
+					string phoneNumber = foundCustomer->data->getPhoneNumber();
+					int numberOfRental = foundCustomer->data->getNumberOfRental();
+					LinkedRentalList *tempRentalList = foundCustomer->data->getRentalList();
+					if (foundCustomer->data->getType() == "Guest") {
+						delete foundCustomer->data;
+						foundCustomer->data = new RegularAccount(id, name, address, phoneNumber,numberOfRental);
+						foundCustomer->data->setRentalList(*tempRentalList);
+					}
+					else {
+						delete foundCustomer->data;
+						foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
+						foundCustomer->data->setRentalList(*tempRentalList);
+					}
+					
+				}
+				else {
+					cout << "Not met condition" << endl;
+				}
+			}
+			else {
+				cout << "Customer already a VIP member" << endl;
+			}
+			
 		}
 		else if (input == "4") {
 			cout << "------------------* Rent Item *-------------------" << endl;
