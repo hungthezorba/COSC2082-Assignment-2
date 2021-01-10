@@ -72,22 +72,27 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		else if (input == "3") {
 			cout << "Enter customer id: " << endl;
 			cin >> input;
+			// Find the customer by ID. Implement find by name later
 			CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
 			if (foundCustomer->data->getType() != "VIP") {
+				// Check the condition
 				if (foundCustomer->data->getNumberOfReturnedItems() >= 3) {
+					// Store object data to keep for promotion
 					string id = foundCustomer->data->getId();
 					string name = foundCustomer->data->getName();
 					string address = foundCustomer->data->getAddress();
 					string phoneNumber = foundCustomer->data->getPhoneNumber();
 					int numberOfRental = foundCustomer->data->getNumberOfRental();
 					LinkedRentalList *tempRentalList = foundCustomer->data->getRentalList();
+
+					// Check the customer current type
 					if (foundCustomer->data->getType() == "Guest") {
-						delete foundCustomer->data;
+						delete foundCustomer->data; // Delete old object in heap
 						foundCustomer->data = new RegularAccount(id, name, address, phoneNumber,numberOfRental);
 						foundCustomer->data->setRentalList(*tempRentalList);
 					}
 					else {
-						delete foundCustomer->data;
+						delete foundCustomer->data; // Delete old object in heap
 						foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
 						foundCustomer->data->setRentalList(*tempRentalList);
 					}
