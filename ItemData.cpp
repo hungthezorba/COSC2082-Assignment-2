@@ -69,7 +69,7 @@ void ItemData(LinkedItem &itemList) {
 						i = new Game(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]));
 						itemList.addItem(i);
                     }
-                    else if (listtemp[2] == "DVD") {
+                    else if (listtemp[2] == "DVD") { 
                         if (!validateGenre(listtemp[6],"readFile")){
                             cout << "WARNING: The item may not have appropriate genres at line "<< linePos << endl;
 							cout << "The item will not be recorded. Please check the database again." << endl;
