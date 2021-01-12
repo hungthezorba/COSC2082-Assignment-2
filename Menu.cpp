@@ -517,6 +517,7 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 			itemFile <<  "," << itemElement->data->getGenre();
 		}
 		itemFile << endl;
+		delete itemElement->data;
 		itemElement = itemElement->next;
 	}
 
@@ -540,12 +541,13 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	    if (customerNode->next != NULL) {
 	        customerFile << endl;
 	    }
-
+		delete customerNode->data;
 	    customerNode = customerNode->next;
 	}
 	customerFile.close();
 
 	itemFile.close();
+
 
 
 	// Display group information

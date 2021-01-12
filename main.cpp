@@ -19,13 +19,13 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-	LinkedItem itemList;
-	LinkedCustomer customerList;
+	LinkedItem itemList; // Initialize item list
+	LinkedCustomer customerList; // Initialize customer list
 
-	ItemData(itemList, argv[1]);
-	CustomerData(customerList, argv[2]);
+	ItemData(itemList, argv[1]); // Read item file
+	CustomerData(customerList, argv[2]); // Read customer file
 
-	mainMenu(itemList, customerList);
+	mainMenu(itemList, customerList); // Call main menu function
 
 
     return 0;
