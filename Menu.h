@@ -7,4 +7,4 @@
 #include "LinkedCustomer.h"
 
 void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList);
-void closeProgram(LinkedItem &itemList);
+void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList);

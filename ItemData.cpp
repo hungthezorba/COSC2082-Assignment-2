@@ -34,17 +34,18 @@ void ItemData(LinkedItem &itemList) {
                     sitem.erase(0, pos + delimiter.length());
                     temp++;
                 }
+                Item *i;
                 listtemp[temp] = sitem;
 				if (listtemp[2] == "Game") {
-					Game *i = new Game(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]));
+					i = new Game(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]));
 					itemList.addItem(i);
 				}
 				else if (listtemp[2] == "DVD") {
-					DVD *i = new DVD(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
+					i = new DVD(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
 					itemList.addItem(i);
 				}
 				else {
-					Record *i = new Record(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
+					i = new Record(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
 					itemList.addItem(i);
 				}
             }

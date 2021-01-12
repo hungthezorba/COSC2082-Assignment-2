@@ -5,7 +5,8 @@
 #include <iostream>
 #include "LinkedItem.h"
 #include "ItemElement.h"
-
+#include<iostream>
+#include<fstream>
 
 LinkedItem :: LinkedItem(){
     Head = NULL;
@@ -16,33 +17,40 @@ LinkedItem :: LinkedItem(){
 
 //Copy Constructor
 // References: https://stackoverflow.com/questions/7811893/creating-a-copy-constructor-for-a-linked-list
-LinkedItem::LinkedItem(const LinkedItem &l)
+LinkedItem::LinkedItem(const LinkedItem & ll)
 {
-	ItemElement * p1 = 0;//current
-	ItemElement * p2 = 0;//next
-
-	if (l.Head == 0)
-		Head = 0;
-
-	else
-	{
-		Head = new ItemElement;
-		Head->next = l.Head->next;
-		Head->data = l.Head->data;
-
-		p1 = Head;
-		p2 = l.Head->next;
+	if (ll.Head == NULL) {
+		Head = NULL;
+		return;
 	}
+	// Create a temp variable since ll.current doesn't move/change.
+	ItemElement* tmp = ll.Head;
 
-	while (p2)
+	// Allocate a new node in memory.
+	Head = new ItemElement;
+	// Copy over the value.
+	Head->data = tmp->data;
+	// Set the 'next' value to null (the loop will fill this in). 
+	Head->next = NULL;
+	// Point 'current' to 'head'.
+	current = Head;
+
+	// Move to next item in ll's list.
+	tmp = tmp->next;
+
+	while (tmp != NULL)
 	{
-		p1->next = new ItemElement;
-		p1 = p1->next;
-		p1->data = p2->data;
-
-		p2 = p2->next;
+		// Allocate new memory for a new 'node'.
+		current->next = new ItemElement;
+		// Point to this new 'node'.
+		current = current->next;
+		// Copy over the data.
+		current->data = tmp->data;
+		// By default set the 'next' to null.
+		current->next = NULL;
+		// Move along ll's list.
+		tmp = tmp->next;
 	}
-	p1->next = 0;
 }
 
 
@@ -85,7 +93,43 @@ void LinkedItem::printOutOfStockItem() {
 		current = current->next;
 	}
 }
-
+// Increase Number Of Copies
+void LinkedItem::IncreaseNumberOfCopies(string id) {
+	current = Head;
+	track = Head;
+	while (current != NULL && current->data->getId() != id) {
+		track = current;
+		current = current->next;
+	}
+	int numOfCopies = current->data->getNumberOfCopies();
+	current->data->setNumberOfCopies(numOfCopies + 1);
+};
+// Decrease Number Of Copies
+void LinkedItem::DecreaseNumberOfCopies(string id) {
+	current = Head;
+	track = Head;
+	while (current != NULL && current->data->getId() != id) {
+		track = current;
+		current = current->next;
+	}
+	int numOfCopies = current->data->getNumberOfCopies();
+	current->data->setNumberOfCopies(numOfCopies - 1);
+};
+// Get object in list
+void LinkedItem::Output(LinkedItem* list) {
+	ofstream out("items.txt");
+	ItemElement* temp = list->Head;
+	while (temp != NULL) {
+		if (temp->data->getGenre() != "") {
+			out << temp->data->getId() << "," << temp->data->getTitle() << "," << temp->data->getRentalType() << "," << temp->data->getLoanType() << "," << temp->data->getNumberOfCopies() << "," << temp->data->getRentalFee() << "," << temp->data->getGenre() << endl;
+		}
+		else {
+			out << temp->data->getId() << "," << temp->data->getTitle() << "," << temp->data->getRentalType() << "," << temp->data->getLoanType() << "," << temp->data->getNumberOfCopies() << "," << temp->data->getRentalFee()<< endl;
+		}
+		temp = temp->next;
+	}
+	
+}
 // Search item by ID
 ItemElement *LinkedItem::searchItemByID(string id){
 	
@@ -102,18 +146,20 @@ ItemElement *LinkedItem::searchItemByID(string id){
     return current;
 };
 
-ItemElement *LinkedItem::searchItemByTitle(string title) {
+LinkedItem LinkedItem::searchItemByTitle(string title) {
 	current = Head;
-	track = Head;
-	while (current != NULL && current->data->getTitle() != title) {
-		track = current;
+
+	// Initial customer list
+	LinkedItem *tempListItem = new LinkedItem;
+
+	while (current != NULL) {
+		// If match name
+		if (current->data->getTitle() == title) {
+			tempListItem->addItem(current->data); // Add to list
+		}
 		current = current->next;
 	}
-	if (current == NULL) {
-		// No need to print message in this function. Message will be carried out by menu.
-		return NULL;
-	}
-	return current;
+	return *tempListItem;
 
 };
 
@@ -134,6 +180,9 @@ void LinkedItem::deleteItem(string id) {
 			else {
 				Head = current->next;
 			}
+            delete current->data; // Free memory
+            delete current; // Free memory
+			return;
 		}
         track = current; // track will keep the behind item of the current item in case found item to delete.
         current = current->next;
@@ -198,7 +247,7 @@ void LinkedItem::sortedByTitle() {
 }
 
 
-ItemElement *LinkedItem::getHead() {
+ItemElement *LinkedItem::getHead() const {
 	return Head;
 }
 

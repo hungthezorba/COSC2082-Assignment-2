@@ -13,6 +13,8 @@ private:
   string address;
   string phoneNumber;
   int numberOfRental;
+  string type;
+  int numberOfReturnedItems;
   LinkedRentalList rentalList;
   string typeCustomer;
 
@@ -20,7 +22,10 @@ public:
   // Constructor
   Customer();
 
+<<<<<<< HEAD
     void setTypeCustomer(const string &typeCustomer);
+=======
+>>>>>>> fad750a688530242fe7d290a7c52f4c5c55c7bd0
 
     Customer(string id, string name, string address, string phoneNumber, int numberOfRental);
 
@@ -50,7 +55,18 @@ public:
 
   void setNumberOfRental(const int numberOfRental);
 
+  int getNumberOfReturnedItems();
+
+  void setNumberOfReturnedItems(const int numberOfReturnedItems);
+
+  string getType() const;
+
+  void setType(const string &typeCustomer);
+
   LinkedRentalList *getRentalList();
+  LinkedRentalList getRentalList2();
+
+  void setRentalList(LinkedRentalList &rentalList);
 
   // Polymorphism functions
   virtual void details();
@@ -60,4 +76,6 @@ public:
   virtual void rentItem(const string itemName);
 
   virtual void returnItem(const string itemName);
+  virtual int typeCustomer();
+
 };

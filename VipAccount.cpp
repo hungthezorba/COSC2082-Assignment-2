@@ -8,12 +8,16 @@ VipAccount::VipAccount() {
   this->rewardPoints = 0;
   this->freeRentItemAwarded = 0;
   this->setTypeCustomer("Vip");
+  this->setType("VIP");
+  this->setNumberOfReturnedItems(0);
 }
 
 VipAccount::VipAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
   this->rewardPoints = 0;
   this->freeRentItemAwarded = 0;
   this->setTypeCustomer("Vip");
+  this->setType("VIP");
+  this->setNumberOfReturnedItems(0);
 }
 
 void VipAccount::rentItem(const string itemName) {
@@ -49,14 +53,16 @@ void VipAccount::checkRewardPoints() {
 }
 
 void VipAccount::details() {
-  cout << "Customer's details:" << endl;
-  cout << "ID: " << this->getId() << endl;
-  cout << "Name: " << this->getName() << endl;
-  cout << "Address: " << this->getAddress() << endl;
-  cout << "Phone Number: " << this->getPhoneNumber() << endl;
-  cout << "Reward Points: " << this->rewardPoints << endl;
+  cout << "Customer ID: "<< this->getId() << endl;
+  cout << "Type: VIP - Reward Points: " << this->rewardPoints << endl;
+  cout << "1. Name: " << this->getName() << endl;
+  cout << "2. Address: " << this->getAddress() << endl;
+  cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
 }
 
 void VipAccount::showRentalList() {
   this->Customer::showRentalList();
+}
+int VipAccount::typeCustomer() {
+    return 2;
 }

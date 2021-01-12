@@ -5,17 +5,28 @@ using namespace std;
 
 // Constructors
 GuestAccount::GuestAccount() {
+<<<<<<< HEAD
 this->setTypeCustomer("Guest");
 }
 
 GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
 this->setTypeCustomer("Guest");
+=======
+this->setType("Guest");
+this->setNumberOfReturnedItems(0);
+}
+
+GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
+this->setType("Guest");
+this->setNumberOfReturnedItems(0);
+>>>>>>> fad750a688530242fe7d290a7c52f4c5c55c7bd0
 }
 
 
 // Member functions
 void GuestAccount::rentItem(const string itemName) {
   if (this->getNumberOfRental() < GUEST_RENTAL_LIMIT) {
+    cout << "Guest customer " << this->getName() << " rented item successfully!" << endl;
     this->Customer::rentItem(itemName);
 	// Increase current rentals
   } else {
@@ -25,17 +36,22 @@ void GuestAccount::rentItem(const string itemName) {
 }
 
 void GuestAccount::returnItem(const string itemName) {
+  cout << "Guest customer " << this->getName() << " returned item successfully!" << endl;
   this->Customer::returnItem(itemName);
   // Reduce current rentals
 }
 
 void GuestAccount::details() {
-  cout << this->getId();
-  cout << ", " << this->getName();
-  cout << ", " << this->getAddress();
-  cout << ", " << this->getPhoneNumber() << endl;
+	cout << "Customer ID: " << this->getId() << endl;
+	cout << "Type: Guest" << endl;
+	cout << "1. Name: " << this->getName() << endl;
+	cout << "2. Address: " << this->getAddress() << endl;
+	cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
 }
 
 void GuestAccount::showRentalList() {
   this->Customer::showRentalList();
+}
+int GuestAccount::typeCustomer() {
+    return 3;
 }
