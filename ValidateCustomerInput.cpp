@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// All validating functions will return true if input is in correct format, false otherwise
 
 bool validateCustomerID(string input) {
 	if (input[0] != 'C') {
@@ -40,6 +41,7 @@ bool validateCustomerName(string input) {
 bool validateCustomerAddress(string input) {
 
 	for (int i = 0; i < input.length(); i++) {
+		// Condition is based on ASCII
 		if ((input[i] >= 33 && input[i] <= 43) ||
 			(input[i] >= 58 && input[i] <= 64) ||
 			(input[i] >= 91 && input[i] <= 96) ||
@@ -53,6 +55,7 @@ bool validateCustomerAddress(string input) {
 
 bool validateCustomerPhoneNumber(string input) {
 
+	// Because the specification did not mention about the format of the phone number like maxium of digit. So we will assume base on database files that it only contains 10 digits.
 	if (input.length() != 10) {
 		cout << "ERROR: Wrong format. Please enter again." << endl;
 		return false;
@@ -61,6 +64,17 @@ bool validateCustomerPhoneNumber(string input) {
 	for (int i = 0; i < 10; i++) {
 		if (!isdigit(input[i])) {
 			cout << "ERROR: Phone number only contains digit. Please enter agian." << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+bool validateCustomerNumberOfRental(string input) {
+	// Number of copies must be a string contains digit only
+	for (int i = 0; i < input.length(); i++) {
+		if (!isdigit(input[i])) {
+			cout << "ERROR: Number of rental only contains digits. Please enter again." << endl;
 			return false;
 		}
 	}
