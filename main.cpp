@@ -20,7 +20,7 @@ inline bool instanceof(const T*) {
     return is_base_of<Base, T>::value;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 
 
@@ -30,8 +30,8 @@ int main()
 	LinkedItem itemList;
 	LinkedCustomer customerList;
 
-	ItemData(itemList);
-	CustomerData(customerList);
+	ItemData(itemList, argv[1]);
+	CustomerData(customerList, argv[2]);
 
 	mainMenu(itemList, customerList);
 

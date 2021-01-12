@@ -9,10 +9,10 @@
 #include "ValidateItemInput.h"
 #include "ValidateCustomerInput.h"
 
-void CustomerData(LinkedCustomer &customerList){
+void CustomerData(LinkedCustomer &customerList, string fileName){
     string s;
     int temp3 = 0;
-    ifstream myfile("customers.txt");
+    ifstream myfile(fileName);
     if (myfile)
     {
 		// Initialize pointer to a customer

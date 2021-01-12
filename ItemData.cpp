@@ -10,12 +10,12 @@
 
 using namespace std;
 
-void ItemData(LinkedItem &itemList) {
+void ItemData(LinkedItem &itemList, string fileName) {
     string sitem;
     int linePos = 0;
     int temp3item = 0;
 	ifstream itemfile;
-	itemfile.open("items.txt");
+	itemfile.open(fileName);
     if (itemfile)
     {
         while (getline(itemfile, sitem))  // same as: while (getline( myfile, line ).good())
