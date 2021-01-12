@@ -178,8 +178,8 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cin >> input;
 			cout << endl;
 			cout << "--------------------------------------------------" << endl;
-			string key;
-			string idCustomer;
+			string key; // Item ID
+			string idCustomer; // Customer ID
 
 			CustomerNode* foundCustomer;
 
@@ -240,36 +240,31 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 					cin >> input;
 					// Find item by ID
-					if (input == "1") {
-						cout << "PROMPT: Enter item's ID: ";
-						cin.ignore();
-						getline(cin, key);
-						bool isValidateItem = validateItemID(key);
-						if (isValidateItem) {
-							ItemElement* item = itemList.searchItemByID(key);
-							if (item != NULL) {
-								int isAvailable = item->data->getNumberOfCopies();
-								if (isAvailable != 0) {
-									item->data->renting();
-									foundCustomer->data->rentItem(item->data->getId());
-								}
-								else {
-									cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-								}
-							}
-							else {
-								cout << "ERROR: Item not found." << endl;
-							}
-						}
 
-					}
-					// Find item by name
-					else if (input == "2") {
-						cout << "PROMPT: Please enter item's title: ";
-						cin.ignore();
-						getline(cin, key);
-						bool isValidateItem = validateTitle(key);
-						if (isValidateItem) {
+
+					if (input == "1" || input == "2") {
+
+						if (input == "1") {
+							while (true) {
+								cout << "PROMPT: Enter item's ID: ";
+								cin >> key;
+								// Check title format
+								if (validateItemID(key))
+									break;
+							}
+							
+						}
+						else if (input == "2") {
+
+							while (true) {
+								cout << "PROMPT: Enter item's title: ";
+								cin >> key;
+								// Check title format
+								if (validateTitle(key))
+									break;
+							}
+
+
 							LinkedItem foundList = itemList.searchItemByTitle(key);
 
 							if (foundList.getHead() != NULL) {
@@ -278,8 +273,8 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 									foundList.printItem();
 									while (true) {
 										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
-										cin >> input; // Get the customer ID
-										if (validateItemID(input)) {
+										cin >> key; // Get the customer ID
+										if (validateItemID(key)) {
 											break;
 										}
 									}
@@ -290,28 +285,22 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 									input = foundList.getHead()->data->getId(); // Get the customer ID
 								}
 
-								ItemElement *item = foundList.searchItemByID(input);
-
-								if (item != NULL) {
-									int isAvailable = item->data->getNumberOfCopies();
-									if (isAvailable != 0) {
-										item->data->renting();
-										foundCustomer->data->rentItem(item->data->getId());
-									}
-									else {
-										cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-									}
-								}
-								else {
-									cout << "ERROR: Item not found." << endl;
-								}
-
-							}
-							else {
-								cout << "ERROR: Item not found." << endl;
 							}
 						}
 
+						ItemElement* item = itemList.searchItemByID(key);
+						if (item != NULL) {
+							int isAvailable = item->data->getNumberOfCopies();
+							if (isAvailable != 0) {
+								foundCustomer->data->rentItem(item->data->getId(), itemList);
+							}
+							else {
+								cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
+							}
+						}
+						else {
+							cout << "ERROR: Item not found." << endl;
+						}
 					}
 					else {
 						cout << "ERROR: Invalid input." << endl;
