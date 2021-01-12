@@ -70,166 +70,37 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			customerMenu(itemList, customerList);
 		}
 		else if (input == "3") {
-			cout << "Enter customer id: " << endl;
-			cin >> input;
-			// Find the customer by ID. Implement find by name later
-			CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
-			if (foundCustomer->data->getType() != "VIP") {
-				// Check the condition
-				if (foundCustomer->data->getNumberOfReturnedItems() >= 3) {
-					// Store object data to keep for promotion
-					string id = foundCustomer->data->getId();
-					string name = foundCustomer->data->getName();
-					string address = foundCustomer->data->getAddress();
-					string phoneNumber = foundCustomer->data->getPhoneNumber();
-					int numberOfRental = foundCustomer->data->getNumberOfRental();
-					LinkedRentalList *tempRentalList = foundCustomer->data->getRentalList();
 
-					// Check the customer current type
-					if (foundCustomer->data->getType() == "Guest") {
-						delete foundCustomer->data; // Delete old object in heap
-						foundCustomer->data = new RegularAccount(id, name, address, phoneNumber,numberOfRental);
-						foundCustomer->data->setRentalList(*tempRentalList);
-					}
-					else {
-						delete foundCustomer->data; // Delete old object in heap
-						foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
-						foundCustomer->data->setRentalList(*tempRentalList);
-					}
-					
-				}
-				else {
-					cout << "Not met condition" << endl;
-				}
-			}
-			else {
-				cout << "Customer already a VIP member" << endl;
-			}
-			
-		}
-		else if (input == "4") {
-			cout << "------------------* Rent Item *-------------------" << endl;
+			cout << "--------------* Promote a customer *--------------" << endl;
 			cout << "| 1. By ID                                       |" << endl;
 			cout << "| 2. By name                                     |" << endl;
 			cout << "| 3. Back                                        |" << endl;
 			cout << "--------------------------------------------------" << endl;
-			cout << "PROMPT: Search the customer want to rent an item. Choose an option:  ";
+
+			cout << "PROMPT: Search the customer want to promote. Choose an option:  ";
 
 			cin >> input;
-			cout << endl;
-			cout << "--------------------------------------------------" << endl;
-			string key;
-			string idCustomer;
-			// Search customer by ID
+
+			CustomerNode *foundCustomer;
+
 			if (input == "1") {
-				cout << "PROMPT: Please enter the customer's ID: ";
-				cin.ignore();
-				getline(cin, idCustomer);
-				CustomerNode* cus = customerList.searchCustomerByID(idCustomer);
-				if (cus != NULL) {
-					cus->data->details(); // Show customer details
-					// Find item
-					cout << "------------------* Rent Item *-------------------" << endl;
-					cout << "| Rent an item                                   |" << endl;
-					cout << "| 1. By ID                                       |" << endl;
-					cout << "| 2. By title                                    |" << endl;
-					cout << "--------------------------------------------------" << endl;
-					cout << "PROMPT: Choose an option: ";
-
+				// Find the customer by ID. Implement find by name later
+				while (true) {
+					cout << "PROMPT: Enter customer's ID: ";
 					cin >> input;
-					// Find item by ID
-					if (input == "1") {
-						cout << "PROMPT: Enter item's ID: ";
-						cin.ignore();
-						getline(cin, key);
-						bool isValidateItem = validateItemID(key);
-						if (isValidateItem) {
-							ItemElement* item = itemList.searchItemByID(key);
-							if (item != NULL) {
-								int isAvailable = item->data->getNumberOfCopies();
-								if (isAvailable != 0) {
-									item->data->renting();
-									cus->data->rentItem(item->data->getId());
-								}
-								else {
-									cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-								}
-							}
-							else {
-								cout << "ERROR: Item not found." << endl;
-							}
-						}
-
-					}
-					// Find item by name
-					else if (input == "2") {
-						cout << "PROMPT: Please enter item's title: ";
-						cin.ignore();
-						getline(cin, key);
-						bool isValidateItem = validateTitle(key);
-						if (isValidateItem) {
-							LinkedItem foundList = itemList.searchItemByTitle(key);
-
-							if (foundList.getHead() != NULL) {
-								// Case 1: Found more than 1 customer with matching name
-								if (foundList.getHead()->next != NULL) {
-									foundList.printItem();
-									while (true) {
-										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
-										cin >> input; // Get the customer ID
-										if (validateItemID(input)) {
-											break;
-										}
-									}
-
-								}
-								else {
-									// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
-									input = foundList.getHead()->data->getId(); // Get the customer ID
-								}
-
-								ItemElement *item = foundList.searchItemByID(input);
-
-								if (item != NULL) {
-									int isAvailable = item->data->getNumberOfCopies();
-									if (isAvailable != 0) {
-										item->data->renting();
-										cus->data->rentItem(item->data->getId());
-									}
-									else {
-										cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-									}
-								}
-								else {
-									cout << "ERROR: Item not found." << endl;
-								}
-
-							}
-							else {
-								cout << "ERROR: Item not found." << endl;
-							}
-						}
-
-					}
-					else {
-						cout << "ERROR: Invalid input." << endl;
-					}
+					if (validateCustomerID(input, "input"))
+						break;
 				}
-				else {
-					cout << "ERROR: Customer not found." << endl;
-				}
+				foundCustomer = customerList.searchCustomerByID(input);
 			}
-			// Search customer by name
 			else if (input == "2") {
 				cin.ignore();
 				while (true) {
-					cout << "PROMPT: Please enter the customer's name: ";
+					cout << "PROMPT: Enter customer's name: ";
 					getline(cin, input);
-					// Check title format
-					if (validateCustomerName(input))
+					if (validateCustomerName(input, "input"))
 						break;
 				}
-				// Find item through the list here
 				LinkedCustomer foundList = customerList.searchCustomerByName(input);
 				if (foundList.getHead() != NULL) {
 					// Case 1: Found more than 1 customer with matching name
@@ -238,7 +109,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						while (true) {
 							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
 							cin >> input; // Get the customer ID
-							if (validateCustomerID(input)) {
+							if (validateCustomerID(input, "input")) {
 								break;
 							}
 						}
@@ -249,104 +120,200 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						input = foundList.getHead()->data->getId(); // Get the customer ID
 					}
 
-					CustomerNode *foundCustomer = customerList.searchCustomerByID(input);
+					foundCustomer = foundList.searchCustomerByID(input);
+				}
+				else {
+					cout << "ERROR: Cannot found customer." << endl;
+				}
+			}
+			
+			if (foundCustomer != NULL) {
+				if (foundCustomer->data->getType() != "VIP") {
+					// Check the condition
+					if (foundCustomer->data->getNumberOfReturnedItems() >= 3) {
+						// Store object data to keep for promotion
+						string id = foundCustomer->data->getId();
+						string name = foundCustomer->data->getName();
+						string address = foundCustomer->data->getAddress();
+						string phoneNumber = foundCustomer->data->getPhoneNumber();
+						int numberOfRental = foundCustomer->data->getNumberOfRental();
+						LinkedRentalList *tempRentalList = foundCustomer->data->getRentalList();
 
-					if (foundCustomer != NULL) {
-						foundCustomer->data->details();
-
-						cout << "------------------* Rent Item *-------------------" << endl;
-						cout << "| Rent an item                                   |" << endl;
-						cout << "| 1. By ID                                       |" << endl;
-						cout << "| 2. By title                                    |" << endl;
-						cout << "--------------------------------------------------" << endl;
-						cout << "PROMPT: Choose an option: ";
-
-						cin >> input;
-						if (input == "1") {
-							cout << "PROMPT: Enter item's ID: ";
-							cin.ignore();
-							getline(cin, key);
-							bool isValidateItem = validateItemID(key);
-							if (isValidateItem) {
-								ItemElement* item = itemList.searchItemByID(key);
-								if (item != NULL) {
-									int isAvailable = item->data->getNumberOfCopies();
-									if (isAvailable != 0) {
-										item->data->renting();
-										foundCustomer->data->rentItem(item->data->getId());
-									}
-									else {
-										cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-									}
-								}
-								else {
-									cout << "ERROR: Item not found." << endl;
-								}
-							}
-
+						// Check the customer current type
+						if (foundCustomer->data->getType() == "Guest") {
+							delete foundCustomer->data; // Delete old object in heap
+							foundCustomer->data = new RegularAccount(id, name, address, phoneNumber, numberOfRental);
+							foundCustomer->data->setRentalList(*tempRentalList);
+							cout << "SUCCESS: " << foundCustomer->data->getName() << " has been promoted to Regular" << endl;
 						}
-						else if (input == "2") {
-							cout << "PROMPT: Please enter item's title: ";
-							cin.ignore();
-							getline(cin, key);
-							bool isValidateItem = validateTitle(key);
-							if (isValidateItem) {
-								LinkedItem foundList = itemList.searchItemByTitle(key);
+						else {
+							delete foundCustomer->data; // Delete old object in heap
+							foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
+							foundCustomer->data->setRentalList(*tempRentalList);
+							cout << "SUCCESS: " << foundCustomer->data->getName() << " has been promoted to VIP" << endl;
+						}
+					}
+					else {
+						cout << "FAIL: Customer not met the promotion's condition" << endl;
+					}
+				}
+				else {
+					cout << "FAIL: Customer is already a VIP member" << endl;
+				}
+			}
+			else {
+				cout << "ERROR: Customer not found." << endl;
+			}
+		}
 
-								if (foundList.getHead() != NULL) {
-									// Case 1: Found more than 1 customer with matching name
-									if (foundList.getHead()->next != NULL) {
-										foundList.printItem();
-										while (true) {
-											cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
-											cin >> input; // Get the customer ID
-											if (validateItemID(input)) {
-												break;
-											}
-										}
+		else if (input == "4") {
+			cout << "------------------* Rent Item *-------------------" << endl;
+			cout << "| 1. By ID                                       |" << endl;
+			cout << "| 2. By name                                     |" << endl;
+			cout << "| 3. Back                                        |" << endl;
+			cout << "--------------------------------------------------" << endl;
+			cout << "PROMPT: Search the customer wants to rent an item." << endl;
+			cout << "PROMPT: Enter an option: ";
 
-									}
-									else {
-										// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
-										input = foundList.getHead()->data->getId(); // Get the customer ID
-									}
+			cin >> input;
+			cout << endl;
+			cout << "--------------------------------------------------" << endl;
+			string key; // Item ID
+			string idCustomer; // Customer ID
 
-									ItemElement *item = foundList.searchItemByID(input);
+			CustomerNode* foundCustomer;
 
-									if (item != NULL) {
-										int isAvailable = item->data->getNumberOfCopies();
-										if (isAvailable != 0) {
-											item->data->renting();
-											foundCustomer->data->rentItem(item->data->getId());
-										}
-										else {
-											cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-										}
-									}
-									else {
-										cout << "ERROR: Item not found." << endl;
-									}
+			if (input == "1" || input == "2") {
+				// Search customer by ID
+				if (input == "1") {
+					cout << "PROMPT: Please enter the customer's ID: ";
+					cin.ignore();
 
-								}
-								else {
-									cout << "ERROR: Item not found." << endl;
+					getline(cin, idCustomer);
+
+					foundCustomer = customerList.searchCustomerByID(idCustomer);
+				}
+				// Search customer by name
+				else if (input == "2") {
+					cin.ignore();
+					while (true) {
+						cout << "PROMPT: Please enter the customer's name: ";
+						getline(cin, input);
+						// Check title format
+						if (validateCustomerName(input, "input"))
+							break;
+					}
+					// Find item through the list here
+					LinkedCustomer foundList = customerList.searchCustomerByName(input);
+					if (foundList.getHead() != NULL) {
+						// Case 1: Found more than 1 customer with matching name
+						if (foundList.getHead()->next != NULL) {
+							foundList.printAllCustomer();
+							while (true) {
+								cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
+								cin >> input; // Get the customer ID
+								if (validateCustomerID(input,"input")) {
+									break;
 								}
 							}
 
 						}
 						else {
-							cout << "ERROR: Invalid input." << endl;
+							// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
+							input = foundList.getHead()->data->getId(); // Get the customer ID
+						}
+
+						foundCustomer = customerList.searchCustomerByID(input);
+
+					}
+				}
+
+				if (foundCustomer != NULL) {
+					foundCustomer->data->details(); // Show customer details
+													// Find item
+					cout << "------------------* Rent Item *-------------------" << endl;
+					cout << "| Rent an item                                   |" << endl;
+					cout << "| 1. By ID                                       |" << endl;
+					cout << "| 2. By title                                    |" << endl;
+					cout << "--------------------------------------------------" << endl;
+					cout << "PROMPT: Choose an option: ";
+
+					cin >> input;
+					// Find item by ID
+
+					if (input == "1" || input == "2") {
+
+						if (input == "1") {
+							while (true) {
+								cout << "PROMPT: Enter item's ID: ";
+								cin >> key;
+								// Check title format
+								if (validateItemID(key, "input"))
+									break;
+							}
+							
+						}
+						else if (input == "2") {
+
+							while (true) {
+								cout << "PROMPT: Enter item's title: ";
+								cin >> key;
+								// Check title format
+								if (validateTitle(key, "input"))
+									break;
+							}
+
+							LinkedItem foundList = itemList.searchItemByTitle(key);
+
+							if (foundList.getHead() != NULL) {
+								// Case 1: Found more than 1 customer with matching name
+								if (foundList.getHead()->next != NULL) {
+									foundList.printItem();
+									while (true) {
+										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
+										cin >> key; // Get the customer ID
+										if (validateItemID(key,"input")) {
+											break;
+										}
+									}
+
+								}
+								else {
+									// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
+									input = foundList.getHead()->data->getId(); // Get the customer ID
+								}
+
+							}
+						}
+
+						ItemElement* item = itemList.searchItemByID(key);
+						if (item != NULL) {
+							int isAvailable = item->data->getNumberOfCopies();
+							if (isAvailable != 0) {
+								foundCustomer->data->rentItem(item->data->getId(), itemList);
+							}
+							else {
+								cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
+							}
+						}
+						else {
+							cout << "ERROR: Item not found." << endl;
 						}
 					}
 					else {
-						cout << "ERROR: Customer not found." << endl;
+						cout << "ERROR: Invalid input." << endl;
 					}
-
+				}
+				else {
+					cout << "ERROR: Customer not found." << endl;
 				}
 			}
 			// Back to main menu
 			else if (input == "3") {
 
+			}
+			else {
+				cout << "ERROR: Invalid input. Please enter again." << endl;
 			}
 		}
 		else if (input == "5") {
@@ -378,7 +345,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 					getline(cin, key);
 
-					bool isValidateItem = validateItemID(key);
+					bool isValidateItem = validateItemID(key,"input");
 					if (isValidateItem) {
 						bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 						if (isHaveThisId) {
@@ -403,7 +370,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					cout << "PROMPT: Please enter the customer's name: ";
 					getline(cin, input);
 					// Check title format
-					if (validateCustomerName(input))
+					if (validateCustomerName(input, "input"))
 						break;
 				}
 				// Find item through the list here
@@ -416,7 +383,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						while (true) {
 							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
 							cin >> input; // Get the customer ID
-							if (validateCustomerID(input)) {
+							if (validateCustomerID(input, "input")) {
 								break;
 							}
 						}
@@ -438,7 +405,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 						getline(cin, key);
 
-						bool isValidateItem = validateItemID(key);
+						bool isValidateItem = validateItemID(key,"input");
 						if (isValidateItem) {
 							bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 							if (isHaveThisId) {
@@ -550,6 +517,7 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 			itemFile <<  "," << itemElement->data->getGenre();
 		}
 		itemFile << endl;
+		delete itemElement->data;
 		itemElement = itemElement->next;
 	}
 
@@ -573,7 +541,7 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	    if (customerNode->next != NULL) {
 	        customerFile << endl;
 	    }
-
+		delete customerNode->data;
 	    customerNode = customerNode->next;
 	}
 	customerFile.close();
@@ -581,14 +549,16 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	itemFile.close();
 
 
-	// Display group information
-	cout << "- - - - - - - - Group Information - - - - - - - -" << endl;
-	cout << "ASSIGNMENT 2 GROUP 18" << endl;
-	cout << "s3804690, s3804690@rmit.edu.vn, Hung, Nguyen" << endl;
-	cout << "s3804687, s3804687@rmit.edu.vn, Dat, Ngo" << endl;
-	cout << "s3536647, s3536647@rmit.edu.vn, Quan, Bui" << endl;
-	cout << "s3777230, s3777230@rmit.edu.vn, Huy, Bui" << endl;
 
+	// Display group information
+	cout << "- - - - - - - - - - Group Information - - - - - - - - - -" << endl;
+	cout << "|                 ASSIGNMENT 2 GROUP 18                 |" << endl;
+	cout << "|                                                       |" << endl;
+	cout << "|       s3804690, s3804690@rmit.edu.vn, Hung, Nguyen    |" << endl;
+	cout << "|       s3804687, s3804687@rmit.edu.vn, Dat, Ngo        |" << endl;
+	cout << "|       s3536647, s3536647@rmit.edu.vn, Quan, Bui       |" << endl;
+	cout << "|       s3777230, s3777230@rmit.edu.vn, Huy, Bui        |" << endl;
+	cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
 	// Stop the program
 	cout << "Closing the program..." << endl;
 	exit(0);

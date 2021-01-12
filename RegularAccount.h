@@ -15,7 +15,7 @@ public:
   RegularAccount(string id, string name, string address, string phoneNumber, int numberOfRental);
 
   // Member functions
-  void rentItem(const string itemName);
+  void rentItem(const string itemName, LinkedItem &itemList);
 
   void returnItem(const string itemName);
 

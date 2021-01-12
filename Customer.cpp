@@ -94,7 +94,10 @@ void Customer::showRentalList() {
   rentalList.showItem();
 }
 
-void Customer::rentItem(const string itemName) {
+void Customer::rentItem(const string itemName, LinkedItem &itemList) {
+
+	ItemElement *item = itemList.searchItemByID(itemName);
+	item->data->renting(); // Renting item
 	this->numberOfRental++;
 	rentalList.addItem(itemName);
 }

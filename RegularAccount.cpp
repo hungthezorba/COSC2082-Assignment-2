@@ -15,9 +15,9 @@ this->setNumberOfReturnedItems(0);
 }
 
 // Member Functions
-void RegularAccount::rentItem(const string itemName) {
+void RegularAccount::rentItem(const string itemName, LinkedItem &itemList) {
 	// This work fine, but the pattern is weird. Need to refactor
-  this->Customer::rentItem(itemName);
+  this->Customer::rentItem(itemName, itemList);
   cout << "Regular customer " << this->getName() << " rented item successfully!" << endl;
 }
 
@@ -33,6 +33,8 @@ void RegularAccount::details() {
 	cout << "1. Name: " << this->getName() << endl;
 	cout << "2. Address: " << this->getAddress() << endl;
 	cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
+	cout << "Currently renting: " << endl;
+	this->showRentalList();
 }
 
 void RegularAccount::showRentalList() {

@@ -15,25 +15,17 @@
 #include "LinkedCustomer.h"
 
 using namespace std;
-template<typename Base, typename T>
-inline bool instanceof(const T*) {
-    return is_base_of<Base, T>::value;
-}
 
-int main()
+int main(int argc, char *argv[])
 {
 
+	LinkedItem itemList; // Initialize item list
+	LinkedCustomer customerList; // Initialize customer list
 
+	ItemData(itemList, argv[1]); // Read item file
+	CustomerData(customerList, argv[2]); // Read customer file
 
-
-//	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
-	LinkedItem itemList;
-	LinkedCustomer customerList;
-
-	ItemData(itemList);
-	CustomerData(customerList);
-
-	mainMenu(itemList, customerList);
+	mainMenu(itemList, customerList); // Call main menu function
 
 
     return 0;
