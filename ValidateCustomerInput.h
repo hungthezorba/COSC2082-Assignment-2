@@ -12,4 +12,6 @@ bool validateCustomerAddress(string input);
 
 bool validateCustomerPhoneNumber(string input);
 
+bool validateCustomerNumberOfRental(string input);
+
 bool validateCustomerType(string input);
