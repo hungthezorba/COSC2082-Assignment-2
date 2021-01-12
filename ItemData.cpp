@@ -22,11 +22,9 @@ void ItemData(LinkedItem &itemList) {
         {
             linePos++;
 			string listtemp[10];
-
             if (sitem[0] == 'I') {
 
-                temp3item = 0;
-                string listtemp[10];
+				string listtemp[7] = { "NA", "NA", "NA", "NA", "NA", "NA", "NA" };
 				string delimiter = ",";
                 int pos = 0;
                 string token;
@@ -39,34 +37,35 @@ void ItemData(LinkedItem &itemList) {
                 }
                 Item *i;
                 listtemp[temp] = sitem;
-// begin the validate for the this case
-// validate the id first
+				// begin the validate for the this case
+				// validate the id first
                 if (!validateItemID(listtemp[0],"readFile")) {
-                    cout<< "The item may not have appropriate ID at line "<<linePos <<endl;
+                    cout<< "ERROR: The item may not have appropriate ID at line "<< linePos <<endl;
                 }
                 else if (!validateTitle(listtemp[1],"readFile")){
-                    cout<< "The item may not have appropriate title at line "<<linePos <<endl;
+                    cout<< "ERROR: The item may not have appropriate title at line "<< linePos <<endl;
                 }
                 else if (!validateRentalType(listtemp[2],"readFile")){
-                    cout<< "The item may not have appropriate type at line "<<linePos <<endl;
+                    cout<< "ERROR: The item may not have appropriate type at line "<< linePos <<endl;
                 }
                 else if(!validateLoanType(listtemp[3],"readFile")){
-                    cout<< "The item may not have appropriate loan period at line "<<linePos <<endl;
+                    cout<< "ERROR: The item may not have appropriate loan period at line "<< linePos <<endl;
                 }
                 else if (!validateNumberOfCopies(listtemp[4],"readFile")){
-                    cout<< "The item may not have appropriate number of copies at line "<<linePos <<endl;
+                    cout<< "ERROR: The item may not have appropriate number of copies at line "<< linePos <<endl;
                 }
                 else if (!validateRentalFee(listtemp[5],"readFile")){
-                    cout<< "The item may not have appropriate number of copies at line "<<linePos <<endl;
+                    cout<< "ERROR: The item may not have appropriate rental fee at line "<< linePos <<endl;
                 }
                 else{
+
                     if (listtemp[2] == "Game") {
-                        i = new Game(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]));
-                        itemList.addItem(i);
+						i = new Game(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]));
+						itemList.addItem(i);
                     }
                     else if (listtemp[2] == "DVD") {
                         if (!validateGenre(listtemp[6],"readFile")){
-                            cout<< "The item may not have appropriate genres at line "<<linePos <<endl;
+                            cout << "The item may not have appropriate genres at line "<<linePos <<endl;
                         }
                         else {
                             i = new DVD(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);
@@ -76,7 +75,7 @@ void ItemData(LinkedItem &itemList) {
                     }
                     else {
                         if (!validateGenre(listtemp[6],"readFile")){
-                            cout<< "The item may not have appropriate genres at line "<<linePos <<endl;
+                            cout << "The item may not have appropriate genres at line "<<linePos <<endl;
                         }
                         else {
                             i = new Record(listtemp[0], listtemp[1], listtemp[2], listtemp[3], stoi(listtemp[4]), stod(listtemp[5]), listtemp[6]);

@@ -144,18 +144,23 @@ bool validateNumberOfCopies(string input,string mode) {
 // Implement validate rental fee
 bool validateRentalFee(string input,string mode) {
 	int decimal = 0;
+	// Check input length. 0 means it is an empty string
+	if (input.length() == 0) {
+		if (mode == "input") {
+			cout << "ERROR: Fee is in wrong format. Please enter again." << endl;
+		}
+		else if (mode == "readFile") {
+			cout << "";
+		}
+		return false;
+	}
 	for (int i = 0; i < input.length(); i++) {
 		if (!isdigit(input[i])) {
 			if (input[i] == '.' && decimal < 1) {
 				decimal++;
 			}
 			else {
-                if (mode == "input"){
-                    cout << "ERROR: Fee is in wrong format. Please enter again." << endl;
-                }
-                else if (mode =="readFile"){
-                    cout<<"";
-                }
+               
 				return false;
 			}
 		}
