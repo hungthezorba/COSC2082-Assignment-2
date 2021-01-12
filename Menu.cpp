@@ -88,7 +88,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				while (true) {
 					cout << "PROMPT: Enter customer's ID: ";
 					cin >> input;
-					if (validateCustomerID(input))
+					if (validateCustomerID(input, "input"))
 						break;
 				}
 				foundCustomer = customerList.searchCustomerByID(input);
@@ -98,7 +98,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				while (true) {
 					cout << "PROMPT: Enter customer's name: ";
 					getline(cin, input);
-					if (validateCustomerName(input))
+					if (validateCustomerName(input, "input"))
 						break;
 				}
 				LinkedCustomer foundList = customerList.searchCustomerByName(input);
@@ -109,7 +109,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						while (true) {
 							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
 							cin >> input; // Get the customer ID
-							if (validateCustomerID(input)) {
+							if (validateCustomerID(input, "input")) {
 								break;
 							}
 						}
@@ -200,7 +200,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Please enter the customer's name: ";
 						getline(cin, input);
 						// Check title format
-						if (validateCustomerName(input))
+						if (validateCustomerName(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -212,7 +212,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							while (true) {
 								cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
 								cin >> input; // Get the customer ID
-								if (validateCustomerID(input)) {
+								if (validateCustomerID(input,"input")) {
 									break;
 								}
 							}
@@ -370,7 +370,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					cout << "PROMPT: Please enter the customer's name: ";
 					getline(cin, input);
 					// Check title format
-					if (validateCustomerName(input))
+					if (validateCustomerName(input, "input"))
 						break;
 				}
 				// Find item through the list here
@@ -383,7 +383,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						while (true) {
 							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
 							cin >> input; // Get the customer ID
-							if (validateCustomerID(input)) {
+							if (validateCustomerID(input, "input")) {
 								break;
 							}
 						}
