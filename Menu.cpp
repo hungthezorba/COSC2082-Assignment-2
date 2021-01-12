@@ -241,7 +241,6 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					cin >> input;
 					// Find item by ID
 
-
 					if (input == "1" || input == "2") {
 
 						if (input == "1") {
@@ -249,7 +248,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 								cout << "PROMPT: Enter item's ID: ";
 								cin >> key;
 								// Check title format
-								if (validateItemID(key))
+								if (validateItemID(key, "input"))
 									break;
 							}
 							
@@ -260,10 +259,9 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 								cout << "PROMPT: Enter item's title: ";
 								cin >> key;
 								// Check title format
-								if (validateTitle(key))
+								if (validateTitle(key, "input"))
 									break;
 							}
-
 
 							LinkedItem foundList = itemList.searchItemByTitle(key);
 
@@ -274,7 +272,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 									while (true) {
 										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
 										cin >> key; // Get the customer ID
-										if (validateItemID(key)) {
+										if (validateItemID(key,"input")) {
 											break;
 										}
 									}
@@ -310,7 +308,6 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					cout << "ERROR: Customer not found." << endl;
 				}
 			}
-
 			// Back to main menu
 			else if (input == "3") {
 
@@ -348,7 +345,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 					getline(cin, key);
 
-					bool isValidateItem = validateItemID(key);
+					bool isValidateItem = validateItemID(key,"input");
 					if (isValidateItem) {
 						bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 						if (isHaveThisId) {
@@ -408,7 +405,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 						getline(cin, key);
 
-						bool isValidateItem = validateItemID(key);
+						bool isValidateItem = validateItemID(key,"input");
 						if (isValidateItem) {
 							bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 							if (isHaveThisId) {
