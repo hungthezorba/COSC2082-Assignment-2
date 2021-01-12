@@ -7,6 +7,7 @@
 #include "LinkedItem.h"
 using namespace std;
 
+
 void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 	while (true) {
@@ -73,7 +74,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Enter item's ID want to delete: ";
 						cin >> input;
 						// Check ID format
-						if (validateItemID(input))
+						if (validateItemID(input,"input"))
 							break;
 					}
 					// Find item through the list here
@@ -139,7 +140,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Enter item's title want to delete: ";
 						cin >> input;
 						// Check title format
-						if (validateTitle(input))
+						if (validateTitle(input,"input"))
 							break;
 					}
 					// Find item through the list here
@@ -152,7 +153,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					        while (true) {
                                 cout << "PROMPT: Found more than 1 item with matching name.\nPROMPT: Enter item ID to proceed: ";
                                 cin >> input; // Get the customer ID
-                                if (validateTitle(input)) {
+                                if (validateTitle(input,"input")) {
                                     break;
                                 }
 					        }
@@ -235,7 +236,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					while (true) {
 						cout << "PROMPT: Enter item's ID want to update: ";
 						cin >> input;
-						if (validateItemID(input))
+						if (validateItemID(input,"input"))
 							break;
 					}
 					// Find item through the list here
@@ -261,7 +262,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                     while (true) {
                         cout << "PROMPT: Enter item's title want to update: ";
                         getline(cin, input);
-                        if (validateTitle(input))
+                        if (validateTitle(input,"input"))
                             break;
                     }
                     // Find item through the list here
@@ -274,7 +275,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                             while (true) {
                                 cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
                                 cin >> input; // Get the customer ID
-                                if (validateItemID(input)) {
+                                if (validateItemID(input,"input")) {
                                     break;
                                 }
                             }
@@ -319,7 +320,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			while (true) {
 				cout << "PROMPT: Enter item's ID want to update: ";
 				cin >> input;
-				if (validateItemID(input))
+				if (validateItemID(input,"input"))
 					break;
 			}
 			// Find item through the list here
@@ -329,7 +330,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				while (true) {
 					cout << "PROMPT: Enter number of stock arrived:  ";
 					cin >> input;
-					if (validateNumberOfCopies(input)) {
+					if (validateNumberOfCopies(input,"input")) {
 						item->data->increaseStock(stoi(input));
 						break;
 					}
@@ -355,7 +356,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					while (true) {
 						cout << "PROMPT: Enter item's ID want to search: ";
 						cin >> input;
-						if (validateItemID(input))
+						if (validateItemID(input,"input"))
 							break;
 					}
 					// Find item through the list here
@@ -372,7 +373,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Enter item's title want to search: ";
 						cin.ignore();
 						getline(cin, input);
-						if (validateTitle(input))
+						if (validateTitle(input,"input"))
 							break;
 					}
 					// Find item through the list here
@@ -426,7 +427,7 @@ Item* itemCreateMenu() {
 		cout << "1. Enter item ID(Ixxx-yyyy): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[0];
-		if (validateItemID(inputArray[0]))
+		if (validateItemID(inputArray[0],"input"))
 			break;
 	}
 	while (true) {
@@ -436,7 +437,7 @@ Item* itemCreateMenu() {
 		cin.ignore();
 		// Title can contains spaces so need to use getline in this case
 		getline(cin, inputArray[1]);
-		if (validateTitle(inputArray[1]))
+		if (validateTitle(inputArray[1], "input"))
 			break;
 	}
 
@@ -444,7 +445,7 @@ Item* itemCreateMenu() {
 		cout << "3. Enter item's type(Game, DVD or Record): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[2];
-		if (validateRentalType(inputArray[2]))
+		if (validateRentalType(inputArray[2],"input"))
 			break;
 	}
 
@@ -452,7 +453,7 @@ Item* itemCreateMenu() {
 		cout << "4. Enter item's loan type(2-day or 1-week): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
-		if (validateLoanType(inputArray[3]))
+		if (validateLoanType(inputArray[3],"input"))
 			break;
 	}
 
@@ -460,7 +461,7 @@ Item* itemCreateMenu() {
 		cout << "5. Enter item's number of copies: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[4];
-		if (validateNumberOfCopies(inputArray[4]))
+		if (validateNumberOfCopies(inputArray[4],"input"))
 			break;
 	}
 
@@ -468,7 +469,7 @@ Item* itemCreateMenu() {
 		cout << "6. Enter item's rental fee: ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[5];
-		if (validateRentalFee(inputArray[5]))
+		if (validateRentalFee(inputArray[5],"input"))
 			break;
 	}
 
@@ -483,7 +484,7 @@ Item* itemCreateMenu() {
 			cout << "7. Enter item's genre(Action, Horror, Comedy or Drama): ";
 			// Implemented validation. Still need further testing
 			cin >> inputArray[6];
-			if (validateGenre(inputArray[6])) {
+			if (validateGenre(inputArray[6],"input")) {
 				DVD *newItem = new DVD(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				delete[] inputArray; // free the heap after used
 				return newItem;
@@ -494,7 +495,7 @@ Item* itemCreateMenu() {
 			cout << "7. Enter item's genre(Action, Horror, Comedy or Drama): ";
 			cin >> inputArray[6];
 			// Implemented validation. Still need further testing
-			if (validateGenre(inputArray[6])) {
+			if (validateGenre(inputArray[6],"input")) {
 				Record *newItem = new Record(inputArray[0], inputArray[1], inputArray[2], inputArray[3], stod(inputArray[4]), stod(inputArray[5]), inputArray[6]);
 				delete[] inputArray; // free the heap after used
 				return newItem;
@@ -529,7 +530,7 @@ void itemUpdateMenu(ItemElement *item) {
                 cin.ignore();
                 // Title can contains spaces so need to use getline in this case
                 getline(cin, input);
-                if (validateTitle(input)) {
+                if (validateTitle(input,"input")) {
                     item->data->setTitle(input);
                     break;
                 }
@@ -540,7 +541,7 @@ void itemUpdateMenu(ItemElement *item) {
             while (true) {
                 cout << "Enter item's loan type(2-day or 1-week): ";
                 cin >> input;
-                if (validateLoanType(input)) {
+                if (validateLoanType(input,"input")) {
                     item->data->setLoanType(input);
                     break;
                 }
@@ -550,7 +551,7 @@ void itemUpdateMenu(ItemElement *item) {
             while (true) {
                 cout << "Enter item's number of copies: ";
                 cin >> input;
-                if (validateNumberOfCopies(input)) {
+                if (validateNumberOfCopies(input,"input")) {
                     item->data->setNumberOfCopies(stoi(input));
                     break;
                 }
@@ -560,7 +561,7 @@ void itemUpdateMenu(ItemElement *item) {
             while (true) {
                 cout << "Enter item's rental fee: ";
                 cin >> input;
-                if (validateRentalFee(input)) {
+                if (validateRentalFee(input,"input")) {
                     item->data->setRentalFee(stod(input));
                     break;
                 }
@@ -570,7 +571,7 @@ void itemUpdateMenu(ItemElement *item) {
             while (true) {
                 cout << "Enter item's genre(Action, Horror, Comedy or Drama): ";
                 cin >> input;
-                if (validateGenre(input)) {
+                if (validateGenre(input,"input")) {
                     item->data->setGenre(input);
                     break;
                 }

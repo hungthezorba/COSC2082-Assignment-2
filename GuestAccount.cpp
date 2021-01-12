@@ -5,13 +5,6 @@ using namespace std;
 
 // Constructors
 GuestAccount::GuestAccount() {
-<<<<<<< HEAD
-this->setTypeCustomer("Guest");
-}
-
-GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
-this->setTypeCustomer("Guest");
-=======
 this->setType("Guest");
 this->setNumberOfReturnedItems(0);
 }
@@ -19,7 +12,6 @@ this->setNumberOfReturnedItems(0);
 GuestAccount::GuestAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
 this->setType("Guest");
 this->setNumberOfReturnedItems(0);
->>>>>>> fad750a688530242fe7d290a7c52f4c5c55c7bd0
 }
 
 

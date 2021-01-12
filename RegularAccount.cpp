@@ -5,11 +5,6 @@ using namespace std;
 
 // Constructors
 RegularAccount::RegularAccount() {
-this->setTypeCustomer("Regular");
-}
-
-RegularAccount::RegularAccount(string id, string name, string address, string phoneNumber, int numberOfRental) : Customer(id, name, address, phoneNumber, numberOfRental) {
-this->setTypeCustomer("Regular");
 this->setType("Regular");
 this->setNumberOfReturnedItems(0);
 }

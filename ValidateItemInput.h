@@ -5,16 +5,16 @@
 using namespace std;
 
 
-bool validateItemID(string input);
+bool validateItemID(string input,string mode);
 
-bool validateTitle(string input);
+bool validateTitle(string input,string mode);
 
-bool validateRentalType(string input);
+bool validateRentalType(string input,string mode);
 
-bool validateLoanType(string input);
+bool validateLoanType(string input,string mode);
 
-bool validateNumberOfCopies(string input);
+bool validateNumberOfCopies(string input,string mode);
 
-bool validateRentalFee(string input);
+bool validateRentalFee(string input,string mode);
 
-bool validateGenre(string input);
+bool validateGenre(string input,string mode);

@@ -10,19 +10,11 @@ Customer::Customer() {
   this->phoneNumber = "NA";
   this->numberOfRental = 0;
   this->rentalList;
-<<<<<<< HEAD
-  this->typeCustomer = "NA";
-}
-
-Customer::Customer(string id, string name, string address, string phoneNumber, int numberOfRental) {
-  this->typeCustomer = "NA";
-=======
   this->type = "NA";
 }
 
 Customer::Customer(string id, string name, string address, string phoneNumber, int numberOfRental) {
   this->type = "NA";
->>>>>>> fad750a688530242fe7d290a7c52f4c5c55c7bd0
   this->id = id;
   this->name = name;
   this->address = address;
@@ -123,12 +115,4 @@ void Customer::setType(const string &type) {
 
 int Customer::typeCustomer() {
 	return 0;
-}
-
-const string &Customer::getTypeCustomer() const {
-    return typeCustomer;
-}
-
-void Customer::setTypeCustomer(const string &typeCustomer) {
-    Customer::typeCustomer = typeCustomer;
 }

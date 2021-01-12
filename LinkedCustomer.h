@@ -27,7 +27,6 @@ public:
 
     CustomerNode *getHead() const;
 
-
     void Output(LinkedCustomer* list);
 
 };

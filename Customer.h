@@ -16,16 +16,11 @@ private:
   string type;
   int numberOfReturnedItems;
   LinkedRentalList rentalList;
-  string typeCustomer;
 
 public:
   // Constructor
   Customer();
 
-<<<<<<< HEAD
-    void setTypeCustomer(const string &typeCustomer);
-=======
->>>>>>> fad750a688530242fe7d290a7c52f4c5c55c7bd0
 
     Customer(string id, string name, string address, string phoneNumber, int numberOfRental);
 
@@ -33,9 +28,7 @@ public:
      ~Customer(); */
 
   // Methods
-  const string &getTypeCustomer() const;
-
-    string getId() const;
+  string getId() const;
 
   void setId(const string id);
 

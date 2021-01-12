@@ -14,68 +14,6 @@
 
 using namespace std;
 
-void printByType(LinkedCustomer all){
-    LinkedCustomer guest;
-    LinkedCustomer Vip;
-    LinkedCustomer regular;
-
-    CustomerNode *thisTemp;
-    thisTemp = all.getHead();
-    while(thisTemp!=NULL){
-//        cout<< "come here"<<endl;
-        if(thisTemp->data->getTypeCustomer() == "Guest"){
-            guest.addCustomer(thisTemp->data);
-        }
-        else if(thisTemp->data->getTypeCustomer() == "Regular"){
-            regular.addCustomer(thisTemp->data);
-        }
-        else if (thisTemp->data->getTypeCustomer() == "Vip") {
-            Vip.addCustomer(thisTemp->data);
-        }
-        thisTemp = thisTemp->next;
-    }
-
-    cout<< "guest is"<<endl;
-    guest.printAllCustomer();
-    cout << "Vip are"<<endl;
-    Vip.printAllCustomer();
-    cout<<"Regurlar are"<<endl;
-    regular.printAllCustomer();
-
-}
-
-void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
-	string input;
-	cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
-	cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
-	cout << "| 2. Add new customer or update an existing customer               |" << endl;
-	cout << "| 3. Promote an existing customer                                  |" << endl;
-	cout << "| 4. Rent an item                                                  |" << endl;
-	cout << "| 5. Return an item                                                |" << endl;
-	cout << "| 6. Display all items                                             |" << endl;
-	cout << "| 7. Display out-of-stock items                                    |" << endl;
-	cout << "| 8. Display all customers                                         |" << endl;
-	cout << "| 9. Display group of customers                                    |" << endl;
-	cout << "| Exit.                                                            |" << endl;
-	cout << "--------------------------------------------------------------------" << endl;
-	cout << "Select an option: ";
-	cin >> input;
-
-	if (input == "1") {
-		itemMenu(itemList, customerList);
-	}
-	else if (input == "2") {
-		cout << "Option 2" << endl;
-	}
-	else if (input == "3") {
-		cout << "Option 3" << endl;
-	}
-	else if (input == "4") {
-		cout << "Option 4" << endl;
-	}
-	else if (input == "5") {
-		cout << "Option 5" << endl;
-=======
 void printByType(LinkedCustomer customerList) {
 	LinkedCustomer guestList;
 	LinkedCustomer vipList;
@@ -204,7 +142,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Enter item's ID: ";
 						cin.ignore();
 						getline(cin, key);
-						bool isValidateItem = validateItemID(key);
+						bool isValidateItem = validateItemID(key,"input");
 						if (isValidateItem) {
 							ItemElement* item = itemList.searchItemByID(key);
 							if (item != NULL) {
@@ -228,7 +166,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Please enter item's title: ";
 						cin.ignore();
 						getline(cin, key);
-						bool isValidateItem = validateTitle(key);
+						bool isValidateItem = validateTitle(key,"input");
 						if (isValidateItem) {
 							LinkedItem foundList = itemList.searchItemByTitle(key);
 
@@ -239,7 +177,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 									while (true) {
 										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
 										cin >> input; // Get the customer ID
-										if (validateItemID(input)) {
+										if (validateItemID(input,"input")) {
 											break;
 										}
 									}
@@ -328,7 +266,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							cout << "PROMPT: Enter item's ID: ";
 							cin.ignore();
 							getline(cin, key);
-							bool isValidateItem = validateItemID(key);
+							bool isValidateItem = validateItemID(key,"input");
 							if (isValidateItem) {
 								ItemElement* item = itemList.searchItemByID(key);
 								if (item != NULL) {
@@ -351,7 +289,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							cout << "PROMPT: Please enter item's title: ";
 							cin.ignore();
 							getline(cin, key);
-							bool isValidateItem = validateTitle(key);
+							bool isValidateItem = validateTitle(key,"input");
 							if (isValidateItem) {
 								LinkedItem foundList = itemList.searchItemByTitle(key);
 
@@ -362,7 +300,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 										while (true) {
 											cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
 											cin >> input; // Get the customer ID
-											if (validateItemID(input)) {
+											if (validateItemID(input,"input")) {
 												break;
 											}
 										}
@@ -440,7 +378,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 					getline(cin, key);
 
-					bool isValidateItem = validateItemID(key);
+					bool isValidateItem = validateItemID(key,"input");
 					if (isValidateItem) {
 						bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 						if (isHaveThisId) {
@@ -500,7 +438,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 						getline(cin, key);
 
-						bool isValidateItem = validateItemID(key);
+						bool isValidateItem = validateItemID(key,"input");
 						if (isValidateItem) {
 							bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 							if (isHaveThisId) {
@@ -582,27 +520,6 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		else {
 			cout << "Prompt: Invalid input" << endl;
 		}
-		mainMenu(itemList, customerList);
-	}
-	else if (input == "7") {
-		cout << "Option 7" << endl;
-		// Display out of stock
-		itemList.printOutOfStockItem();
-		mainMenu(itemList, customerList);
-	}
-	else if (input == "8") {
-		printByType(customerList);
-	}
-	else if (input == "9") {
-		cout << "Option 9" << endl;
-	}
-	else if (input == "Exit") {
-		closeProgram(itemList);
-	}
-	else {
-		cout << "Prompt: Invalid input" << endl;
-		mainMenu(itemList, customerList);
-
 	}
 }
 
