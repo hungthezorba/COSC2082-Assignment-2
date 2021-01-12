@@ -66,7 +66,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundCustomer != NULL) {
                         cout << "--------------------------------------" << endl;
 					    foundCustomer->data->details();
-                        cout << "Currently renting: " << endl;
                         foundCustomer->data->showRentalList();
                         cout << "--------------------------------------" << endl;
 
@@ -273,7 +272,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					CustomerNode *c = customerList.searchCustomerByID(input);
 					if (c != NULL) {
 						c->data->details();
-						cout << "Currently renting: " << endl;
 						LinkedRentalList *list = c->data->getRentalList();
 						list->showItem();
 					}

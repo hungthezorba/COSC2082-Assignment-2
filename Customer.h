@@ -3,6 +3,7 @@
 #include <string>
 #include "RentalListNode.h"
 #include "LinkedRentalList.h"
+#include "LinkedItem.h"
 
 using namespace std;
 
@@ -66,7 +67,7 @@ public:
 
   virtual void showRentalList();
 
-  virtual void rentItem(const string itemName);
+  virtual void rentItem(const string itemName, LinkedItem &itemList);
 
   virtual void returnItem(const string itemName);
   virtual int typeCustomer();
