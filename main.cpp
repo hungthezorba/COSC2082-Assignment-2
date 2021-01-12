@@ -15,18 +15,10 @@
 #include "LinkedCustomer.h"
 
 using namespace std;
-template<typename Base, typename T>
-inline bool instanceof(const T*) {
-    return is_base_of<Base, T>::value;
-}
 
 int main(int argc, char *argv[])
 {
 
-
-
-
-//	//BELOW IS QUICK TEST. DO NOT DELETE OR UNCOMMENT
 	LinkedItem itemList;
 	LinkedCustomer customerList;
 
