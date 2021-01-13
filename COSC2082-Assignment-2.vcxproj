@@ -111,6 +111,7 @@
     <ClCompile Include="CustomerMenu.cpp" />
     <ClCompile Include="DVD.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="globalUtilities.cpp" />
     <ClCompile Include="GuestAccount.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemData.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="CustomerNode.h" />
     <ClInclude Include="DVD.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="globalUtilities.h" />
     <ClInclude Include="GuestAccount.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemData.h" />

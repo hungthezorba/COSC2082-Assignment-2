@@ -8,5 +8,5 @@
 
 void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList);
 
-Customer* customerCreateMenu();
+Customer* customerCreateMenu(LinkedCustomer &customerList);
 void customerUpdateMenu(CustomerNode *customer);

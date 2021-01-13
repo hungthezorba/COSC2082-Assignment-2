@@ -3,6 +3,7 @@
 #include "RegularAccount.h"
 #include "VipAccount.h"
 #include "ValidateCustomerInput.h"
+#include "globalUtilities.h"
 
 
 void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
@@ -25,7 +26,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		// Add a new customer menu
 		if (input == "1") {
 			cout << "------------------* Add a new customer *------------------" << endl;
-			Customer *c = customerCreateMenu();
+			Customer *c = customerCreateMenu(customerList);
 			cout << "----------------------------------------------------------" << endl;
 			cout << "------------------* Add a new customer *------------------" << endl;
 			c->details();
@@ -66,7 +67,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundCustomer != NULL) {
                         cout << "--------------------------------------" << endl;
 					    foundCustomer->data->details();
-                        foundCustomer->data->showRentalList();
                         cout << "--------------------------------------" << endl;
 
                         // Not allow to delete if customer still have rent item
@@ -124,7 +124,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
                         if (foundCustomer != NULL) {
                             foundCustomer->data->details();
-                            foundCustomer->data->showRentalList();
 
                             if (foundCustomer->data->getNumberOfRental() != 0) {
                                 cout << "ERROR: Customer must return all the items" << endl;
@@ -272,8 +271,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					CustomerNode *c = customerList.searchCustomerByID(input);
 					if (c != NULL) {
 						c->data->details();
-						LinkedRentalList *list = c->data->getRentalList();
-						list->showItem();
 					}
 					else {
 						cout << "PROMPT: Cannot found the customer with specified ID." << endl;
@@ -287,7 +284,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						if (validateCustomerName(input, "input"))
 							break;
 					}
-
 					// Find customer through the list here
 					LinkedCustomer foundList = customerList.searchCustomerByName(input);
 					if (foundList.getHead() != NULL)
@@ -336,15 +332,27 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 }
 
 	
-Customer *customerCreateMenu() {
+Customer *customerCreateMenu(LinkedCustomer &customerList) {
 	string *inputArray = new string[5];
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
 		cout << "1. Enter customer ID(Cxxx): ";
 		cin >> inputArray[0];
-		if (validateCustomerID(inputArray[0],"input"))
-			break;
+
+		// Check format
+		if (validateCustomerID(inputArray[0], "input")) {
+			// Check if ID is existed in database
+			CustomerNode *duplicateID = customerList.searchCustomerByID(inputArray[0]);
+			cout << duplicateID->data << endl;
+			if (duplicateID != NULL) {
+				cout << "ERROR: Customer ID is already existed. Please enter again." << endl;
+			}
+			else {
+				break;
+			}
+		}
+			
 	}
 
 	cin.ignore();
