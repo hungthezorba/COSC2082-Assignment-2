@@ -7,7 +7,7 @@ using namespace std;
 
 // Implement validate ID
 bool validateItemID(string input,string mode) {
-	if (input[0] != 'I') {
+	if (input[0] != 'I' && input[0] != 'i') {
 	    if (mode == "input"){
             cout << "ERROR: Item's id must start with 'I'. Please enter again." << endl;
 	    }

@@ -8,6 +8,5 @@
 #include "LinkedCustomer.h"
 
 void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList);
-Item* itemCreateMenu();
-Item* itemDeleteMenu(Item *item);
+Item* itemCreateMenu(LinkedItem &itemList);
 void itemUpdateMenu(ItemElement *item);

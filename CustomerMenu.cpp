@@ -344,7 +344,6 @@ Customer *customerCreateMenu(LinkedCustomer &customerList) {
 		if (validateCustomerID(inputArray[0], "input")) {
 			// Check if ID is existed in database
 			CustomerNode *duplicateID = customerList.searchCustomerByID(inputArray[0]);
-			cout << duplicateID->data << endl;
 			if (duplicateID != NULL) {
 				cout << "ERROR: Customer ID is already existed. Please enter again." << endl;
 			}

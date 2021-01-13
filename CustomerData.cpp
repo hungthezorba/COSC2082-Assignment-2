@@ -71,7 +71,7 @@ void CustomerData(LinkedCustomer &customerList, string fileName){
 						cout << "The customer will not be recorded. Please check the database file again." << endl;
 						break;
 					}
-					// Using validateNumberOfCopies function because both format for the field is the same(only contains digit)
+
 					if (!validateCustomerNumberOfRental(listDataTemp[4], "readFile")) {
 						cout << "WARNING: Customer with ID " << listDataTemp[0] << " does not contain correct value in 'number of rental' at line " << linePos << endl;
 						cout << "The customer will not be recorded. Please check the database file again." << endl;
@@ -95,8 +95,8 @@ void CustomerData(LinkedCustomer &customerList, string fileName){
 					else {
 						c = new VipAccount(listDataTemp[0], listDataTemp[1], listDataTemp[2], listDataTemp[3], stoi(listDataTemp[4]));
 					}
-					list = c->getRentalList();
-					customerList.addCustomer(c);
+					list = c->getRentalList(); // Get list of the current customer
+					customerList.addCustomer(c); // Add customer to the customer list in program
 					break;
 				}
 			}
@@ -109,9 +109,9 @@ void CustomerData(LinkedCustomer &customerList, string fileName){
 					}
 					// If rental number not match (number of rental is lower than the list of rentals)
 					else {
-						cout << "ERROR: Customer with ID " << c->getId() << " does not have matching number of rental with list of rentals." << endl;
+						cout << "WARNING: Customer with ID " << c->getId() << " does not have matching number of rental with list of rentals." << endl;
 						cout << "PROMPT: Only " << c->getNumberOfRental() << " items recorded in the running program " << "for customer with ID " << c->getId() << "." << endl;
-						cout << "PROMPT: Please check the database files." << endl;
+						cout << "Please check the database files." << endl;
 					}
 				}
 				// Only add the item to customer'rental list up to his/her number of rental.
