@@ -8,7 +8,7 @@
 using namespace std;
 
 
-void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
+void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 
 	while (true) {
 
@@ -31,7 +31,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		if (input == "1") {
 			// Create a new item
 			cout << "--------------------* Add a new item *--------------------" << endl;
-			Item *newItem = itemCreateMenu();
+			Item *newItem = itemCreateMenu(itemList);
 			cout << "----------------------------------------------------------" << endl;
 			// Insert item into linked list here
 			cout << "--------------------* Add a new item *--------------------" << endl;
@@ -98,7 +98,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 								if (tempRentItem->getItem() == foundItem->data->getId()) {
 									// To make all the customer's name who are renting in the same line. Improving the readability.
 									if (count == 0) {
-										cout << "Item is currently rent by: " << rentingCustomer->data->getName();
+										cout << "FAIL: Item is currently rent by: " << rentingCustomer->data->getName();
 									}
 									else {
 										cout << ", " << rentingCustomer->data->getName();
@@ -147,7 +147,6 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					LinkedItem foundList = itemList.searchItemByTitle(input);
 					// If-else case: If item found, show item's detail. If item not found, print error message then back to item menu.
 					if (foundList.getHead() != NULL) {
-						cout << foundList.getHead()->data << endl;
 					    if (foundList.getHead()->next != NULL) {
 					        foundList.printItem();
 					        while (true) {
@@ -178,7 +177,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                                 while (tempRentItem != NULL) {
 
                                     if (tempRentItem->getItem() == foundItem->data->getId()) {
-                                        cout << "Item is currently rent by: " << rentingCustomer->data->getName() << endl;
+                                        cout << "FAIL: Item is currently rent by: " << rentingCustomer->data->getName() << endl;
                                         count++;
                                     }
                                     tempRentItem = tempRentItem->getNext();
@@ -312,31 +311,95 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 		// Dummy option. Implement later
 		else if (input == "4") {
-			cout << "Option 4" << endl;
+
+		while (true) {
 			cout << "---------------------* Add more stock *---------------------" << endl;
+			cout << "| 1. By ID                                                 |" << endl;
+			cout << "| 2. By title                                              |" << endl;
+			cout << "| 3. Back                                                  |" << endl;
+			cout << "------------------------------------------------------------" << endl;
+			cout << "PROMPT: Enter an option: ";
+			cin >> input;
+
+			if (input == "1" || input == "2") {
+
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to update: ";
+						cin >> input;
+						if (validateItemID(input, "input"))
+							break;
+					}
+					// Find item through the list here
+
+
+				}
+				else {
+
+					cin.ignore();
+					while (true) {
+						cout << "PROMPT: Enter item's title want to update: ";
+						getline(cin, input);
+						if (validateTitle(input, "input"))
+							break;
+					}
+					// Find item through the list here
+					LinkedItem foundList = itemList.searchItemByTitle(input);
+					// If-else case: If customer found, show customer's detail. If customer not found, print error message then back to customer menu.
+					if (foundList.getHead() != NULL) {
+						// Case 1: Found more than 1 customer with matching name
+						if (foundList.getHead()->next != NULL) {
+							foundList.printItem();
+							while (true) {
+								cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
+								cin >> input; // Get the item ID
+								if (validateItemID(input, "input")) {
+									break;
+								}
+							}
+
+						}
+						else {
+							// Case 2: Found only 1 item with matching name. The input will be customer ID in the Head of the list.
+							input = foundList.getHead()->data->getId(); // Get the item ID
+						}
+					}
+
+
+				}
+				ItemElement *item = itemList.searchItemByID(input);
+				if (item != NULL) {
+					while (true) {
+						cout << "PROMPT: Enter number of stock arrived:  ";
+						cin >> input;
+						if (validateNumberOfCopies(input, "input")) {
+							item->data->increaseStock(stoi(input));
+							item->data->printDetail();
+							cout << "SUCCESS: Item's stock successfully filled." << endl;
+							break;
+						}
+
+					}
+				}
+				else {
+					cout << "ERROR: Item not found." << endl;
+				}
+			}
+			else if (input == "3") {
+				break;
+			}
+			else {
+				cout << "ERROR: Invalid input. Please enter again." << endl;
+			}
 			// Consider show all item in the stock here
 
 			// Check ID format
-			while (true) {
-				cout << "PROMPT: Enter item's ID want to update: ";
-				cin >> input;
-				if (validateItemID(input,"input"))
-					break;
-			}
-			// Find item through the list here
 
-			ItemElement *item = itemList.searchItemByID(input);
-			if (item != NULL) {
-				while (true) {
-					cout << "PROMPT: Enter number of stock arrived:  ";
-					cin >> input;
-					if (validateNumberOfCopies(input,"input")) {
-						item->data->increaseStock(stoi(input));
-						break;
-					}
+		}
+			
+			
 
-				}
-			}
+			
 		}
 		else if (input == "5") {
 			cout << "------------------* List of items *----------------" << endl;
@@ -389,7 +452,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				}
 				else {
 					cout << "ERROR: Invalid input." << endl;
-					itemMenu(itemList, customerList);
+					itemMenu(itemList, customerList, itemFileName, customerFileName);
 				}
 				cout << "PROMPT: Continue to search ? (y/n): ";
 				cin >> input;
@@ -410,7 +473,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 		// Close program.
 		else if (input == "Exit") {
-			closeProgram(itemList, customerList);
+			closeProgram(itemList, customerList, itemFileName, customerFileName);
 		}
 		else {
 			cout << "ERROR: Invalid input" << endl;
@@ -419,7 +482,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 }
 
 // Create item
-Item* itemCreateMenu() {
+Item* itemCreateMenu(LinkedItem &itemList) {
 	string *inputArray = new string[7];
 
 	// While loop is implemented to validate user's input before moving to next field.
@@ -427,8 +490,16 @@ Item* itemCreateMenu() {
 		cout << "1. Enter item ID(Ixxx-yyyy): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[0];
-		if (validateItemID(inputArray[0],"input"))
-			break;
+		if (validateItemID(inputArray[0], "input")) {
+			// Check if ID is existed in database
+			ItemElement *duplicateID = itemList.searchItemByID(inputArray[0]);
+			if (duplicateID != NULL) {
+				cout << "ERROR: Item ID is already existed. Please enter again." << endl;
+			}
+			else {
+				break;
+			}
+		}
 	}
 	while (true) {
 		cout << "2. Enter item's title: ";

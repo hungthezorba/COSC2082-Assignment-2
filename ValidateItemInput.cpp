@@ -7,7 +7,7 @@ using namespace std;
 
 // Implement validate ID
 bool validateItemID(string input,string mode) {
-	if (input[0] != 'I') {
+	if (input[0] != 'I' && input[0] != 'i') {
 	    if (mode == "input"){
             cout << "ERROR: Item's id must start with 'I'. Please enter again." << endl;
 	    }
@@ -113,7 +113,7 @@ bool validateLoanType(string input,string mode) {
 	// Loan type can only in two categories: 2-days and 1-week
 	if (input != "2-day" && input != "1-week") {
         if (mode == "input"){
-            cout << "ERROR: Rental type must be in 'Game', 'DVD' or 'Record'. Please enter again." << endl;
+            cout << "ERROR: Loan type must be in '2-day' or '1-week'. Please enter again." << endl;
         }
         else if (mode =="readFile"){
             cout<<"";
@@ -160,7 +160,12 @@ bool validateRentalFee(string input,string mode) {
 				decimal++;
 			}
 			else {
-               
+				if (mode == "input") {
+					cout << "ERROR: Fee is in wrong format. Please enter again." << endl;
+				}
+				else if (mode == "readFile") {
+					cout << "";
+				}
 				return false;
 			}
 		}

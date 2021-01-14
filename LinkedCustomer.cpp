@@ -7,6 +7,8 @@
 #include "Customer.h"
 #include<iostream>
 #include<fstream>
+#include "globalUtilities.h"
+
 
 LinkedCustomer :: LinkedCustomer(){
     Head = NULL;
@@ -91,7 +93,8 @@ void LinkedCustomer::printAllCustomer(){
 CustomerNode *LinkedCustomer::searchCustomerByID(string id){
     temp = Head;
     track = Head;
-    while(temp!=NULL && temp->data->getId()!=id){
+
+    while(temp!=NULL && toLowerCase(temp->data->getId()) != toLowerCase(id)){
         track = temp;
         temp = temp->next;
     }
@@ -110,8 +113,9 @@ LinkedCustomer LinkedCustomer::searchCustomerByName(string name) {
 	LinkedCustomer tempList;
 
 	while (temp != NULL) {
-		// If match name
-		if (temp->data->getName() == name) {
+		// If match name.
+		// We converted name to lowercase to increase roburstness and flexibility.
+		if (toLowerCase(temp->data->getName()) == toLowerCase(name)) {
 			tempList.addCustomer(temp->data); // Add to list
 		}
 		track = temp;
@@ -185,7 +189,7 @@ void LinkedCustomer::sortedByName() {
         while (current != NULL) {
             track = current->next;
             while (track != NULL) {
-                if (current->data->getName() > track->data->getName()) {
+                if (toLowerCase(current->data->getName()) > toLowerCase(track->data->getName())) {
                     Customer *temp = current->data;
                     current->data = track->data;
                     track->data = temp;

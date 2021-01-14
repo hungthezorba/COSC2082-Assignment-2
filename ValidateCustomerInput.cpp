@@ -7,7 +7,7 @@ using namespace std;
 // All validating functions will return true if input is in correct format, false otherwise
 
 bool validateCustomerID(string input, string mode) {
-	if (input[0] != 'C') {
+	if (input[0] != 'C' && input[0] != 'c') { // allow sensitive-case
 		if (mode == "input") {
 			cout << "ERROR: Item's id must start with 'C'. Please enter again." << endl;
 		}

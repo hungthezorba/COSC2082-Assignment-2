@@ -7,7 +7,6 @@
 #include "ItemElement.h"
 #include "LinkedCustomer.h"
 
-void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList);
-Item* itemCreateMenu();
-Item* itemDeleteMenu(Item *item);
+void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName);
+Item* itemCreateMenu(LinkedItem &itemList);
 void itemUpdateMenu(ItemElement *item);

@@ -7,6 +7,7 @@
 #include "ItemElement.h"
 #include<iostream>
 #include<fstream>
+#include "globalUtilities.h"
 
 LinkedItem :: LinkedItem(){
     Head = NULL;
@@ -135,7 +136,7 @@ ItemElement *LinkedItem::searchItemByID(string id){
 	
     current = Head;
     track = Head;
-    while(current!=NULL && current->data->getId()!=id){
+    while(current!=NULL && toLowerCase(current->data->getId()) != toLowerCase(id)){
         track = current;
         current = current->next;
     }
@@ -150,16 +151,16 @@ LinkedItem LinkedItem::searchItemByTitle(string title) {
 	current = Head;
 
 	// Initial customer list
-	LinkedItem *tempListItem = new LinkedItem;
+	LinkedItem tempListItem;
 
 	while (current != NULL) {
 		// If match name
-		if (current->data->getTitle() == title) {
-			tempListItem->addItem(current->data); // Add to list
+		if (toLowerCase(current->data->getTitle()) == toLowerCase(title)) {
+			tempListItem.addItem(current->data); // Add to list
 		}
 		current = current->next;
 	}
-	return *tempListItem;
+	return tempListItem;
 
 };
 
