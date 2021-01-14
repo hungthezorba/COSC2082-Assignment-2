@@ -8,7 +8,7 @@
 using namespace std;
 
 
-void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
+void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 
 	while (true) {
 
@@ -388,7 +388,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				}
 				else {
 					cout << "ERROR: Invalid input." << endl;
-					itemMenu(itemList, customerList);
+					itemMenu(itemList, customerList, itemFileName, customerFileName);
 				}
 				cout << "PROMPT: Continue to search ? (y/n): ";
 				cin >> input;
@@ -409,7 +409,7 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		}
 		// Close program.
 		else if (input == "Exit") {
-			closeProgram(itemList, customerList);
+			closeProgram(itemList, customerList, itemFileName, customerFileName);
 		}
 		else {
 			cout << "ERROR: Invalid input" << endl;

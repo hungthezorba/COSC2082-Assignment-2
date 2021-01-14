@@ -6,7 +6,7 @@
 #include "globalUtilities.h"
 
 
-void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
+void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 
 	while (true) {
 
@@ -321,7 +321,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 		// Close the program
 		else if (input == "Exit") {
-			closeProgram(itemList, customerList);
+			closeProgram(itemList, customerList, itemFileName, customerFileName);
 		}
 		else {
 			cout << "ERROR: Invalid input. Please enter again." << endl;

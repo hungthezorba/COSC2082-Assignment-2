@@ -6,5 +6,5 @@
 #include "LinkedItem.h"
 #include "LinkedCustomer.h"
 
-void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList);
-void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList);
+void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName);
+void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName);

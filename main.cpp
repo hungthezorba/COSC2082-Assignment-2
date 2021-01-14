@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	ItemData(itemList, argv[1]); // Read item file
 	CustomerData(customerList, argv[2]); // Read customer file
 
-	mainMenu(itemList, customerList); // Call main menu function
+	mainMenu(itemList, customerList, argv[1], argv[2]); // Call main menu function
 
 
     return 0;

@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Menu.h"
 #include <iostream>
 #include <string>
 #include "ValidateItemInput.h"
@@ -42,7 +43,7 @@ void printByType(LinkedCustomer customerList) {
 
 }
 
-void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
+void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 
 
 	while (true) {
@@ -64,10 +65,10 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		cin >> input;
 
 		if (input == "1") {
-			itemMenu(itemList, customerList);
+			itemMenu(itemList, customerList, itemFileName, customerFileName);
 		}
 		else if (input == "2") {
-			customerMenu(itemList, customerList);
+			customerMenu(itemList, customerList, itemFileName, customerFileName);
 		}
 		else if (input == "3") {
 
@@ -254,10 +255,10 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							
 						}
 						else if (input == "2") {
-
+							cin.ignore();
 							while (true) {
 								cout << "PROMPT: Enter item's title: ";
-								cin >> key;
+								getline(cin, key);
 								// Check title format
 								if (validateTitle(key, "input"))
 									break;
@@ -271,7 +272,8 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 									foundList.printItem();
 									while (true) {
 										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
-										cin >> key; // Get the customer ID
+
+										cin >> key; // Get the item ID
 										if (validateItemID(key,"input")) {
 											break;
 										}
@@ -279,8 +281,8 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 								}
 								else {
-									// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
-									input = foundList.getHead()->data->getId(); // Get the customer ID
+									// Case 2: Found only 1 item with matching title. The key will be customer ID in the Head of the list.
+									key = foundList.getHead()->data->getId(); // Get the item ID
 								}
 
 							}
@@ -338,8 +340,6 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				if (foundCustomer != NULL) {
 					cout << "------------------* Return Item *-------------------" << endl;
 					foundCustomer->data->details();
-					cout << "Currently rent:" << endl;
-					foundCustomer->data->showRentalList();
 					cout << "----------------------------------------------------" << endl;
 					cout << "PROMPT: Please enter item's ID: ";
 
@@ -398,8 +398,6 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundCustomer != NULL) {
 						cout << "------------------* Return Item *-------------------" << endl;
 						foundCustomer->data->details();
-						cout << "Currently rent:" << endl;
-						foundCustomer->data->showRentalList();
 						cout << "----------------------------------------------------" << endl;
 						cout << "PROMPT: Please enter returning item's ID: ";
 
@@ -453,9 +451,11 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			}
 		}
 		else if (input == "7") {
-			cout << "Option 7" << endl;
 			// Display out of stock
+			cout << "--------------* Out of stock items *---------------" << endl;
 			itemList.printOutOfStockItem();
+
+			cout << "---------------------------------------------------" << endl;
 		}
 		else if (input == "8") {
             cout << "---------------* Display all customers *---------------" << endl;
@@ -482,7 +482,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			printByType(customerList);
 		}
 		else if (input == "Exit") {
-			closeProgram(itemList, customerList);
+			closeProgram(itemList, customerList, itemFileName, customerFileName);
 		}
 		else {
 			cout << "Prompt: Invalid input" << endl;
@@ -490,13 +490,13 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	}
 }
 
-void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
+void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 	// Save file 
 	ofstream itemFile;
 	ofstream customerFile;
 
-	itemFile.open("items.txt");
-	customerFile.open("customers.txt");
+	itemFile.open(itemFileName);
+	customerFile.open(customerFileName);
 
 
 	if (itemFile.fail() || customerFile.fail()) {
