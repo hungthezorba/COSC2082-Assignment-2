@@ -1,5 +1,6 @@
 #include "LinkedRentalList.h"
 #include "RentalListNode.h"
+#include "globalUtilities.h"
 
 // #include "RentalListNode.cpp" // Delete this after testing is done
 
@@ -35,7 +36,7 @@ void LinkedRentalList::addItem(string s) {
 bool LinkedRentalList::isListHaveId(string id) {
     RentalListNode* temp = head;
     while (temp != nullptr) {
-        if (temp->getItem().compare(id) == 0) {
+        if (toLowerCase(temp->getItem()).compare(toLowerCase(id)) == 0) {
             return true;
         }
         temp = temp->getNext();
@@ -47,7 +48,7 @@ void LinkedRentalList::removeItem(string s) {
   RentalListNode *prev = nullptr;
 
   while (temp != nullptr) {
-    if (temp->getItem() == s) {
+    if (toLowerCase(temp->getItem()) == toLowerCase(s)) {
       if (prev == nullptr) {
         // Delete the head of the list
         head = head->getNext();

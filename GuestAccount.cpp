@@ -16,19 +16,24 @@ this->setNumberOfReturnedItems(0);
 
 
 // Member functions
-void GuestAccount::rentItem(const string itemName) {
+void GuestAccount::rentItem(const string itemName, LinkedItem &itemList) {
   if (this->getNumberOfRental() < GUEST_RENTAL_LIMIT) {
-    cout << "Guest customer " << this->getName() << " rented item successfully!" << endl;
-    this->Customer::rentItem(itemName);
-	// Increase current rentals
+	  ItemElement *item = itemList.searchItemByID(itemName);
+	  if (item->data->getLoanType() != "1-week") {
+		  cout << "FAIL: Guest member can only rent 1-week item." << endl;
+	  }
+	  else {
+		  cout << "SUCCESS: Guest customer " << this->getName() << " rented item successfully!" << endl;
+		  this->Customer::rentItem(itemName, itemList);
+	  }
   } else {
-    cout << "Sorry! Guest member can only rent a maximum of " << GUEST_RENTAL_LIMIT << " at a time!" << endl;
-    cout << "Please return your rented items first!" << endl;
+    cout << "FAIL: Sorry! Guest member can only rent a maximum of " << GUEST_RENTAL_LIMIT << " items at a time!" << endl;
+    cout << "FAIL: Please return your rented items first!" << endl;
   }
 }
 
 void GuestAccount::returnItem(const string itemName) {
-  cout << "Guest customer " << this->getName() << " returned item successfully!" << endl;
+  cout << "SUCCESS: Guest customer " << this->getName() << " returned item successfully!" << endl;
   this->Customer::returnItem(itemName);
   // Reduce current rentals
 }
@@ -39,6 +44,8 @@ void GuestAccount::details() {
 	cout << "1. Name: " << this->getName() << endl;
 	cout << "2. Address: " << this->getAddress() << endl;
 	cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
+	cout << "Currently renting: " << endl;
+	this->showRentalList();
 }
 
 void GuestAccount::showRentalList() {

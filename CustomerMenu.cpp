@@ -3,9 +3,10 @@
 #include "RegularAccount.h"
 #include "VipAccount.h"
 #include "ValidateCustomerInput.h"
+#include "globalUtilities.h"
 
 
-void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
+void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 
 	while (true) {
 
@@ -25,7 +26,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		// Add a new customer menu
 		if (input == "1") {
 			cout << "------------------* Add a new customer *------------------" << endl;
-			Customer *c = customerCreateMenu();
+			Customer *c = customerCreateMenu(customerList);
 			cout << "----------------------------------------------------------" << endl;
 			cout << "------------------* Add a new customer *------------------" << endl;
 			c->details();
@@ -34,14 +35,14 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cin >> input;
 			if (input == "yes") {
 				customerList.addCustomer(c);
-				cout << "SUCCESS: Customer added." << endl;
+				cout << "SUCCESS: Customer is added." << endl;
 			}
 			else {
-				cout << "FAIL: No customer added." << endl;
+				cout << "FAIL: No customer is added." << endl;
 			}
 		}
 
-		// Delete customer menu 
+		// Delete customer menu
 		else if (input == "2") {
 			while (true) {
 				cout << "-------------------* Delete Customer *-------------------" << endl;
@@ -54,10 +55,10 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 				if (input == "1") {
 					while (true) {
-						cout << "PROMPT: Enter customer's ID want to delete: ";
+						cout << "PROMPT: Enter customer's ID to delete: ";
 						cin >> input;
 						// Check ID format
-						if (validateCustomerID(input))
+						if (validateCustomerID(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -66,8 +67,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundCustomer != NULL) {
                         cout << "--------------------------------------" << endl;
 					    foundCustomer->data->details();
-                        cout << "Currently renting: " << endl;
-                        foundCustomer->data->showRentalList();
                         cout << "--------------------------------------" << endl;
 
                         // Not allow to delete if customer still have rent item
@@ -94,10 +93,10 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				else if (input == "2") {
 				    cin.ignore();
 					while (true) {
-						cout << "PROMPT: Enter customer's name want to delete: ";
+						cout << "PROMPT: Enter customer's name to delete: ";
 						getline(cin, input);
 						// Check title format
-						if (validateCustomerName(input))
+						if (validateCustomerName(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -108,9 +107,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
                         if (foundList.getHead()->next != NULL) {
                             foundList.printAllCustomer();
                             while (true) {
-                                cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
+                                cout << "PROMPT: Found more than 1 customers with matching names.\nPROMPT: Enter customer ID to proceed: ";
                                 cin >> input; // Get the customer ID
-                                if (validateCustomerID(input)) {
+                                if (validateCustomerID(input, "input")) {
                                     break;
                                 }
                             }
@@ -125,7 +124,6 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
                         if (foundCustomer != NULL) {
                             foundCustomer->data->details();
-                            foundCustomer->data->showRentalList();
 
                             if (foundCustomer->data->getNumberOfRental() != 0) {
                                 cout << "ERROR: Customer must return all the items" << endl;
@@ -176,9 +174,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				if (input == "1") {
 					cin.ignore();
 					while (true) {
-						cout << "PROMPT: Enter customer's ID want to update: ";
+						cout << "PROMPT: Enter customer's ID to update: ";
 						getline(cin, input);
-						if (validateCustomerID(input))
+						if (validateCustomerID(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -191,15 +189,15 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					}
 					else {
 						// Will implement input id again
-						cout << "ERROR: Cusotmer not found." << endl;
+						cout << "ERROR: Customer not found." << endl;
 					}
 				}
 				else if (input == "2") {
 					cin.ignore();
 					while (true) {
-						cout << "PROMPT: Enter customer's name want to update: ";
+						cout << "PROMPT: Enter customer's name to update: ";
 						getline(cin, input);
-						if (validateCustomerName(input))
+						if (validateCustomerName(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -211,25 +209,25 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						if (foundList.getHead()->next != NULL) {
 							foundList.printAllCustomer();
 							while (true) {
-								cout << "PROMPT: Found more than 1 customer with matching name.\nEnter customer ID to proceed: ";
+								cout << "PROMPT: Found more than 1 customers with matching names.\nEnter customer ID to proceed: ";
 								cin >> input; // Get the customer ID
-								if (validateCustomerID(input)) {
+								if (validateCustomerID(input, "input")) {
 									break;
 								}
 							}
-							
+
 						}
 						else {
 							// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
 							input = foundList.getHead()->data->getId(); // Get the customer ID
 						}
-						
+
 						CustomerNode *customer = customerList.searchCustomerByID(input);
-						
+
 						if (customer != NULL) {
 								// Call update function
 								customerUpdateMenu(customer);
-							
+
 						}
 						else {
 							cout << "ERROR: Customer not found." << endl;
@@ -263,9 +261,9 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				cin >> input;
 				if (input == "1") {
 					while (true) {
-						cout << "PROMPT: Enter customer's ID want to search: ";
+						cout << "PROMPT: Enter customer's ID to search: ";
 						cin >> input;
-						if (validateCustomerID(input))
+						if (validateCustomerID(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -273,29 +271,25 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					CustomerNode *c = customerList.searchCustomerByID(input);
 					if (c != NULL) {
 						c->data->details();
-						cout << "Currently renting: " << endl;
-						LinkedRentalList *list = c->data->getRentalList();
-						list->showItem();
 					}
 					else {
-						cout << "PROMPT: Cannot found the customer with specified ID." << endl;
+						cout << "PROMPT: Cannot find the customer with specified ID." << endl;
 					}
 				}
 				else if (input == "2") {
 					cin.ignore();
 					while (true) {
-						cout << "PROMPT: Enter customer's name want to search: ";
+						cout << "PROMPT: Enter customer's name to search: ";
 						getline(cin, input);
-						if (validateCustomerName(input))
+						if (validateCustomerName(input, "input"))
 							break;
 					}
-
 					// Find customer through the list here
 					LinkedCustomer foundList = customerList.searchCustomerByName(input);
 					if (foundList.getHead() != NULL)
 						foundList.printAllCustomer();
 					else
-						cout << "PROMPT: Cannot found the customer with specified name." << endl;
+						cout << "PROMPT: Cannot find the customer with specified name." << endl;
 				}
 				else if (input == "3") {
 					break;
@@ -303,7 +297,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				else {
 					cout << "ERROR: Invalid input." << endl;
 				}
-				cout << "PROMPT: Continue to search ? (y/n): ";
+				cout << "PROMPT: Continue to search? (y/n): ";
 				cin >> input;
 				if (input == "y") {
 					cout << endl; // Add space
@@ -327,7 +321,7 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 		// Close the program
 		else if (input == "Exit") {
-			closeProgram(itemList, customerList);
+			closeProgram(itemList, customerList, itemFileName, customerFileName);
 		}
 		else {
 			cout << "ERROR: Invalid input. Please enter again." << endl;
@@ -337,53 +331,64 @@ void customerMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 }
 
-	
-Customer *customerCreateMenu() {
+
+Customer *customerCreateMenu(LinkedCustomer &customerList) {
 	string *inputArray = new string[5];
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "1. Enter customer ID(Cxxx): ";
+		cout << "1. Enter customer's ID(Cxxx): ";
 		cin >> inputArray[0];
-		if (validateCustomerID(inputArray[0]))
-			break;
+
+		// Check format
+		if (validateCustomerID(inputArray[0], "input")) {
+			// Check if ID is existed in database
+			CustomerNode *duplicateID = customerList.searchCustomerByID(inputArray[0]);
+			if (duplicateID != NULL) {
+				cout << "ERROR: Customer's ID is already existed. Please enter again." << endl;
+			}
+			else {
+				break;
+			}
+		}
+
 	}
 
 	cin.ignore();
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "2. Enter customer name: ";
+		cout << "2. Enter customer's name: ";
 		// ignore the newline character
 		getline(cin, inputArray[1]);
-		if (validateCustomerName(inputArray[1]))
+		if (validateCustomerName(inputArray[1],"input"))
 			break;
 	}
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "3. Enter customer address: ";
+		cout << "3. Enter customer's address: ";
 		// ignore the newline character
 		getline(cin, inputArray[2]);
-		if (validateCustomerAddress(inputArray[2]))
+		if (validateCustomerAddress(inputArray[2],"input"))
 			break;
 	}
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "4. Enter customer phone number(10 digits): ";
+		cout << "4. Enter customer's phone number(10 digits): ";
 		// Implemented validation. Still need further testing
 		cin >> inputArray[3];
-		if (validateCustomerPhoneNumber(inputArray[3]))
+		if (validateCustomerPhoneNumber(inputArray[3],"input"))
 			break;
 	}
 
 	// While loop is implemented to validate user's input before moving to next field.
 	while (true) {
-		cout << "5. Enter customer type(Guest, Regular, VIP): ";
+		cout << "5. Enter customer's type (Guest, Regular, VIP): ";
 		cin >> inputArray[4];
-		if (validateCustomerType(inputArray[4]))
+		if (validateCustomerType(inputArray[4],"input"))
 			break;
 	}
-	
+
 	Customer *c;
 
 	// With each case of customer type will create each correctly object class.
@@ -416,7 +421,7 @@ void customerUpdateMenu(CustomerNode *customer) {
 				cout << "Enter customer's name: ";
 				// Name can contains spaces so need to use getline in this case
 				getline(cin, input);
-				if (validateCustomerName(input)) {
+				if (validateCustomerName(input, "input")) {
 					customer->data->setName(input);
 					break;
 				}
@@ -428,7 +433,7 @@ void customerUpdateMenu(CustomerNode *customer) {
 				cout << "Enter customer's address: ";
 				// Address can contains spaces so need to use getline in this case
 				getline(cin, input);
-				if (validateCustomerAddress(input)) {
+				if (validateCustomerAddress(input, "input")) {
 					customer->data->setAddress(input);
 					break;
 				}
@@ -436,9 +441,9 @@ void customerUpdateMenu(CustomerNode *customer) {
 		}
 		else if (input == "3") {
 			while (true) {
-				cout << "Enter customer's phone number(10 digits): ";
+				cout << "Enter customer's phone number (10 digits): ";
 				cin >> input;
-				if (validateCustomerPhoneNumber(input)) {
+				if (validateCustomerPhoneNumber(input, "input")) {
 					customer->data->setPhoneNumber(input);
 					break;
 				}
@@ -447,7 +452,7 @@ void customerUpdateMenu(CustomerNode *customer) {
 		else {
 			cout << "ERROR: Invalid input. Please enter again." << endl;
 		}
-		cout << "PROMPT: Continue to update ? (y/n): ";
+		cout << "PROMPT: Continue to update? (y/n): ";
 		cin >> input;
 		if (input == "y") {
 			// Continue to update

@@ -18,17 +18,17 @@ VipAccount::VipAccount(string id, string name, string address, string phoneNumbe
   this->setNumberOfReturnedItems(0);
 }
 
-void VipAccount::rentItem(const string itemName) {
+void VipAccount::rentItem(const string itemName, LinkedItem &itemList) {
   if (this->rewardPoints >= VIP_REWARD_EXCHANGE_CONDITION) {
     cout << "Congratulations " << this->getName() << ", you are eligible to exchange for 1 free rent item!" << endl;
     this->freeRentItemAwarded++;
-    this->Customer::rentItem(itemName);
+    this->Customer::rentItem(itemName, itemList);
     this->rewardPoints-=VIP_REWARD_EXCHANGE_CONDITION;
     cout << "Total of Free Rent Items awarded: " << freeRentItemAwarded << endl;
     cout << "Thank you so much, " << this->getName() << " for supporting our store <3" << endl;
     cout << endl;
   } else {
-    this->Customer::rentItem(itemName);
+    this->Customer::rentItem(itemName, itemList);
     this->rewardPoints+=VIP_REWARD_POINTS;
     cout << "VIP customer " << this->getName() << " rented item successfully, you are rewarded 10 reward points!" << endl;
     cout << "Your current Reward Points: " << rewardPoints << endl;
@@ -56,6 +56,8 @@ void VipAccount::details() {
   cout << "1. Name: " << this->getName() << endl;
   cout << "2. Address: " << this->getAddress() << endl;
   cout << "3. Phone Number: " << this->getPhoneNumber() << endl;
+  cout << "Currently renting: " << endl;
+  this->showRentalList();
 }
 
 void VipAccount::showRentalList() {

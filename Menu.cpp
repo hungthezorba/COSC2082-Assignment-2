@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Menu.h"
 #include <iostream>
 #include <string>
 #include "ValidateItemInput.h"
@@ -42,7 +43,7 @@ void printByType(LinkedCustomer customerList) {
 
 }
 
-void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
+void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
 
 
 	while (true) {
@@ -50,7 +51,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		string input;
 		cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 		cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
-		cout << "| 2. Add a new customer, update or delete a existing customer      |" << endl;
+		cout << "| 2. Add a new customer, update or delete an existing customer     |" << endl;
 		cout << "| 3. Promote an existing customer                                  |" << endl;
 		cout << "| 4. Rent an item                                                  |" << endl;
 		cout << "| 5. Return an item                                                |" << endl;
@@ -64,10 +65,10 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 		cin >> input;
 
 		if (input == "1") {
-			itemMenu(itemList, customerList);
+			itemMenu(itemList, customerList, itemFileName, customerFileName);
 		}
 		else if (input == "2") {
-			customerMenu(itemList, customerList);
+			customerMenu(itemList, customerList, itemFileName, customerFileName);
 		}
 		else if (input == "3") {
 
@@ -77,7 +78,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "| 3. Back                                        |" << endl;
 			cout << "--------------------------------------------------" << endl;
 
-			cout << "PROMPT: Search the customer want to promote. Choose an option:  ";
+			cout << "PROMPT: Search the customer you want to promote. Choose an option:  ";
 
 			cin >> input;
 
@@ -88,7 +89,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				while (true) {
 					cout << "PROMPT: Enter customer's ID: ";
 					cin >> input;
-					if (validateCustomerID(input))
+					if (validateCustomerID(input, "input"))
 						break;
 				}
 				foundCustomer = customerList.searchCustomerByID(input);
@@ -98,7 +99,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				while (true) {
 					cout << "PROMPT: Enter customer's name: ";
 					getline(cin, input);
-					if (validateCustomerName(input))
+					if (validateCustomerName(input, "input"))
 						break;
 				}
 				LinkedCustomer foundList = customerList.searchCustomerByName(input);
@@ -107,9 +108,9 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundList.getHead()->next != NULL) {
 						foundList.printAllCustomer();
 						while (true) {
-							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
+							cout << "PROMPT: Found more than 1 customers with matching names.\nPROMPT: Enter customer ID to proceed: ";
 							cin >> input; // Get the customer ID
-							if (validateCustomerID(input)) {
+							if (validateCustomerID(input, "input")) {
 								break;
 							}
 						}
@@ -123,10 +124,10 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					foundCustomer = foundList.searchCustomerByID(input);
 				}
 				else {
-					cout << "ERROR: Cannot found customer." << endl;
+					cout << "ERROR: Cannot find customer." << endl;
 				}
 			}
-			
+
 			if (foundCustomer != NULL) {
 				if (foundCustomer->data->getType() != "VIP") {
 					// Check the condition
@@ -144,17 +145,17 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 							delete foundCustomer->data; // Delete old object in heap
 							foundCustomer->data = new RegularAccount(id, name, address, phoneNumber, numberOfRental);
 							foundCustomer->data->setRentalList(*tempRentalList);
-							cout << "SUCCESS: " << foundCustomer->data->getName() << " has been promoted to Regular" << endl;
+							cout << "SUCCESS: " << foundCustomer->data->getName() << " has been promoted to Regular member." << endl;
 						}
 						else {
 							delete foundCustomer->data; // Delete old object in heap
 							foundCustomer->data = new VipAccount(id, name, address, phoneNumber, numberOfRental);
 							foundCustomer->data->setRentalList(*tempRentalList);
-							cout << "SUCCESS: " << foundCustomer->data->getName() << " has been promoted to VIP" << endl;
+							cout << "SUCCESS: " << foundCustomer->data->getName() << " has been promoted to VIP member." << endl;
 						}
 					}
 					else {
-						cout << "FAIL: Customer not met the promotion's condition" << endl;
+						cout << "FAIL: Customer has not met the promotion's condition" << endl;
 					}
 				}
 				else {
@@ -172,14 +173,14 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "| 2. By name                                     |" << endl;
 			cout << "| 3. Back                                        |" << endl;
 			cout << "--------------------------------------------------" << endl;
-			cout << "PROMPT: Search the customer wants to rent an item." << endl;
+			cout << "PROMPT: Search the customer that wants to rent an item." << endl;
 			cout << "PROMPT: Enter an option: ";
 
 			cin >> input;
 			cout << endl;
 			cout << "--------------------------------------------------" << endl;
-			string key;
-			string idCustomer;
+			string key; // Item ID
+			string idCustomer; // Customer ID
 
 			CustomerNode* foundCustomer;
 
@@ -200,7 +201,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						cout << "PROMPT: Please enter the customer's name: ";
 						getline(cin, input);
 						// Check title format
-						if (validateCustomerName(input))
+						if (validateCustomerName(input, "input"))
 							break;
 					}
 					// Find item through the list here
@@ -210,9 +211,9 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 						if (foundList.getHead()->next != NULL) {
 							foundList.printAllCustomer();
 							while (true) {
-								cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
+								cout << "PROMPT: Found more than 1 customers with matching names.\nPROMPT: Enter customer ID to proceed: ";
 								cin >> input; // Get the customer ID
-								if (validateCustomerID(input)) {
+								if (validateCustomerID(input,"input")) {
 									break;
 								}
 							}
@@ -240,36 +241,29 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 
 					cin >> input;
 					// Find item by ID
-					if (input == "1") {
-						cout << "PROMPT: Enter item's ID: ";
-						cin.ignore();
-						getline(cin, key);
-						bool isValidateItem = validateItemID(key);
-						if (isValidateItem) {
-							ItemElement* item = itemList.searchItemByID(key);
-							if (item != NULL) {
-								int isAvailable = item->data->getNumberOfCopies();
-								if (isAvailable != 0) {
-									item->data->renting();
-									foundCustomer->data->rentItem(item->data->getId());
-								}
-								else {
-									cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-								}
-							}
-							else {
-								cout << "ERROR: Item not found." << endl;
-							}
-						}
 
-					}
-					// Find item by name
-					else if (input == "2") {
-						cout << "PROMPT: Please enter item's title: ";
-						cin.ignore();
-						getline(cin, key);
-						bool isValidateItem = validateTitle(key);
-						if (isValidateItem) {
+					if (input == "1" || input == "2") {
+
+						if (input == "1") {
+							while (true) {
+								cout << "PROMPT: Enter item's ID: ";
+								cin >> key;
+								// Check title format
+								if (validateItemID(key, "input"))
+									break;
+							}
+
+						}
+						else if (input == "2") {
+							cin.ignore();
+							while (true) {
+								cout << "PROMPT: Enter item's title: ";
+								getline(cin, key);
+								// Check title format
+								if (validateTitle(key, "input"))
+									break;
+							}
+
 							LinkedItem foundList = itemList.searchItemByTitle(key);
 
 							if (foundList.getHead() != NULL) {
@@ -277,41 +271,36 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 								if (foundList.getHead()->next != NULL) {
 									foundList.printItem();
 									while (true) {
-										cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
-										cin >> input; // Get the customer ID
-										if (validateItemID(input)) {
+										cout << "PROMPT: Found more than 1 items with matching titles.\nEnter item's ID to proceed: ";
+
+										cin >> key; // Get the item ID
+										if (validateItemID(key,"input")) {
 											break;
 										}
 									}
 
 								}
 								else {
-									// Case 2: Found only 1 customer with matching name. The input will be customer ID in the Head of the list.
-									input = foundList.getHead()->data->getId(); // Get the customer ID
+									// Case 2: Found only 1 item with matching title. The key will be customer ID in the Head of the list.
+									key = foundList.getHead()->data->getId(); // Get the item ID
 								}
 
-								ItemElement *item = foundList.searchItemByID(input);
-
-								if (item != NULL) {
-									int isAvailable = item->data->getNumberOfCopies();
-									if (isAvailable != 0) {
-										item->data->renting();
-										foundCustomer->data->rentItem(item->data->getId());
-									}
-									else {
-										cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
-									}
-								}
-								else {
-									cout << "ERROR: Item not found." << endl;
-								}
-
-							}
-							else {
-								cout << "ERROR: Item not found." << endl;
 							}
 						}
 
+						ItemElement* item = itemList.searchItemByID(key);
+						if (item != NULL) {
+							int isAvailable = item->data->getNumberOfCopies();
+							if (isAvailable != 0) {
+								foundCustomer->data->rentItem(item->data->getId(), itemList);
+							}
+							else {
+								cout << "FAIL: " << item->data->getTitle() << " is not available." << endl;
+							}
+						}
+						else {
+							cout << "ERROR: Item not found." << endl;
+						}
 					}
 					else {
 						cout << "ERROR: Invalid input." << endl;
@@ -321,7 +310,6 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					cout << "ERROR: Customer not found." << endl;
 				}
 			}
-
 			// Back to main menu
 			else if (input == "3") {
 
@@ -336,7 +324,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			cout << "| 2. By name                                      |" << endl;
 			cout << "| 3. Back                                         |" << endl;
 			cout << "---------------------------------------------------" << endl;
-			cout << "PROMPT: Search the customer want to return an item. Choose an option:  ";
+			cout << "PROMPT: Search the customer that wants to return an item. Choose an option:  ";
 
 			cin >> input;
 			string key;
@@ -352,14 +340,12 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 				if (foundCustomer != NULL) {
 					cout << "------------------* Return Item *-------------------" << endl;
 					foundCustomer->data->details();
-					cout << "Currently rent:" << endl;
-					foundCustomer->data->showRentalList();
 					cout << "----------------------------------------------------" << endl;
 					cout << "PROMPT: Please enter item's ID: ";
 
 					getline(cin, key);
 
-					bool isValidateItem = validateItemID(key);
+					bool isValidateItem = validateItemID(key,"input");
 					if (isValidateItem) {
 						bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 						if (isHaveThisId) {
@@ -378,13 +364,13 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			}
 			// Search customer by name
 			else if (input == "2") {
-				
+
 				cin.ignore();
 				while (true) {
 					cout << "PROMPT: Please enter the customer's name: ";
 					getline(cin, input);
 					// Check title format
-					if (validateCustomerName(input))
+					if (validateCustomerName(input, "input"))
 						break;
 				}
 				// Find item through the list here
@@ -395,9 +381,9 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundList.getHead()->next != NULL) {
 						foundList.printAllCustomer();
 						while (true) {
-							cout << "PROMPT: Found more than 1 customer with matching name.\nPROMPT: Enter customer ID to proceed: ";
+							cout << "PROMPT: Found more than 1 customers with matching names.\nPROMPT: Enter customer's ID to proceed: ";
 							cin >> input; // Get the customer ID
-							if (validateCustomerID(input)) {
+							if (validateCustomerID(input, "input")) {
 								break;
 							}
 						}
@@ -412,14 +398,12 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 					if (foundCustomer != NULL) {
 						cout << "------------------* Return Item *-------------------" << endl;
 						foundCustomer->data->details();
-						cout << "Currently rent:" << endl;
-						foundCustomer->data->showRentalList();
 						cout << "----------------------------------------------------" << endl;
 						cout << "PROMPT: Please enter returning item's ID: ";
 
 						getline(cin, key);
 
-						bool isValidateItem = validateItemID(key);
+						bool isValidateItem = validateItemID(key,"input");
 						if (isValidateItem) {
 							bool isHaveThisId = foundCustomer->data->getRentalList()->isListHaveId(key);
 							if (isHaveThisId) {
@@ -428,7 +412,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 								foundCustomer->data->returnItem(key);
 							}
 							else {
-								cout << "ERROR: Item's ID not in " << foundCustomer->data->getName() << " rental list" << endl;
+								cout << "ERROR: Item's ID not found in " << foundCustomer->data->getName() << " rental list" << endl;
 							}
 						}
 					}
@@ -467,9 +451,11 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			}
 		}
 		else if (input == "7") {
-			cout << "Option 7" << endl;
 			// Display out of stock
+			cout << "--------------* Out of stock items *---------------" << endl;
 			itemList.printOutOfStockItem();
+
+			cout << "---------------------------------------------------" << endl;
 		}
 		else if (input == "8") {
             cout << "---------------* Display all customers *---------------" << endl;
@@ -496,7 +482,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 			printByType(customerList);
 		}
 		else if (input == "Exit") {
-			closeProgram(itemList, customerList);
+			closeProgram(itemList, customerList, itemFileName, customerFileName);
 		}
 		else {
 			cout << "Prompt: Invalid input" << endl;
@@ -504,13 +490,13 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList) {
 	}
 }
 
-void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
-	// Save file 
+void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList, string itemFileName, string customerFileName) {
+	// Save file
 	ofstream itemFile;
 	ofstream customerFile;
 
-	itemFile.open("items.txt");
-	customerFile.open("customers.txt");
+	itemFile.open(itemFileName);
+	customerFile.open(customerFileName);
 
 
 	if (itemFile.fail() || customerFile.fail()) {
@@ -531,6 +517,7 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 			itemFile <<  "," << itemElement->data->getGenre();
 		}
 		itemFile << endl;
+		delete itemElement->data;
 		itemElement = itemElement->next;
 	}
 
@@ -554,7 +541,7 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	    if (customerNode->next != NULL) {
 	        customerFile << endl;
 	    }
-
+		delete customerNode->data;
 	    customerNode = customerNode->next;
 	}
 	customerFile.close();
@@ -562,14 +549,16 @@ void closeProgram(LinkedItem &itemList, LinkedCustomer &customerList) {
 	itemFile.close();
 
 
-	// Display group information
-	cout << "- - - - - - - - Group Information - - - - - - - -" << endl;
-	cout << "ASSIGNMENT 2 GROUP 18" << endl;
-	cout << "s3804690, s3804690@rmit.edu.vn, Hung, Nguyen" << endl;
-	cout << "s3804687, s3804687@rmit.edu.vn, Dat, Ngo" << endl;
-	cout << "s3536647, s3536647@rmit.edu.vn, Quan, Bui" << endl;
-	cout << "s3777230, s3777230@rmit.edu.vn, Huy, Bui" << endl;
 
+	// Display group information
+	cout << "- - - - - - - - - - Group Information - - - - - - - - - -" << endl;
+	cout << "|                 ASSIGNMENT 2 GROUP 18                 |" << endl;
+	cout << "|                                                       |" << endl;
+	cout << "|       s3804690, s3804690@rmit.edu.vn, Hung, Nguyen    |" << endl;
+	cout << "|       s3804687, s3804687@rmit.edu.vn, Dat, Ngo        |" << endl;
+	cout << "|       s3536647, s3536647@rmit.edu.vn, Quan, Bui       |" << endl;
+	cout << "|       s3777230, s3777230@rmit.edu.vn, Huy, Bui        |" << endl;
+	cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
 	// Stop the program
 	cout << "Closing the program..." << endl;
 	exit(0);

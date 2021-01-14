@@ -7,6 +7,6 @@
 #define CUSTOMERDATA_H
 using namespace std;
 
-void CustomerData(LinkedCustomer &customerList);
+void CustomerData(LinkedCustomer &customerList, string fileName);
 
 #endif
