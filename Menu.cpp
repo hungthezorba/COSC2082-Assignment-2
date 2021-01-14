@@ -51,7 +51,7 @@ void mainMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFil
 		string input;
 		cout << "-----------------* Welcome to Genie's video store *-----------------" << endl;
 		cout << "| 1. Add a new item, update or delete an existing item             |" << endl;
-		cout << "| 2. Add a new customer, update or delete an existing customer      |" << endl;
+		cout << "| 2. Add a new customer, update or delete an existing customer     |" << endl;
 		cout << "| 3. Promote an existing customer                                  |" << endl;
 		cout << "| 4. Rent an item                                                  |" << endl;
 		cout << "| 5. Return an item                                                |" << endl;
