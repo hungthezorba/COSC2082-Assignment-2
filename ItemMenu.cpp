@@ -311,31 +311,95 @@ void itemMenu(LinkedItem &itemList, LinkedCustomer &customerList, string itemFil
 		}
 		// Dummy option. Implement later
 		else if (input == "4") {
-			cout << "Option 4" << endl;
+
+		while (true) {
 			cout << "---------------------* Add more stock *---------------------" << endl;
+			cout << "| 1. By ID                                                 |" << endl;
+			cout << "| 2. By title                                              |" << endl;
+			cout << "| 3. Back                                                  |" << endl;
+			cout << "------------------------------------------------------------" << endl;
+			cout << "PROMPT: Enter an option: ";
+			cin >> input;
+
+			if (input == "1" || input == "2") {
+
+				if (input == "1") {
+					while (true) {
+						cout << "PROMPT: Enter item's ID want to update: ";
+						cin >> input;
+						if (validateItemID(input, "input"))
+							break;
+					}
+					// Find item through the list here
+
+
+				}
+				else {
+
+					cin.ignore();
+					while (true) {
+						cout << "PROMPT: Enter item's title want to update: ";
+						getline(cin, input);
+						if (validateTitle(input, "input"))
+							break;
+					}
+					// Find item through the list here
+					LinkedItem foundList = itemList.searchItemByTitle(input);
+					// If-else case: If customer found, show customer's detail. If customer not found, print error message then back to customer menu.
+					if (foundList.getHead() != NULL) {
+						// Case 1: Found more than 1 customer with matching name
+						if (foundList.getHead()->next != NULL) {
+							foundList.printItem();
+							while (true) {
+								cout << "PROMPT: Found more than 1 item with matching title.\nEnter item ID to proceed: ";
+								cin >> input; // Get the item ID
+								if (validateItemID(input, "input")) {
+									break;
+								}
+							}
+
+						}
+						else {
+							// Case 2: Found only 1 item with matching name. The input will be customer ID in the Head of the list.
+							input = foundList.getHead()->data->getId(); // Get the item ID
+						}
+					}
+
+
+				}
+				ItemElement *item = itemList.searchItemByID(input);
+				if (item != NULL) {
+					while (true) {
+						cout << "PROMPT: Enter number of stock arrived:  ";
+						cin >> input;
+						if (validateNumberOfCopies(input, "input")) {
+							item->data->increaseStock(stoi(input));
+							item->data->printDetail();
+							cout << "SUCCESS: Item's stock successfully filled." << endl;
+							break;
+						}
+
+					}
+				}
+				else {
+					cout << "ERROR: Item not found." << endl;
+				}
+			}
+			else if (input == "3") {
+				break;
+			}
+			else {
+				cout << "ERROR: Invalid input. Please enter again." << endl;
+			}
 			// Consider show all item in the stock here
 
 			// Check ID format
-			while (true) {
-				cout << "PROMPT: Enter item's ID want to update: ";
-				cin >> input;
-				if (validateItemID(input,"input"))
-					break;
-			}
-			// Find item through the list here
 
-			ItemElement *item = itemList.searchItemByID(input);
-			if (item != NULL) {
-				while (true) {
-					cout << "PROMPT: Enter number of stock arrived:  ";
-					cin >> input;
-					if (validateNumberOfCopies(input,"input")) {
-						item->data->increaseStock(stoi(input));
-						break;
-					}
+		}
+			
+			
 
-				}
-			}
+			
 		}
 		else if (input == "5") {
 			cout << "------------------* List of items *----------------" << endl;

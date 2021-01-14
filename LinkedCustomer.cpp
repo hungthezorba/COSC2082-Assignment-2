@@ -189,7 +189,7 @@ void LinkedCustomer::sortedByName() {
         while (current != NULL) {
             track = current->next;
             while (track != NULL) {
-                if (current->data->getName() > track->data->getName()) {
+                if (toLowerCase(current->data->getName()) > toLowerCase(track->data->getName())) {
                     Customer *temp = current->data;
                     current->data = track->data;
                     track->data = temp;
